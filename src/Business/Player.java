@@ -4,6 +4,11 @@ public class Player {
     private String name;
     private int investigationPoints;
 
+    public Player() {
+        this.name = "Pepe";
+        this.investigationPoints = 5;
+    }
+
     public String getName() {
         return name;
     }

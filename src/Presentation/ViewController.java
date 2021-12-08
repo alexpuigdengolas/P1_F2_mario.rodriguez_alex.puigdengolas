@@ -1,13 +1,17 @@
 package Presentation;
 
-import Business.Publication;
-import Business.Test;
+import Business.*;
 
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ViewController {
+    BusinessController businessController;
+
+    public ViewController(BusinessController businessController) {
+        this.businessController = businessController;
+    }
 
     public boolean startView(){
         Scanner sc = new Scanner(System.in);
@@ -195,6 +199,7 @@ public class ViewController {
                 System.out.println(" ");
                 System.err.println("There are no test's in the system yet");
                 System.out.println(" ");
+                ok = true;
             } else {
                 System.out.println(" ");
                 for(int i = 0; i < tests.size(); i++){
@@ -214,6 +219,280 @@ public class ViewController {
                     System.out.println(" ");
                 }else{
                     ok = true;
+                }
+            }
+        }while(!ok);
+    }
+
+    public void trialChoiceDeleteView(LinkedList<Test> tests) {
+        boolean ok = false;
+        String option, confirmation;
+        Scanner sc = new Scanner(System.in);
+
+
+        do {
+            if (tests.size() == 0) {
+                System.out.println(" ");
+                System.err.println("There are no test's in the system yet");
+                System.out.println(" ");
+                ok = true;
+            } else {
+                System.out.println(" ");
+                for(int i = 0; i < tests.size(); i++){
+                    System.out.println("    "+ (i+1) +") "+ tests.get(i).getName());
+                }
+                System.out.println(" ");
+                System.out.println("    "+ (tests.size()+1) +") Back");
+                System.out.println(" ");
+                System.out.print("Enter an potion: ");
+                option = sc.nextLine();
+
+                if(Integer.parseInt(option) > tests.size()+1 || Integer.parseInt(option) < 1){
+                    System.err.println("The option is not available, please try again");
+                }else if(Integer.parseInt(option) != tests.size()+1){
+                    System.out.println(" ");
+                    System.out.print("Enter the trial’s name for confirmation: ");
+                    confirmation = sc.nextLine();
+                    if (confirmation.equals(tests.get(Integer.parseInt(option) - 1).getName())) {
+                        System.out.println(" ");
+                        tests.remove(Integer.parseInt(option)-1);
+                        System.out.println("The trial was successfully deleted");
+                        ok = true;
+                    }else{
+                        System.err.println("The trial wasn't successfully deleted");
+                        ok = true;
+                    }
+
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
+            }
+        }while(!ok);
+    }
+
+    public String manageEditionView() {
+        Scanner sc = new Scanner(System.in);
+        String option;
+        boolean ok = false;
+
+        do {
+            System.out.println(" ");
+            System.out.println("Edition Management System");
+            System.out.println(" ");
+            System.out.println("    a) Create Edition");
+            System.out.println("    b) List Edition");
+            System.out.println("    c) Duplicate Edition");
+            System.out.println("    d) Delete Edition");
+            System.out.println(" ");
+            System.out.println("    e) Back");
+            System.out.println(" ");
+            System.out.print("Enter an option:  ");
+            option = sc.nextLine();
+
+            if(option.equals("a")||option.equals("b")||option.equals("c")||option.equals("d") || option.equals("e")){
+                ok = true;
+                return option;
+            }else{
+                System.err.println("The option is not available, please try again");
+            }
+        }while (!ok);
+        return null;
+    }
+
+    public void createEditionView(LinkedList<Test> tests, LinkedList<Edition> editions) {
+        boolean ok = false;
+        Scanner sc = new Scanner(System.in);
+        int year, initialPlayers, numTest, rounds = 0, trialSelect;
+        LinkedList<Test> editionTests = new LinkedList<Test>();
+        LinkedList<Player> players = new LinkedList<Player>();
+
+        do {
+            System.out.println(" ");
+            System.out.print("Enter the edition's year: ");
+            year = sc.nextInt();
+            sc.nextLine();
+            if(businessController.checkEditionsYear(year)){
+               ok = true;
+            }
+            System.out.print("Enter the initial number of players: ");
+            initialPlayers = sc.nextInt();
+            sc.nextLine();
+            if((initialPlayers < 1 || initialPlayers > 5) && ok){
+                ok = true;
+            }
+            System.out.print("Enter the number of trials: ");
+            numTest = sc.nextInt();
+            sc.nextLine();
+            if((numTest < 3 || numTest > 12) && ok){
+                ok = true;
+            }
+            System.out.println(" ");
+            if (tests.size() == 0) {
+                System.out.println(" ");
+                System.err.println("There are no test's in the system yet");
+                System.out.println(" ");
+                ok = true;
+            } else {
+                System.out.println(" ");
+                for (int i = 0; i < tests.size(); i++) {
+                    System.out.println("    " + (i + 1) + ") " + tests.get(i).getName());
+                }
+
+                for (int i = 0; i < numTest; i++) {
+                    System.out.print("Pick a trial (" + (i + 1) + "/"+ numTest +"):");
+                    trialSelect = sc.nextInt();
+                    sc.nextLine();
+                    if (trialSelect > tests.size() + 1 || trialSelect < 1) {
+                        System.err.println("The option is not available, please try again");
+                    } else if (trialSelect != tests.size() + 1) {
+                        editionTests.add(tests.get(trialSelect - 1));
+                    }
+                }
+                if (ok) {
+                    for(int i = 0; i < initialPlayers; i++){
+                        players.add(new Player());
+                    }
+                    editions.add(new Edition(year, initialPlayers, numTest, rounds, editionTests, players));
+                }
+            }
+        }while(!ok);
+    }
+
+    public void showEditionView(LinkedList<Edition> editions) {
+        boolean ok = false;
+        Scanner sc = new Scanner(System.in);
+        int option;
+        do{
+            if(editions.size() == 0){
+                System.err.println("There are no editions in the system yet");
+                ok = true;
+            }else {
+                System.out.println(" ");
+                System.out.println("Here are the current editions, do you want to see more details or go back?");
+                System.out.println(" ");
+                for (int i = 0; i < editions.size(); i++) {
+                    System.out.println("    " + (i + 1) + ") The Trials " + editions.get(i).getYear());
+                }
+                System.out.println(" ");
+                System.out.println("    " + (editions.size() + 1) + ") Back");
+                System.out.println(" ");
+
+                System.out.print("Enter an option: ");
+                option = sc.nextInt();
+                sc.nextLine();
+                if (option > editions.size() + 1 || option < 1) {
+                    System.out.println(" ");
+                    System.err.println("The option is not available, please try again");
+                    System.out.println(" ");
+                } else if (option != editions.size() + 1) {
+                    System.out.println(" ");
+                    editions.get((option) - 1).showInfo();
+                    System.out.println(" ");
+                } else {
+                    ok = true;
+                }
+            }
+        }while(!ok);
+    }
+
+    public void duplicateEdition(LinkedList<Edition> editions) {
+        boolean ok = false;
+        Scanner sc = new Scanner(System.in);
+        int option, year, initialPlayers;
+        Edition copyEdition;
+
+        System.out.println("Which edition do you want to clone?");
+        System.out.println(" ");
+        do{
+            if(editions.size() == 0){
+                System.err.println("There are no editions in the system yet");
+                ok = true;
+            }else {
+                for (int i = 0; i < editions.size(); i++) {
+                    System.out.println("    " + (i + 1) + ") The Trials " + editions.get(i).getYear());
+                }
+                System.out.println(" ");
+                System.out.println("    " + (editions.size() + 1) + ") Back");
+                System.out.println(" ");
+                System.out.print("Enter an option: ");
+                option = sc.nextInt();
+                sc.nextLine();
+                copyEdition = editions.get(option - 1);
+                if (option > editions.size() + 1 || option < 1) {
+                    System.out.println(" ");
+                    System.err.println("The option is not available, please try again");
+                    System.out.println(" ");
+                } else if (option != editions.size() + 1) {
+                    System.out.println(" ");
+                    System.out.print("Enter the new edition's year: ");
+                    year = sc.nextInt();
+                    sc.nextLine();
+                    if (businessController.checkEditionsYear(year)) {
+                        ok = true;
+                    } else {
+                        ok = false;
+                    }
+                    System.out.print("Enter the new edition’s initial number of players: ");
+                    initialPlayers = sc.nextInt();
+                    sc.nextLine();
+                    if ((initialPlayers < 1 || initialPlayers > 5) && ok) {
+                        ok = false;
+                    } else {
+                        ok = true;
+                    }
+                    System.out.println(" ");
+                    if (ok) {
+                        ok = true;
+                        editions.add(new Edition(year, initialPlayers, copyEdition.getNumTest(), copyEdition.getRounds(), copyEdition.getTests(), copyEdition.getPlayers()));
+                    }
+
+                } else {
+                    ok = true;
+                }
+            }
+        }while(!ok);
+    }
+
+    public void deleteEditionView(LinkedList<Edition> editions) {
+        boolean ok = false;
+        Scanner sc = new Scanner(System.in);
+        int option, year, initialPlayers;
+        Edition copyEdition;
+
+        System.out.println("Which edition do you want to delete?");
+        System.out.println(" ");
+        do{
+            if(editions.size() == 0){
+                System.err.println("There are no editions in the system yet");
+                ok = true;
+            }else {
+                for (int i = 0; i < editions.size(); i++) {
+                    System.out.println("    " + (i + 1) + ") The Trials " + editions.get(i).getYear());
+                }
+                System.out.println(" ");
+                System.out.println("    " + (editions.size() + 1) + ") Back");
+                System.out.println(" ");
+                System.out.print("Enter an option: ");
+                option = sc.nextInt();
+                sc.nextLine();
+                if (option > editions.size() + 1 || option < 1) {
+                    System.out.println(" ");
+                    System.err.println("The option is not available, please try again");
+                    System.out.println(" ");
+                } else if (option != editions.size() + 1) {
+                    System.out.println(" ");
+                    System.out.print("Enter the edition’s year for confirmation: ");
+                    year = sc.nextInt();
+                    sc.nextLine();
+                    if (year == editions.get(option - 1).getYear()) {
+                        editions.remove(option - 1);
+                        System.out.println("The edition was successfully deleted.");
+                        ok = true;
+                    } else {
+                        System.err.println("The edition wasn't successfully deleted.");
+                        ok = true;
+                    }
                 }
             }
         }while(!ok);
