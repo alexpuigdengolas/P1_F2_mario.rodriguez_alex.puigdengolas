@@ -20,7 +20,7 @@ public class ViewController {
 
         System.out.println(" _____ _          _____      _       _");
         System.out.println("/__   \\ |__  ___ /__   \\_ __(_) __ _| |___");
-        System.out.println("  / /\\/ '_ \\/ _ \\  / /\\/ '__| |/ _` | / __|");
+        System.out.println("  / /\\| '_ \\/ _ \\  / /\\| '__| |/ _` | / __|");
         System.out.println(" / /  | | | | __/ / /  | |  | | (_| | \\__ \\");
         System.out.println(" \\/   |_| |_|\\___|\\/   |_|  |_|\\__,_|_|___/");
         System.out.println(" ");
