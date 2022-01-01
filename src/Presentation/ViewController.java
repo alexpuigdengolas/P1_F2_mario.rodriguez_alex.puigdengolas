@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class ViewController {
     BusinessController businessController;
 
+    //Controller
     public ViewController(BusinessController businessController) {
         this.businessController = businessController;
     }
@@ -496,5 +497,33 @@ public class ViewController {
                 }
             }
         }while(!ok);
+    }
+
+    //Conductor
+    public void mainConductorView(Edition edition, int year) {
+        String name;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println(" ");
+        System.out.println("Entering execution mode...");
+
+        System.out.println(" ");
+        System.out.println("    --- The Trials "+ year +" ---");
+        System.out.println(" ");
+        for(int i = 0; i < edition.getInitialPlayers(); i++){
+            System.out.print("Enter the player's name ("+(i+1)+"/"+edition.getInitialPlayers()+"): ");
+            name = sc.nextLine();
+            edition.getPlayers().get(i).setName(name);
+        }
+
+    }
+
+    public void noEditionView(int year) {
+        System.out.println(" ");
+        System.out.println("Entering execution mode...");
+        System.out.println(" ");
+        System.out.println("No edition is defined for the current year ("+year+").");
+        System.out.println(" ");
+        System.out.println("Shutting down...");
     }
 }

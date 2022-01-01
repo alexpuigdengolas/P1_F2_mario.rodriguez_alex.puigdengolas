@@ -9,6 +9,11 @@ public class Player {
         this.investigationPoints = 5;
     }
 
+    public Player(String name, int investigationPoints) {
+        this.name = name;
+        this.investigationPoints = investigationPoints;
+    }
+
     public String getName() {
         return name;
     }

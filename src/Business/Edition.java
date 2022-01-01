@@ -1,16 +1,17 @@
 package Business;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Edition {
     private int year;
     private int initialPlayers;
     private int numTest;
     private int rounds;
-    private LinkedList<Test> tests;
-    private LinkedList<Player> players;
+    private List<Test> tests;
+    private List<Player> players;
 
-    public Edition(int year, int initialPlayers, int numTest, int rounds, LinkedList<Test> tests, LinkedList<Player> players) {
+    public Edition(int year, int initialPlayers, int numTest, int rounds, List<Test> tests, List<Player> players) {
         this.year = year;
         this.initialPlayers = initialPlayers;
         this.numTest = numTest;
@@ -51,7 +52,7 @@ public class Edition {
         this.rounds = rounds;
     }
 
-    public LinkedList<Test> getTests() {
+    public List<Test> getTests() {
         return tests;
     }
 
@@ -59,7 +60,7 @@ public class Edition {
         this.tests = tests;
     }
 
-    public LinkedList<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 
