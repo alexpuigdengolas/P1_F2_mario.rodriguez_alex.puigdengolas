@@ -13,6 +13,7 @@ public class Main {
         CsvCotroller csv = new CsvCotroller(); //creamos objeto
         List<Edition> editions = csv.readCSV("CSV/Edicions.csv");
         //-----------------------------------------------------
-        BusinessController businessController = new BusinessController();
+        BusinessController businessController = new BusinessController(editions);
+        csv.writeCSV(businessController.getEditions(), "CSV/Edicions.csv");
     }
 }

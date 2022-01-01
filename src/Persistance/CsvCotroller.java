@@ -6,10 +6,7 @@ import Business.Publication;
 import Business.Test;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -71,8 +68,64 @@ public class CsvCotroller {
         return tests;
     }
 
-    public void writeCSV(){
+    public void writeCSV(List<Edition> editions, String nameCSV){
+        try {
+            FileWriter csvWriter = new FileWriter(nameCSV);
+            for (int i = 0; i < editions.size(); i++) {
+                csvWriter.append (String.valueOf(editions.get(i).getYear()));
+                csvWriter.append(",");
+                csvWriter.append (String.valueOf(editions.get(i).getInitialPlayers()));
+                csvWriter.append(",");
+                csvWriter.append (String.valueOf(editions.get(i).getNumTest()));
+                csvWriter.append(",");
+                csvWriter.append (String.valueOf(editions.get(i).getRounds()));
+                csvWriter.append(",");
+                csvWriter.append("[");
+                csvWriter.append (getTests(editions.get(i).getTests()));
+                csvWriter.append("]");
+                csvWriter.append(",");
+                csvWriter.append("[");
+                csvWriter.append (getPlayers(editions.get(i).getPlayers()));
+                csvWriter.append("]");
+                csvWriter.append("\n");
+            }
 
+            csvWriter.flush();
+            csvWriter.close();
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }
+
+    private String getTests(List<Test> tests) {
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i <tests.size();i++) {
+            result.append(tests.get(i).getName());
+            result.append("/");
+            result.append(((Publication) tests.get(i)).getNameMag());
+            result.append("/");
+            result.append(((Publication) tests.get(i)).getQuartil());
+            result.append("/");
+            result.append(((Publication) tests.get(i)).getAcceptanceProbability());
+            result.append("/");
+            result.append(((Publication) tests.get(i)).getRevisionProbability());
+            result.append("/");
+            result.append(((Publication) tests.get(i)).getNotAcceptedProbability());
+            result.append(";");
+
+        }
+        return result.toString();
+    }
+
+    private String getPlayers(List<Player> players) {
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i <players.size();i++) {
+            result.append(players.get(i).getName());
+            result.append("/");
+            result.append(players.get(i).getInvestigationPoints());
+            result.append(";");
+        }
+        return result.toString();
     }
 
     public void printLinea(){

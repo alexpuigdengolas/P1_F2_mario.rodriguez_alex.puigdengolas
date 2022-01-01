@@ -4,15 +4,16 @@ import Presentation.ViewController;
 
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.List;
 
 public class BusinessController {
     ViewController viewController = new ViewController(this);
     LinkedList<Test> tests = new LinkedList<Test>();
-    LinkedList<Edition> editions = new LinkedList<Edition>();
+    List<Edition> editions = new LinkedList<Edition>();
 
-    public BusinessController(){
+    public BusinessController(List<Edition> editions){
 
-
+        this.editions = editions;
         boolean role = viewController.startView();
 
         //Compositor
@@ -83,6 +84,10 @@ public class BusinessController {
         }while (!exit);
     }
 
+    public List<Edition> getEditions() {
+        return editions;
+    }
+
     public void conductorComposer(){
         Conductor actualUser = new Conductor();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -98,11 +103,11 @@ public class BusinessController {
         }
     }
 
-    private void executeEdition(LinkedList<Edition> editions, int i) {
+    private void executeEdition(List<Edition> editions, int i) {
         //Ver tema de probabilidades
     }
 
-    private Edition lookForCurrentEdition(LinkedList<Edition> editions, int currentYear) {
+    private Edition lookForCurrentEdition(List<Edition> editions, int currentYear) {
         Edition currentEdition = null;
 
         for (Edition edition : editions) {

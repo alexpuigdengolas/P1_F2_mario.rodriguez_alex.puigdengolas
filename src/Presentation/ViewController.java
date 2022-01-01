@@ -4,6 +4,7 @@ import Business.*;
 
 import java.util.InputMismatchException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ViewController {
@@ -301,7 +302,7 @@ public class ViewController {
         return null;
     }
 
-    public void createEditionView(LinkedList<Test> tests, LinkedList<Edition> editions) {
+    public void createEditionView(LinkedList<Test> tests, List<Edition> editions) {
         boolean ok = false;
         Scanner sc = new Scanner(System.in);
         int year, initialPlayers, numTest, rounds = 0, trialSelect;
@@ -360,7 +361,7 @@ public class ViewController {
         }while(!ok);
     }
 
-    public void showEditionView(LinkedList<Edition> editions) {
+    public void showEditionView(List<Edition> editions) {
         boolean ok = false;
         Scanner sc = new Scanner(System.in);
         int option;
@@ -397,7 +398,7 @@ public class ViewController {
         }while(!ok);
     }
 
-    public void duplicateEdition(LinkedList<Edition> editions) {
+    public void duplicateEdition(List<Edition> editions) {
         boolean ok = false;
         Scanner sc = new Scanner(System.in);
         int option, year, initialPlayers;
@@ -455,7 +456,7 @@ public class ViewController {
         }while(!ok);
     }
 
-    public void deleteEditionView(LinkedList<Edition> editions) {
+    public void deleteEditionView(List<Edition> editions) {
         boolean ok = false;
         Scanner sc = new Scanner(System.in);
         int option, year, initialPlayers;
