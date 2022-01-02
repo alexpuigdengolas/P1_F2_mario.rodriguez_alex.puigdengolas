@@ -2,7 +2,6 @@ package Presentation;
 
 import Business.*;
 
-import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -526,5 +525,47 @@ public class ViewController {
         System.out.println("No edition is defined for the current year ("+year+").");
         System.out.println(" ");
         System.out.println("Shutting down...");
+    }
+
+
+
+    public void acceptedPublication(Player player) {
+        System.out.println("Accepted! PI count: "+player.getInvestigationPoints());
+    }
+
+    public void rejectedPublication(Player player) {
+        System.out.println("Rejected! PI count: "+player.getInvestigationPoints());
+    }
+
+    public void revisedPublication() {
+        System.out.print("Revisions... ");
+    }
+
+    public void submitting(Player player) {
+        System.out.print(player.getName()+" is submitting...");
+    }
+
+    public boolean nextTest() {
+        Scanner sc = new Scanner(System.in);
+        boolean ok = false;
+        String option;
+        do {
+            System.out.println("Continue the execution? [yes/no]: ");
+            option = sc.nextLine();
+            if (option.equals("yes") || option.equals("Yes")) {
+                ok = true;
+                return true;
+            } else if (option.equals("no") || option.equals("No")) {
+                ok = true;
+                return false;
+            } else {
+                System.err.println("This answer is not available, please try again");
+            }
+        }while (!ok);
+        return false;
+    }
+
+    public void editionEnded(Edition edition, Player winner) {
+        System.out.println("THE TRIALS "+edition.getYear()+" HAVE ENDED - "+winner.getName()+" WON");
     }
 }

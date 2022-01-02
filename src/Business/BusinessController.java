@@ -97,8 +97,6 @@ public class BusinessController {
                 }while (!exitEditionManager);
             } else {
                 exit = true;
-                //todo
-                //Aqui hay que poner que se guarde la info en los CSV's
                 System.out.println(" ");
                 System.out.println("Shutting down...");
             }
@@ -118,26 +116,121 @@ public class BusinessController {
             viewController.noEditionView(currentYear);
         }else {
             viewController.mainConductorView(edition, currentYear);
-            for(int i = 0; i < edition.getNumTest(); i++){
-                executeEdition(editions, i);
-            }
+            executeEdition(edition);
+
         }
     }
 
-    private void executeEdition(List<Edition> editions, int iteration) {
+    private void executeEdition(Edition edition) {
         //Ver tema de probabilidades
-        for (int i = 0; i < editions.get(iteration).getNumTest(); i++) {
-            if(editions.get(iteration).getTests().get(i).getClass().getSuperclass().equals("Publication"))
-            {
-                executePublication(i, iteration, editions);
+        boolean nextTest = true;
+        Player winner = new Player();
+
+        int i;
+        for (i = 0; i < edition.getNumTest() && nextTest; i++) {
+            if(i > 0){
+                nextTest = viewController.nextTest();
+                if(!nextTest){
+                    break;
+                }
             }
+            if(edition.getTests().get(i).getClass().getSimpleName().equals("Publication"))
+            {
+                executePublication(i, edition);
+            }
+
+        }
+        if (i == edition.getNumTest()){
+            winner = getWinner(edition);
+            viewController.editionEnded(edition, winner);
+        }
+    }
+
+    private Player getWinner(Edition edition) {
+        int winner = 0;
+        int maxpi = 0;
+        for (int i = 0; edition.getPlayers().size() < i; i++){
+            if(maxpi < edition.getPlayers().get(i).getInvestigationPoints()){
+                winner = i;
+            }
+        }
+        return edition.getPlayers().get(winner);
+    }
+
+    private void executePublication(int iterationTests, Edition edition) {
+        Publication publication = (Publication) edition.getTests().get(iterationTests);
+        String quartil = ((Publication) edition.getTests().get(iterationTests)).getQuartil();
+        try {
+            for (int i = 0; i < edition.getPlayers().size(); i++) {
+                //TODO Tener en cuenta probabiulidades de ejecución (No esta bien explicado en el enunciado)
+                boolean result = false;
+                viewController.submitting(edition.getPlayers().get(i));
+                while (!result) {
+                    double numAcceptance = Math.random() * 100;
+                    double numRejected = Math.random() * 100;
+                    double numRevision = Math.random() * 100;
+                    if (Math.abs(numAcceptance - publication.getAcceptanceProbability()) > Math.abs(numRejected - publication.getNotAcceptedProbability()) && Math.abs(numAcceptance - publication.getAcceptanceProbability()) > Math.abs(numRevision - publication.getRevisionProbability())) {
+                        getReward(quartil, edition.getPlayers().get(i));
+                        viewController.acceptedPublication(edition.getPlayers().get(i));
+                        result = true;
+                    } else {
+                        if (Math.abs(numAcceptance - publication.getAcceptanceProbability()) < Math.abs(numRejected - publication.getNotAcceptedProbability()) && Math.abs(numRejected - publication.getNotAcceptedProbability()) > Math.abs(numRevision - publication.getRevisionProbability())) {
+                            getPenalitation(quartil, edition, i);
+                            viewController.rejectedPublication(edition.getPlayers().get(i));
+                            result = true;
+                        } else {
+                            viewController.revisedPublication();
+                        }
+                    }
+                }
+            }
+        }catch (Exception e){
 
         }
     }
 
-    private void executePublication(int iterationTests, int iteration, List<Edition> editions) {
-        for (int i = 0; i < editions.get(iteration).getPlayers().size(); i++) {
-            //TODO Tener en cuenta probabiulidades de ejecución
+    private void getPenalitation(String quartil, Edition edition, int playerIterarion) {
+        switch (quartil){
+            case ("Q1"):
+                edition.getPlayers().get(playerIterarion).setInvestigationPoints( edition.getPlayers().get(playerIterarion).getInvestigationPoints()- 5);
+                removePlayer(edition, playerIterarion);
+                break;
+            case ("Q2"):
+                edition.getPlayers().get(playerIterarion).setInvestigationPoints( edition.getPlayers().get(playerIterarion).getInvestigationPoints()- 4);
+                removePlayer(edition, playerIterarion);
+                break;
+            case ("Q3"):
+                edition.getPlayers().get(playerIterarion).setInvestigationPoints( edition.getPlayers().get(playerIterarion).getInvestigationPoints()- 3);
+                removePlayer(edition, playerIterarion);
+                break;
+            case ("Q4"):
+                edition.getPlayers().get(playerIterarion).setInvestigationPoints( edition.getPlayers().get(playerIterarion).getInvestigationPoints()- 2);
+                removePlayer(edition, playerIterarion);
+                break;
+        }
+    }
+
+    private void removePlayer(Edition edition, int playerIterarion) {
+        if(edition.getPlayers().get(playerIterarion).getInvestigationPoints() <= 0){
+            edition.getPlayers().remove(playerIterarion);
+        }
+    }
+
+
+    private void getReward(String quartil, Player player) {
+        switch (quartil){
+            case ("Q1"):
+                player.setInvestigationPoints( player.getInvestigationPoints()+ 4);
+                break;
+            case ("Q2"):
+                player.setInvestigationPoints( player.getInvestigationPoints()+ 3);
+                break;
+            case ("Q3"):
+                player.setInvestigationPoints( player.getInvestigationPoints()+ 2);
+                break;
+            case ("Q4"):
+                player.setInvestigationPoints( player.getInvestigationPoints()+ 1);
+                break;
         }
     }
 
