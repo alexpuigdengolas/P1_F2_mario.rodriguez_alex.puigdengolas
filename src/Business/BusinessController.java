@@ -14,6 +14,9 @@ public class BusinessController {
     public BusinessController(List<Edition> editions){
 
         this.editions = editions;
+        if(!editions.isEmpty()) {
+            setTests(editions);
+        }
         boolean role = viewController.startView();
 
         //Compositor
@@ -23,6 +26,24 @@ public class BusinessController {
         //Conductor
         }else{
             conductorComposer();
+        }
+    }
+
+    private void setTests(List<Edition> editions) {
+        boolean exists = false;
+        for(int i = 0; i < editions.size(); i++){
+            for(int j = 0; j < editions.get(i).getNumTest(); j++){
+                exists = false;
+                for(int w = 0; w < tests.size()-1; w++) {
+                    if(tests.get(w).getName().equals(editions.get(i).getTests().get(j).getName())) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if(!exists){
+                    tests.add(editions.get(i).getTests().get(j));
+                }
+            }
         }
     }
 
@@ -103,8 +124,21 @@ public class BusinessController {
         }
     }
 
-    private void executeEdition(List<Edition> editions, int i) {
+    private void executeEdition(List<Edition> editions, int iteration) {
         //Ver tema de probabilidades
+        for (int i = 0; i < editions.get(iteration).getNumTest(); i++) {
+            if(editions.get(iteration).getTests().get(i).getClass().getSuperclass().equals("Publication"))
+            {
+                executePublication(i, iteration, editions);
+            }
+
+        }
+    }
+
+    private void executePublication(int iterationTests, int iteration, List<Edition> editions) {
+        for (int i = 0; i < editions.get(iteration).getPlayers().size(); i++) {
+            //TODO Tener en cuenta probabiulidades de ejecución
+        }
     }
 
     private Edition lookForCurrentEdition(List<Edition> editions, int currentYear) {
