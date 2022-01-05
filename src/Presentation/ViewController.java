@@ -568,4 +568,36 @@ public class ViewController {
     public void editionEnded(Edition edition, Player winner) {
         System.out.println("THE TRIALS "+edition.getYear()+" HAVE ENDED - "+winner.getName()+" WON");
     }
+
+    public boolean dataSelection() {
+        Scanner sc = new Scanner(System.in);
+        boolean ok = false, csvOn = false;
+        String option;
+        do{
+            System.out.println("The IEEE needs to know where your allegiance lies.");
+            System.out.println();
+            System.out.println("    I) People's front of Engineering (CSV)");
+            System.out.println("    II) Engineering People’s Front (JSON)");
+            System.out.println();
+            System.out.print("Pick a faction: ");
+            option = sc.nextLine();
+            if(option.equals("I")){
+                csvOn = true;
+                System.out.println();
+                System.out.println("Loading data from CSV files...");
+                System.out.println();
+                ok = true;
+            }else if(option.equals("II")){
+                System.out.println();
+                System.out.println("Loading data from JSON files...");
+                System.out.println();
+                ok = true;
+            }else{
+                System.out.println();
+                System.err.println("This option is not available please try again");
+                System.out.println();
+            }
+        }while(!ok);
+        return csvOn;
+    }
 }

@@ -1,7 +1,10 @@
 package Business;
 
+import Persistance.CsvCotroller;
+import Persistance.jsonController;
 import Presentation.ViewController;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,9 +14,20 @@ public class BusinessController {
     LinkedList<Test> tests = new LinkedList<Test>();
     List<Edition> editions = new LinkedList<Edition>();
 
-    public BusinessController(List<Edition> editions){
+    public BusinessController(){
+        List<Edition> importEditions = new ArrayList<Edition>() ;
+        boolean csvOn = viewController.dataSelection();
 
-        this.editions = editions;
+        CsvCotroller csv = new CsvCotroller(); //creamos objeto
+        jsonController json = new jsonController();
+
+        if (csvOn) {
+            importEditions = csv.readCSV("CSV/Edicions.csv");
+        }else{
+            importEditions = json.readJSON("JSON/Edicions.json");
+        }
+
+        this.editions = importEditions;
         if(!editions.isEmpty()) {
             setTests(editions);
         }
@@ -26,6 +40,12 @@ public class BusinessController {
         //Conductor
         }else{
             conductorComposer();
+        }
+
+        if(csvOn){
+            csv.writeCSV(editions, "CSV/Edicions.csv");
+        }else{
+            json.writeJSON(editions, "JSON/Edicions.json");
         }
     }
 

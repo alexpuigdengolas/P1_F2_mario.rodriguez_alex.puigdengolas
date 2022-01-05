@@ -16,6 +16,10 @@ public class Publication extends Test{
         this.notAcceptedProbability = notAcceptedProbability;
     }
 
+    public Publication(String name) {
+        super(name);
+    }
+
     public String getNameMag() {
         return nameMag;
     }

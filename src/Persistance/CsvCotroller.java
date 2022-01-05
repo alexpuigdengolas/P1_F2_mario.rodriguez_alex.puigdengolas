@@ -100,19 +100,20 @@ public class CsvCotroller {
     private String getTests(List<Test> tests) {
         StringBuilder result = new StringBuilder();
         for(int i = 0; i <tests.size();i++) {
-            result.append(tests.get(i).getName());
-            result.append("/");
-            result.append(((Publication) tests.get(i)).getNameMag());
-            result.append("/");
-            result.append(((Publication) tests.get(i)).getQuartil());
-            result.append("/");
-            result.append(((Publication) tests.get(i)).getAcceptanceProbability());
-            result.append("/");
-            result.append(((Publication) tests.get(i)).getRevisionProbability());
-            result.append("/");
-            result.append(((Publication) tests.get(i)).getNotAcceptedProbability());
-            result.append(";");
-
+            if(tests.get(i).getClass().getSimpleName().equals("Publication")) {
+                result.append(tests.get(i).getName());
+                result.append("/");
+                result.append(((Publication) tests.get(i)).getNameMag());
+                result.append("/");
+                result.append(((Publication) tests.get(i)).getQuartil());
+                result.append("/");
+                result.append(((Publication) tests.get(i)).getAcceptanceProbability());
+                result.append("/");
+                result.append(((Publication) tests.get(i)).getRevisionProbability());
+                result.append("/");
+                result.append(((Publication) tests.get(i)).getNotAcceptedProbability());
+                result.append(";");
+            }
         }
         return result.toString();
     }
