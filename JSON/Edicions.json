@@ -1,0 +1,72 @@
+[
+  {
+    "year": 2022,
+    "initialPlayers": 4,
+    "numTest": 3,
+    "rounds": 0,
+    "tests": [
+      {
+        "name": "ksjhadhf"
+      },
+      {
+        "name": "jashgd"
+      },
+      {
+        "name": "ksjhadhf"
+      }
+    ],
+    "players": [
+      {
+        "name": "Pepe",
+        "investigationPoints": 5
+      },
+      {
+        "name": "Pepe",
+        "investigationPoints": 5
+      },
+      {
+        "name": "Pepe",
+        "investigationPoints": 5
+      },
+      {
+        "name": "Pepe",
+        "investigationPoints": 5
+      }
+    ]
+  },
+  {
+    "year": 2077,
+    "initialPlayers": 4,
+    "numTest": 3,
+    "rounds": 0,
+    "tests": [
+      {
+        "name": "ksjhadhf"
+      },
+      {
+        "name": "ksjhadhf"
+      },
+      {
+        "name": "jashgd"
+      }
+    ],
+    "players": [
+      {
+        "name": "Pepe",
+        "investigationPoints": 5
+      },
+      {
+        "name": "Pepe",
+        "investigationPoints": 5
+      },
+      {
+        "name": "Pepe",
+        "investigationPoints": 5
+      },
+      {
+        "name": "Pepe",
+        "investigationPoints": 5
+      }
+    ]
+  }
+]
