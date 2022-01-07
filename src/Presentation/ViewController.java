@@ -124,11 +124,12 @@ public class ViewController {
             System.out.println("    --- Trial types ---");
             System.out.println(" ");
             System.out.println("1) Paper publication");
+            System.out.println("2) Doctoral thesis defense");
             System.out.println(" ");
             System.out.print("Enter the test's type:  ");
             option = sc.nextLine();
 
-            if(option.equals("1")){
+            if(option.equals("1") || option.equals("2")){
                 ok = true;
                 return Integer.parseInt(option);
             }else{
@@ -527,8 +528,6 @@ public class ViewController {
         System.out.println("Shutting down...");
     }
 
-
-
     public void acceptedPublication(Player player) {
         System.out.println("Accepted! PI count: "+player.getInvestigationPoints());
     }
@@ -599,5 +598,44 @@ public class ViewController {
             }
         }while(!ok);
         return csvOn;
+    }
+
+    public Test createDoctoralDefense() {
+        String name, field;
+        int diff;
+        boolean ok = false;
+        Scanner sc = new Scanner(System.in);
+
+        do{
+            System.out.println(" ");
+            System.out.print("Enter the trial’s name: ");
+            name = sc.nextLine();
+            System.out.print("Enter the thesis field of study: ");
+            field = sc.nextLine();
+            System.out.print("Enter the defense difficulty: ");
+            diff = sc.nextInt();
+            if(diff < 1 || diff > 10){
+                ok = false;
+            }else{
+                ok = true;
+            }
+
+            if(!ok){
+                System.err.println("The information is not valid, please try again");
+            }else{
+                System.out.println(" ");
+                System.out.println("The trial was created successfully!");
+                return new doctoralDefense(name, field, diff);
+            }
+        }while(!ok);
+        return null;
+    }
+
+    public void deffensePassed(Player player) {
+        System.out.println(player.getName()+" was successful. Congrats! PI count: "+player.getInvestigationPoints());
+    }
+
+    public void deffenseNotPassed(Player player) {
+        System.out.println(player.getName()+" wasn't successful. Sorry... PI count: "+player.getInvestigationPoints());
     }
 }

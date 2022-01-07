@@ -18,4 +18,16 @@ public class Test {
     public void showInfo() {
         System.out.println(getName());
     }
+
+    public void execute(Test test, Edition edition){
+
+    }
+
+    void getReward(Test test, Player player) {
+
+    }
+
+    void getPenalitation(Test test, Edition edition, int playerIterarion) {
+
+    }
 }

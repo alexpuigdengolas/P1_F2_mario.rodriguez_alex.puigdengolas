@@ -11,6 +11,8 @@ public class Edition {
     private List<Test> tests;
     private List<Player> players;
 
+    private BusinessController businessController;
+
     public Edition(int year, int initialPlayers, int numTest, int rounds, List<Test> tests, List<Player> players) {
         this.year = year;
         this.initialPlayers = initialPlayers;
@@ -18,6 +20,14 @@ public class Edition {
         this.rounds = rounds;
         this.tests = tests;
         this.players = players;
+    }
+
+    public BusinessController getBusinessController() {
+        return businessController;
+    }
+
+    public void setBusinessController(BusinessController businessController) {
+        this.businessController = businessController;
     }
 
     public int getYear() {
@@ -75,6 +85,13 @@ public class Edition {
         for (int i = 0; i < tests.size(); i++) {
             //TODO: Descubrir como sacar el tipo de test
             System.out.println("    " + (i + 1) + "- The Trials " + tests.get(i).getName() +" (Paper publication)");
+        }
+    }
+
+    public void removePlayer(Edition edition, int playerIterarion) {
+        if(edition.getPlayers().get(playerIterarion).getInvestigationPoints() <= 0){
+            edition.getPlayers().remove(playerIterarion);
+            edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }
     }
 }

@@ -1,9 +1,6 @@
 package Persistance;
 
-import Business.Edition;
-import Business.Player;
-import Business.Publication;
-import Business.Test;
+import Business.*;
 
 import javax.swing.*;
 import java.io.*;
@@ -60,9 +57,22 @@ public class CsvCotroller {
         String testData [] = parte.split(";");
         int j = 0;
         while (j < testData.length){
+            int count = 0;
+
+            for (int i = 0; i < testData[j].length(); i++) {
+                if (testData[j].toCharArray()[i] == '/') {
+                    count++;
+                }
+            }
             String info [] = testData[j].split("/");
-            Publication test = new Publication(info[0], info[1], info[2], Integer.parseInt(info[3]), Integer.parseInt(info[4]), Integer.parseInt(info[5]));
-            tests.add(test);
+            if(count == 5) {
+                Publication test = new Publication(info[0], info[1], info[2], Integer.parseInt(info[3]), Integer.parseInt(info[4]), Integer.parseInt(info[5]));
+                tests.add(test);
+            }else if(count == 2){
+                doctoralDefense test = new doctoralDefense(info[0], info[1], Integer.parseInt(info[2]));
+                tests.add(test);
+            }
+
             j++;
         }
         return tests;
@@ -112,6 +122,13 @@ public class CsvCotroller {
                 result.append(((Publication) tests.get(i)).getRevisionProbability());
                 result.append("/");
                 result.append(((Publication) tests.get(i)).getNotAcceptedProbability());
+                result.append(";");
+            }else if(tests.get(i).getClass().getSimpleName().equals("doctoralDefense")){
+                result.append(tests.get(i).getName());
+                result.append("/");
+                result.append(((doctoralDefense) tests.get(i)).getField());
+                result.append("/");
+                result.append(((doctoralDefense) tests.get(i)).getDiff());
                 result.append(";");
             }
         }

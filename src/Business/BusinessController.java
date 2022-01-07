@@ -28,6 +28,10 @@ public class BusinessController {
         }
 
         this.editions = importEditions;
+        for (Edition edition: editions) {
+            edition.setBusinessController(this);
+        }
+        
         if(!editions.isEmpty()) {
             setTests(editions);
         }
@@ -85,6 +89,8 @@ public class BusinessController {
                         if(trialChoice == 1){
                             //Create test View
                             tests.add(viewController.createPaperPublication());
+                        }else if(trialChoice == 2){
+                            tests.add(viewController.createDoctoralDefense());
                         }
                     } else if (optionManageTrials.equals("b")) {
                         //Show Test View
@@ -127,6 +133,14 @@ public class BusinessController {
         return editions;
     }
 
+    public ViewController getViewController() {
+        return viewController;
+    }
+
+    public void setViewController(ViewController viewController) {
+        this.viewController = viewController;
+    }
+
     public void conductorComposer(){
         Conductor actualUser = new Conductor();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -154,10 +168,8 @@ public class BusinessController {
                     break;
                 }
             }
-            if(edition.getTests().get(i).getClass().getSimpleName().equals("Publication"))
-            {
-                executePublication(i, edition);
-            }
+
+            edition.getTests().get(i).execute(edition.getTests().get(i), edition);
 
         }
         if (i == edition.getNumTest()){
@@ -177,122 +189,8 @@ public class BusinessController {
         return edition.getPlayers().get(winner);
     }
 
-    private void executePublication(int iterationTests, Edition edition) {
-        Publication publication = (Publication) edition.getTests().get(iterationTests);
-        String quartil = ((Publication) edition.getTests().get(iterationTests)).getQuartil();
-        try {
-            for (int i = 0; i < edition.getPlayers().size(); i++) {
-                //TODO Tener en cuenta probabiulidades de ejecución (No esta bien explicado en el enunciado)
-                boolean result = false;
-                viewController.submitting(edition.getPlayers().get(i));
-                while (!result) {
-                    double numAcceptance = Math.random() * 100;
-                    double numRejected = Math.random() * 100;
-                    double numRevision = Math.random() * 100;
-                    if (Math.abs(numAcceptance - publication.getAcceptanceProbability()) > Math.abs(numRejected - publication.getNotAcceptedProbability()) && Math.abs(numAcceptance - publication.getAcceptanceProbability()) > Math.abs(numRevision - publication.getRevisionProbability())) {
-                        getReward(quartil, edition.getPlayers().get(i));
-                        viewController.acceptedPublication(edition.getPlayers().get(i));
-                        result = true;
-                    } else {
-                        if (Math.abs(numAcceptance - publication.getAcceptanceProbability()) < Math.abs(numRejected - publication.getNotAcceptedProbability()) && Math.abs(numRejected - publication.getNotAcceptedProbability()) > Math.abs(numRevision - publication.getRevisionProbability())) {
-                            getPenalitation(quartil, edition, i);
-                            viewController.rejectedPublication(edition.getPlayers().get(i));
-                            result = true;
-                        } else {
-                            viewController.revisedPublication();
-                        }
-                    }
-                }
-            }
-        }catch (Exception ignored){
-
-        }
-    }
-
-    private void getPenalitation(String quartil, Edition edition, int playerIterarion) {
-        switch (quartil) {
-            case ("Q1") -> {
-                if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
-                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 5);
-                } else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
-                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
-                }
-                removePlayer(edition, playerIterarion);
-            }
-            case ("Q2") -> {
-                if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
-                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 4);
-                } else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
-                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
-                }
-                removePlayer(edition, playerIterarion);
-            }
-            case ("Q3") -> {
-                if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
-                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 3);
-                } else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
-                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 1);
-                }
-                removePlayer(edition, playerIterarion);
-            }
-            case ("Q4") -> {
-                if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
-                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
-                } else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
-                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 1);
-                }
-                removePlayer(edition, playerIterarion);
-            }
-        }
-    }
-
-    private void removePlayer(Edition edition, int playerIterarion) {
-        if(edition.getPlayers().get(playerIterarion).getInvestigationPoints() <= 0){
-            edition.getPlayers().remove(playerIterarion);
-            edition.setInitialPlayers(edition.getInitialPlayers()-1);
-        }
-    }
 
 
-    private void getReward(String quartil, Player player) {
-        switch (quartil){
-            case ("Q1"):
-                if (player.getRole().equals("Enginyer") || player.getRole().equals("Màster")) {
-                    player.setInvestigationPoints(player.getInvestigationPoints() + 4);
-                    player.checkRole();
-                }else if(player.getRole().equals("Doctor")){
-                    player.setInvestigationPoints(player.getInvestigationPoints() + (4 * 2));
-                }
-                break;
-
-            case ("Q2"):
-                if (player.getRole().equals("Enginyer") || player.getRole().equals("Màster")) {
-                    player.setInvestigationPoints(player.getInvestigationPoints() + 3);
-                    player.checkRole();
-                }else if(player.getRole().equals("Doctor")){
-                    player.setInvestigationPoints(player.getInvestigationPoints() + (3 * 2));
-                }
-                break;
-
-            case ("Q3"):
-                if (player.getRole().equals("Enginyer") || player.getRole().equals("Màster")) {
-                    player.setInvestigationPoints(player.getInvestigationPoints() + 2);
-                    player.checkRole();
-                }else if(player.getRole().equals("Doctor")){
-                    player.setInvestigationPoints(player.getInvestigationPoints() + (2 * 2));
-                }
-                break;
-
-            case ("Q4"):
-                if (player.getRole().equals("Enginyer") || player.getRole().equals("Màster")) {
-                    player.setInvestigationPoints(player.getInvestigationPoints() + 1);
-                    player.checkRole();
-                }else if(player.getRole().equals("Doctor")){
-                    player.setInvestigationPoints(player.getInvestigationPoints() + 2);
-                }
-                break;
-        }
-    }
 
     private Edition lookForCurrentEdition(List<Edition> editions, int currentYear) {
         Edition currentEdition = null;
