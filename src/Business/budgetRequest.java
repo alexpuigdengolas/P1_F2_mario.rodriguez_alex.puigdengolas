@@ -10,6 +10,22 @@ public class budgetRequest extends Test{
         this.quantity = quantity;
     }
 
+    public String getEntity() {
+        return entity;
+    }
+
+    public void setEntity(String entity) {
+        this.entity = entity;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public void execute(Test test, Edition edition) {
         super.execute(test, edition);

@@ -57,25 +57,20 @@ public class CsvCotroller {
         String testData [] = parte.split(";");
         int j = 0;
         while (j < testData.length){
-            int count = 0;
-
-            for (int i = 0; i < testData[j].length(); i++) {
-                if (testData[j].toCharArray()[i] == '/') {
-                    count++;
-                }
-            }
             String info [] = testData[j].split("/");
-            if(count == 5) {
-                Publication test = new Publication(info[0], info[1], info[2], Integer.parseInt(info[3]), Integer.parseInt(info[4]), Integer.parseInt(info[5]));
+            if(info[0].equals("Publication")) {
+                Publication test = new Publication(info[1], info[2], info[3], Integer.parseInt(info[4]), Integer.parseInt(info[5]), Integer.parseInt(info[6]));
                 tests.add(test);
-            }else if(count == 2){
-                doctoralDefense test = new doctoralDefense(info[0], info[1], Integer.parseInt(info[2]));
+            }else if(info[0].equals("doctoralDefense")){
+                doctoralDefense test = new doctoralDefense(info[1], info[2], Integer.parseInt(info[3]));
                 tests.add(test);
-            }else if(count == 3){
-                estudiMaster test = new estudiMaster(info[0], info[1], Integer.parseInt(info[2]), Integer.parseInt(info[3]));
+            }else if(info[0].equals("estudiMaster")){
+                estudiMaster test = new estudiMaster(info[1], info[2], Integer.parseInt(info[3]), Integer.parseInt(info[4]));
+                tests.add(test);
+            }else if(info[0].equals("budgetRequest")){
+                budgetRequest test = new budgetRequest(info[1], info[2], Double.parseDouble(info[3]));
                 tests.add(test);
             }
-
             j++;
         }
         return tests;
@@ -113,6 +108,8 @@ public class CsvCotroller {
     private String getTests(List<Test> tests) {
         StringBuilder result = new StringBuilder();
         for(int i = 0; i <tests.size();i++) {
+            result.append(tests.get(i).getClass().getSimpleName());
+            result.append("/");
             if(tests.get(i).getClass().getSimpleName().equals("Publication")) {
                 result.append(tests.get(i).getName());
                 result.append("/");
@@ -133,7 +130,24 @@ public class CsvCotroller {
                 result.append("/");
                 result.append(((doctoralDefense) tests.get(i)).getDiff());
                 result.append(";");
+            }else if(tests.get(i).getClass().getSimpleName().equals("budgetRequestBudget")){
+                result.append(tests.get(i).getName());
+                result.append("/");
+                result.append(((budgetRequest) tests.get(i)).getEntity());
+                result.append("/");
+                result.append(((budgetRequest) tests.get(i)).getQuantity());
+                result.append(";");
+            }else if(tests.get(i).getClass().getSimpleName().equals("estudiMaster")){
+                result.append(tests.get(i).getName());
+                result.append("/");
+                result.append(((estudiMaster) tests.get(i)).getMaster());
+                result.append("/");
+                result.append(((estudiMaster) tests.get(i)).getCredits());
+                result.append("/");
+                result.append(((estudiMaster) tests.get(i)).getProbability());
+                result.append(";");
             }
+
         }
         return result.toString();
     }

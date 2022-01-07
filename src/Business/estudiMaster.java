@@ -12,6 +12,30 @@ public class estudiMaster extends Test{
         this.probability = probability;
     }
 
+    public String getMaster() {
+        return master;
+    }
+
+    public void setMaster(String master) {
+        this.master = master;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+
+    public int getProbability() {
+        return probability;
+    }
+
+    public void setProbability(int probability) {
+        this.probability = probability;
+    }
+
     @Override
     public void execute(Test test, Edition edition) {
 
