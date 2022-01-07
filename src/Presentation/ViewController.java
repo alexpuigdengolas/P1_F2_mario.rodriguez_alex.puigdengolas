@@ -125,11 +125,13 @@ public class ViewController {
             System.out.println(" ");
             System.out.println("1) Paper publication");
             System.out.println("2) Doctoral thesis defense");
+            System.out.println("3) Master studies");
+            System.out.println("4) Budget request");
             System.out.println(" ");
             System.out.print("Enter the test's type:  ");
             option = sc.nextLine();
 
-            if(option.equals("1") || option.equals("2")){
+            if(option.equals("1") || option.equals("2") || option.equals("3") || option.equals("4")){
                 ok = true;
                 return Integer.parseInt(option);
             }else{
@@ -637,5 +639,71 @@ public class ViewController {
 
     public void deffenseNotPassed(Player player) {
         System.out.println(player.getName()+" wasn't successful. Sorry... PI count: "+player.getInvestigationPoints());
+    }
+
+    public Test createMasterEstudy() {
+        String name, master;
+        int credits, prob;
+        boolean ok = false;
+        Scanner sc = new Scanner(System.in);
+
+        do{
+            System.out.println(" ");
+            System.out.print("Enter the trial’s name: ");
+            name = sc.nextLine();
+            System.out.print("Enter the master’s name: ");
+            master = sc.nextLine();
+            System.out.print("Enter the master’s ECTS number: ");
+            credits = sc.nextInt();
+            System.out.print("Enter the credit pass probability: ");
+            prob = sc.nextInt();
+
+            if((credits < 60 || credits > 120) || (prob < 0 || prob > 100)){
+                ok = false;
+            }else{
+                ok = true;
+            }
+
+            if(!ok){
+                System.err.println("The information is not valid, please try again");
+            }else{
+                System.out.println(" ");
+                System.out.println("The trial was created successfully!");
+                return new estudiMaster(name, master, credits, prob);
+            }
+        }while(!ok);
+        return null;
+    }
+
+    public Test createBudgetRequest() {
+        String name, entity;
+        double budget;
+        boolean ok = false;
+        Scanner sc = new Scanner(System.in);
+
+        do{
+            System.out.println(" ");
+            System.out.print("Enter the trial’s name: ");
+            name = sc.nextLine();
+            System.out.print("Enter the entity’s name: ");
+            entity = sc.nextLine();
+            System.out.print("Enter the budget demanded: ");
+            budget = sc.nextInt();
+
+            if((budget < 1000 || budget > 2000000000)){
+                ok = false;
+            }else{
+                ok = true;
+            }
+
+            if(!ok){
+                System.err.println("The information is not valid, please try again");
+            }else{
+                System.out.println(" ");
+                System.out.println("The trial was created successfully!");
+                return new budgetRequest(name, entity, budget);
+            }
+        }while(!ok);
+        return null;
     }
 }

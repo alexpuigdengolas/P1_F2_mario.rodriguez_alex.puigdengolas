@@ -71,6 +71,9 @@ public class CsvCotroller {
             }else if(count == 2){
                 doctoralDefense test = new doctoralDefense(info[0], info[1], Integer.parseInt(info[2]));
                 tests.add(test);
+            }else if(count == 3){
+                estudiMaster test = new estudiMaster(info[0], info[1], Integer.parseInt(info[2]), Integer.parseInt(info[3]));
+                tests.add(test);
             }
 
             j++;

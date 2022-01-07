@@ -91,6 +91,10 @@ public class BusinessController {
                             tests.add(viewController.createPaperPublication());
                         }else if(trialChoice == 2){
                             tests.add(viewController.createDoctoralDefense());
+                        }else if(trialChoice == 3){
+                            tests.add(viewController.createMasterEstudy());
+                        }else if(trialChoice == 4){
+                            tests.add(viewController.createBudgetRequest());
                         }
                     } else if (optionManageTrials.equals("b")) {
                         //Show Test View
