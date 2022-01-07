@@ -204,35 +204,52 @@ public class BusinessController {
                     }
                 }
             }
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
     }
 
     private void getPenalitation(String quartil, Edition edition, int playerIterarion) {
-        switch (quartil){
-            case ("Q1"):
-                edition.getPlayers().get(playerIterarion).setInvestigationPoints( edition.getPlayers().get(playerIterarion).getInvestigationPoints()- 5);
+        switch (quartil) {
+            case ("Q1") -> {
+                if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
+                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 5);
+                } else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
+                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
+                }
                 removePlayer(edition, playerIterarion);
-                break;
-            case ("Q2"):
-                edition.getPlayers().get(playerIterarion).setInvestigationPoints( edition.getPlayers().get(playerIterarion).getInvestigationPoints()- 4);
+            }
+            case ("Q2") -> {
+                if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
+                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 4);
+                } else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
+                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
+                }
                 removePlayer(edition, playerIterarion);
-                break;
-            case ("Q3"):
-                edition.getPlayers().get(playerIterarion).setInvestigationPoints( edition.getPlayers().get(playerIterarion).getInvestigationPoints()- 3);
+            }
+            case ("Q3") -> {
+                if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
+                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 3);
+                } else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
+                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 1);
+                }
                 removePlayer(edition, playerIterarion);
-                break;
-            case ("Q4"):
-                edition.getPlayers().get(playerIterarion).setInvestigationPoints( edition.getPlayers().get(playerIterarion).getInvestigationPoints()- 2);
+            }
+            case ("Q4") -> {
+                if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
+                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
+                } else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
+                    edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 1);
+                }
                 removePlayer(edition, playerIterarion);
-                break;
+            }
         }
     }
 
     private void removePlayer(Edition edition, int playerIterarion) {
         if(edition.getPlayers().get(playerIterarion).getInvestigationPoints() <= 0){
             edition.getPlayers().remove(playerIterarion);
+            edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }
     }
 
@@ -240,16 +257,39 @@ public class BusinessController {
     private void getReward(String quartil, Player player) {
         switch (quartil){
             case ("Q1"):
-                player.setInvestigationPoints( player.getInvestigationPoints()+ 4);
+                if (player.getRole().equals("Enginyer") || player.getRole().equals("Màster")) {
+                    player.setInvestigationPoints(player.getInvestigationPoints() + 4);
+                    player.checkRole();
+                }else if(player.getRole().equals("Doctor")){
+                    player.setInvestigationPoints(player.getInvestigationPoints() + (4 * 2));
+                }
                 break;
+
             case ("Q2"):
-                player.setInvestigationPoints( player.getInvestigationPoints()+ 3);
+                if (player.getRole().equals("Enginyer") || player.getRole().equals("Màster")) {
+                    player.setInvestigationPoints(player.getInvestigationPoints() + 3);
+                    player.checkRole();
+                }else if(player.getRole().equals("Doctor")){
+                    player.setInvestigationPoints(player.getInvestigationPoints() + (3 * 2));
+                }
                 break;
+
             case ("Q3"):
-                player.setInvestigationPoints( player.getInvestigationPoints()+ 2);
+                if (player.getRole().equals("Enginyer") || player.getRole().equals("Màster")) {
+                    player.setInvestigationPoints(player.getInvestigationPoints() + 2);
+                    player.checkRole();
+                }else if(player.getRole().equals("Doctor")){
+                    player.setInvestigationPoints(player.getInvestigationPoints() + (2 * 2));
+                }
                 break;
+
             case ("Q4"):
-                player.setInvestigationPoints( player.getInvestigationPoints()+ 1);
+                if (player.getRole().equals("Enginyer") || player.getRole().equals("Màster")) {
+                    player.setInvestigationPoints(player.getInvestigationPoints() + 1);
+                    player.checkRole();
+                }else if(player.getRole().equals("Doctor")){
+                    player.setInvestigationPoints(player.getInvestigationPoints() + 2);
+                }
                 break;
         }
     }
