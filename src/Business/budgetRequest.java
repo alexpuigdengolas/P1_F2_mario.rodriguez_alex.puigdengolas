@@ -1,5 +1,7 @@
 package Business;
 
+import Presentation.ViewController;
+
 public class budgetRequest extends Test{
     private String entity;
     private double quantity;
@@ -27,6 +29,12 @@ public class budgetRequest extends Test{
     }
 
     @Override
+    public void showInfo(ViewController viewController) {
+        super.showInfo(viewController);
+        viewController.showBudgetRequest(this);
+    }
+
+    @Override
     public void execute(Test test, Edition edition) {
         super.execute(test, edition);
         int totalPi = 0;
@@ -37,10 +45,13 @@ public class budgetRequest extends Test{
         if(totalPi > (int)(Math.log(quantity) / Math.log(2))){
             for(int j = 0; j < edition.getPlayers().size(); j++) {
                 getReward(test, edition.getPlayers().get(j));
+                edition.getBusinessController().getViewController().BudgetPassed(edition.getPlayers().get(j));
             }
         }else{
             for(int j = 0; j < edition.getPlayers().size(); j++) {
                 getPenalitation(test, edition, j);
+                edition.getBusinessController().getViewController().BudgetNotPassed(edition.getPlayers().get(j));
+
             }
         }
     }

@@ -21,7 +21,9 @@ public class CsvCotroller {
             lector = new BufferedReader(new FileReader(nameCSV));
             while ((liniea = lector.readLine()) != null){
                 partes = liniea.split(",");
-                Edition edition = new Edition(Integer.parseInt(partes[0]), Integer.parseInt(partes[1]), Integer.parseInt(partes[2]) ,Integer.parseInt(partes[3]), generateTests(partes[4]), generatePlayers(partes[5]));
+                List<Test> tests = generateTests(partes[4]);
+                List<Player> players = generatePlayers(partes[5]);
+                Edition edition = new Edition(Integer.parseInt(partes[0]), Integer.parseInt(partes[1]), Integer.parseInt(partes[2]) ,Integer.parseInt(partes[3]), tests, players);
                 data.add(edition);
             }
             lector.close();
@@ -130,7 +132,7 @@ public class CsvCotroller {
                 result.append("/");
                 result.append(((doctoralDefense) tests.get(i)).getDiff());
                 result.append(";");
-            }else if(tests.get(i).getClass().getSimpleName().equals("budgetRequestBudget")){
+            }else if(tests.get(i).getClass().getSimpleName().equals("budgetRequest")){
                 result.append(tests.get(i).getName());
                 result.append("/");
                 result.append(((budgetRequest) tests.get(i)).getEntity());

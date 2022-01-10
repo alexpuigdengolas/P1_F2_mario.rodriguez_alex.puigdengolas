@@ -174,7 +174,9 @@ public class BusinessController {
             }
 
             edition.getTests().get(i).execute(edition.getTests().get(i), edition);
-
+            if(edition.getPlayers().size() == 0){
+                viewController.allPlayersDisc();
+            }
         }
         if (i == edition.getNumTest()){
             winner = getWinner(edition);

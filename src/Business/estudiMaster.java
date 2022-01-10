@@ -1,5 +1,7 @@
 package Business;
 
+import Presentation.ViewController;
+
 public class estudiMaster extends Test{
     private String master;
     private int credits;
@@ -37,6 +39,12 @@ public class estudiMaster extends Test{
     }
 
     @Override
+    public void showInfo(ViewController viewController) {
+        super.showInfo(viewController);
+        viewController.showEstudyMaster(this);
+    }
+
+    @Override
     public void execute(Test test, Edition edition) {
 
         super.execute(test, edition);
@@ -52,8 +60,10 @@ public class estudiMaster extends Test{
             }
             if(pass > fail){
                 getReward(test, edition.getPlayers().get(i));
+                edition.getBusinessController().getViewController().masterPassed(edition.getPlayers().get(i));
             }else{
                 getPenalitation(test, edition, i);
+                edition.getBusinessController().getViewController().masterNotPassed(edition.getPlayers().get(i));
             }
         }
     }

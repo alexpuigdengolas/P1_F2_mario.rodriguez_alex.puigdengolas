@@ -1,5 +1,7 @@
 package Business;
 
+import Presentation.ViewController;
+
 public class doctoralDefense extends Test{
     private String field;
     private int diff;
@@ -66,5 +68,11 @@ public class doctoralDefense extends Test{
         super.getPenalitation(test, edition, playerIterarion);
         edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 5);
         edition.removePlayer(edition, playerIterarion);
+    }
+
+    @Override
+    public void showInfo(ViewController viewController) {
+        super.showInfo(viewController);
+        viewController.showDoctoralDefense(this);
     }
 }

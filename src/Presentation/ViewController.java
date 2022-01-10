@@ -219,7 +219,8 @@ public class ViewController {
                     System.err.println("The option is not available, please try again");
                 }else if(Integer.parseInt(option) != tests.size()+1){
                     System.out.println(" ");
-                    tests.get(Integer.parseInt(option)-1).showInfo();
+                    System.out.println(tests.get(Integer.parseInt(option)-1).getName());
+                    tests.get(Integer.parseInt(option)-1).showInfo(this);
                     System.out.println(" ");
                 }else{
                     ok = true;
@@ -675,6 +676,14 @@ public class ViewController {
         return null;
     }
 
+    public void masterPassed(Player player){
+        System.out.println(player.getName()+" was successful. Congrats! PI count: "+player.getInvestigationPoints());
+    }
+
+    public void masterNotPassed(Player player){
+        System.out.println(player.getName()+" wasn't successful. Sorry... PI count: "+player.getInvestigationPoints());
+    }
+
     public Test createBudgetRequest() {
         String name, entity;
         double budget;
@@ -706,4 +715,38 @@ public class ViewController {
         }while(!ok);
         return null;
     }
+
+    public void BudgetPassed(Player player){
+        System.out.println(player.getName()+" was successful. Congrats! PI count: "+player.getInvestigationPoints());
+    }
+
+    public void BudgetNotPassed(Player player){
+        System.out.println(player.getName()+" wasn't successful. Sorry... PI count: "+player.getInvestigationPoints());
+    }
+
+    public void allPlayersDisc() {
+        System.out.println("All player was disscualified, GAME OVER");
+    }
+
+    public void showPublication (Publication publication){
+        System.out.println("Trial: "+publication.getName()+" (Paper publication)");
+        System.out.println("Journal: "+publication.getNameMag()+" ("+publication.getQuartil()+")");
+        System.out.println("Chances: "+publication.getAcceptanceProbability()+"% acceptance, "+publication.getRevisionProbability()+"% revision, "+ publication.getNotAcceptedProbability()+"% rejection");
+    }
+
+    public void showDoctoralDefense(doctoralDefense doctoralDefense) {
+        System.out.println("Field: "+doctoralDefense.getField()+" (Doctoral Defense)");
+        System.out.println("Difficulty: "+doctoralDefense.getDiff());
+    }
+
+    public void showBudgetRequest(budgetRequest budgetRequest){
+        System.out.println("Entity: "+budgetRequest.getEntity());
+        System.out.println("Quantity: "+budgetRequest.getQuantity());
+    }
+
+    public void showEstudyMaster(estudiMaster estudiMaster){
+        System.out.println("Master: "+estudiMaster.getMaster()+"("+estudiMaster.getCredits()+") ["+estudiMaster.getProbability()+"%]");
+    }
+
+
 }

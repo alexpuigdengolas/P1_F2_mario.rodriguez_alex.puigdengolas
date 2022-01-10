@@ -83,8 +83,7 @@ public class Edition {
         System.out.println("Players: "+ getInitialPlayers());
         System.out.println("Trials: ");
         for (int i = 0; i < tests.size(); i++) {
-            //TODO: Descubrir como sacar el tipo de test
-            System.out.println("    " + (i + 1) + "- The Trials " + tests.get(i).getName() +" (Paper publication)");
+            System.out.println("    " + (i + 1) + "- The Trials " + tests.get(i).getName() +" ("+tests.get(i).getClass().getSimpleName()+")");
         }
     }
 

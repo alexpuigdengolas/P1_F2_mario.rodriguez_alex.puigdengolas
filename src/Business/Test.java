@@ -1,5 +1,7 @@
 package Business;
 
+import Presentation.ViewController;
+
 public class Test {
     private String name;
 
@@ -15,8 +17,7 @@ public class Test {
         this.name = name;
     }
 
-    public void showInfo() {
-        System.out.println(getName());
+    public void showInfo(ViewController viewController) {
     }
 
     public void execute(Test test, Edition edition){
