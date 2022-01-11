@@ -58,7 +58,11 @@ public class doctoralDefense extends Test{
             player.setInvestigationPoints(10);
             player.checkRole();
         }else{
-            player.setInvestigationPoints(player.getInvestigationPoints() + 5);
+            if(player.getRole().equals("Enginyer")) {
+                player.setInvestigationPoints(player.getInvestigationPoints() + 5);
+            }else if(player.getRole().equals("Doctor")){
+                player.setInvestigationPoints(player.getInvestigationPoints() + (5*2));
+            }
             player.checkRole();
         }
     }
@@ -66,7 +70,11 @@ public class doctoralDefense extends Test{
     @Override
     void getPenalitation(Test test, Edition edition, int playerIterarion) {
         super.getPenalitation(test, edition, playerIterarion);
-        edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 5);
+        if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
+            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 5);
+        }else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
+            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
+        }
         edition.removePlayer(edition, playerIterarion);
     }
 

@@ -75,19 +75,17 @@ public class Publication extends Test{
         String quartil = publication.getQuartil();
         try {
             for (int i = 0; i < edition.getPlayers().size(); i++) {
-                //TODO Tener en cuenta probabiulidades de ejecución (No esta bien explicado en el enunciado)
                 boolean result = false;
                 edition.getBusinessController().getViewController().submitting(edition.getPlayers().get(i));
                 while (!result) {
-                    double numAcceptance = Math.random() * 100;
-                    double numRejected = Math.random() * 100;
-                    double numRevision = Math.random() * 100;
-                    if (Math.abs(numAcceptance - publication.getAcceptanceProbability()) > Math.abs(numRejected - publication.getNotAcceptedProbability()) && Math.abs(numAcceptance - publication.getAcceptanceProbability()) > Math.abs(numRevision - publication.getRevisionProbability())) {
+                    double num = Math.random() * 100;
+
+                    if (num < publication.getAcceptanceProbability()) {
                         getReward(test, edition.getPlayers().get(i));
                         edition.getBusinessController().getViewController().acceptedPublication(edition.getPlayers().get(i));
                         result = true;
                     } else {
-                        if (Math.abs(numAcceptance - publication.getAcceptanceProbability()) < Math.abs(numRejected - publication.getNotAcceptedProbability()) && Math.abs(numRejected - publication.getNotAcceptedProbability()) > Math.abs(numRevision - publication.getRevisionProbability())) {
+                        if (num > publication.getRevisionProbability() + publication.getAcceptanceProbability()) {
                             getPenalitation(test, edition, i);
                             edition.getBusinessController().getViewController().rejectedPublication(edition.getPlayers().get(i));
                             result = true;

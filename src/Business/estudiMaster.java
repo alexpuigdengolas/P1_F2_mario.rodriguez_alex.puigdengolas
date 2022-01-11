@@ -75,7 +75,11 @@ public class estudiMaster extends Test{
             player.setInvestigationPoints(10);
             player.checkRole();
         }else{
-            player.setInvestigationPoints(player.getInvestigationPoints() + 3);
+            if (player.getRole().equals("Doctor")) {
+                player.setInvestigationPoints(player.getInvestigationPoints() + 6);
+            }else {
+                player.setInvestigationPoints(player.getInvestigationPoints() + 3);
+            }
             player.checkRole();
         }
     }
@@ -83,7 +87,11 @@ public class estudiMaster extends Test{
     @Override
     void getPenalitation(Test test, Edition edition, int playerIterarion) {
         super.getPenalitation(test, edition, playerIterarion);
-        edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 3);
+        if (edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
+            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 1);
+        } else{
+            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 3);
+        }
         edition.removePlayer(edition, playerIterarion);
     }
 }

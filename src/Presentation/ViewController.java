@@ -167,19 +167,29 @@ public class ViewController {
             sc.nextLine();
             if((acceptanceProbability < 0 || acceptanceProbability > 100) && ok){
                 ok = false;
-            }else{ok = true;}
+            }else{
+                ok = true;
+            }
             System.out.print("Enter the revision probability: ");
             revisionProbability = sc.nextInt();
             sc.nextLine();
             if((revisionProbability < 0 || revisionProbability > 100) && ok){
                 ok = false;
-            }else{ok = true;}
+            }else{
+                ok = true;
+            }
             System.out.print("Enter the rejection probability: ");
             notAcceptedProbability = sc.nextInt();
             sc.nextLine();
             if((notAcceptedProbability < 0 || notAcceptedProbability > 100) && ok){
                 ok = false;
-            }else{ok = true;}
+            }else{
+                ok = true;
+            }
+
+            if(acceptanceProbability+revisionProbability+notAcceptedProbability > 100 && ok){
+                ok = false;
+            }
 
             if(!ok){
                 System.err.println("The information is not valid, please try again");

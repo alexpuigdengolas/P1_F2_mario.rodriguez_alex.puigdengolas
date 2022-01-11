@@ -65,6 +65,10 @@ public class budgetRequest extends Test{
     @Override
     void getPenalitation(Test test, Edition edition, int playerIterarion) {
         super.getPenalitation(test, edition, playerIterarion);
-        edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
+        if (edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
+            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 1);
+        } else{
+            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
+        }
     }
 }
