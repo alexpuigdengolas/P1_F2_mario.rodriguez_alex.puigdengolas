@@ -11,6 +11,7 @@ public class Publication extends Test{
 
     public Publication(String name, String nameMag, String quartil, int acceptanceProbability, int revisionProbability, int notAcceptedProbability) {
         super(name);
+        setType("Publication");
         this.nameMag = nameMag;
         this.quartil = quartil;
         this.acceptanceProbability = acceptanceProbability;

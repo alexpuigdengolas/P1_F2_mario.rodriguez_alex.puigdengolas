@@ -348,7 +348,7 @@ public class ViewController {
         return null;
     }
 
-    public void createEditionView(LinkedList<Test> tests, List<Edition> editions) {
+    public void createEditionView(List<Test> tests, List<Edition> editions) {
         boolean ok = false;
         Scanner sc = new Scanner(System.in);
         int year, initialPlayers, numTest, rounds = 0, trialSelect;

@@ -9,6 +9,7 @@ public class estudiMaster extends Test{
 
     public estudiMaster(String name, String master, int credits, int probability) {
         super(name);
+        setType("estudiMaster");
         this.master = master;
         this.credits = credits;
         this.probability = probability;

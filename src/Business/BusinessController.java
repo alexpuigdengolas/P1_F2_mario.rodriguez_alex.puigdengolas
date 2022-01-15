@@ -11,24 +11,23 @@ import java.util.List;
 
 public class BusinessController {
     ViewController viewController = new ViewController(this);
-    LinkedList<Test> tests = new LinkedList<Test>();
+    List<Test> tests = new LinkedList<Test>();
     List<Edition> editions = new LinkedList<Edition>();
 
 
     public BusinessController(){
-        List<Edition> importEditions = new ArrayList<Edition>() ;
         boolean csvOn = viewController.dataSelection();
 
         CsvCotroller csv = new CsvCotroller(); //creamos objeto
         jsonController json = new jsonController();
 
         if (csvOn) {
-            importEditions = csv.readCSV("CSV/Edicions.csv");
+            editions = csv.readCSV("CSV/Edicions.csv");
         }else{
-            importEditions = json.readJSON("JSON/Edicions.json");
+            tests = json.readTestJSON("JSON/EdicionsPubliTest.json", "JSON/EdicionsDefTest.json", "JSON/EdicionsMasterTest.json", "JSON/EdicionsReqTest.json");
+            editions = json.readJSON("JSON/Edicions.json");
         }
 
-        this.editions = importEditions;
         for (Edition edition: editions) {
             edition.setBusinessController(this);
         }
@@ -50,7 +49,9 @@ public class BusinessController {
         if(csvOn){
             csv.writeCSV(editions, "CSV/Edicions.csv");
         }else{
-            json.writeJSON(editions, "JSON/Edicions.json");
+            json.writeEditionsJSON(editions, "JSON/Edicions.json");
+            json.writeTestsJSON(editions, "JSON/EdicionsPubliTest.json", "JSON/EdicionsDefTest.json", "JSON/EdicionsMasterTest.json", "JSON/EdicionsReqTest.json");
+
         }
     }
 
@@ -99,11 +100,11 @@ public class BusinessController {
                         }
                     } else if (optionManageTrials.equals("b")) {
                         //Show Test View
-                        viewController.trialChoiceShowView(tests);
+                        viewController.trialChoiceShowView((LinkedList<Test>) tests);
 
                     } else if (optionManageTrials.equals("c")) {
                         //Delete Test View
-                        viewController.trialChoiceDeleteView(tests);
+                        viewController.trialChoiceDeleteView((LinkedList<Test>) tests);
 
                     } else {
                         exitTrialManager = true;

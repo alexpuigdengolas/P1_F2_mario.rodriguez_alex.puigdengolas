@@ -8,6 +8,7 @@ public class budgetRequest extends Test{
 
     public budgetRequest(String name, String entity, double quantity) {
         super(name);
+        setType("budgetRequest");
         this.entity = entity;
         this.quantity = quantity;
     }

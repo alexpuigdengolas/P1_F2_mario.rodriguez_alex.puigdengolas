@@ -8,6 +8,7 @@ public class doctoralDefense extends Test{
 
     public doctoralDefense(String name, String field, int diff) {
         super(name);
+        setType("doctoralDefense");
         this.field = field;
         this.diff = diff;
     }

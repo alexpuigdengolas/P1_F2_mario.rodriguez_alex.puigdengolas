@@ -4,6 +4,7 @@ import Presentation.ViewController;
 
 public class Test {
     private String name;
+    private String type;
 
     public Test(String name) {
         this.name = name;
@@ -32,4 +33,11 @@ public class Test {
 
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
