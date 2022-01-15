@@ -14,6 +14,7 @@ public class estudiMaster extends Test{
         this.probability = probability;
     }
 
+
     public String getMaster() {
         return master;
     }
@@ -94,4 +95,6 @@ public class estudiMaster extends Test{
         }
         edition.removePlayer(edition, playerIterarion);
     }
+
+
 }

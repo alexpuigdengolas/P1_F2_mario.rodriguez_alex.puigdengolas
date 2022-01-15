@@ -14,6 +14,7 @@ public class BusinessController {
     LinkedList<Test> tests = new LinkedList<Test>();
     List<Edition> editions = new LinkedList<Edition>();
 
+
     public BusinessController(){
         List<Edition> importEditions = new ArrayList<Edition>() ;
         boolean csvOn = viewController.dataSelection();

@@ -144,62 +144,95 @@ public class ViewController {
     }
 
     public Publication createPaperPublication() {
-        String name, nameMag, quartil;
-        int acceptanceProbability, revisionProbability, notAcceptedProbability;
-        boolean ok = false;
+        String name = null, nameMag=null, quartil=null;
+        int acceptanceProbability = 0, revisionProbability = 0, notAcceptedProbability = 0;
+        boolean ok = false, ok2 = false;
         Scanner sc = new Scanner(System.in);
 
         do{
             System.out.println(" ");
-            System.out.print("Enter the trial’s name: ");
-            name = sc.nextLine();
-            System.out.print("Enter the journal’s name: ");
-            nameMag = sc.nextLine();
-            System.out.print("Enter the journal’s quartile: ");
-            quartil = sc.nextLine();
-            if(!quartil.equals("Q1") && !quartil.equals("Q2") && !quartil.equals("Q3") && !quartil.equals("Q4")){
-                ok = false;
-            }else{
-                ok = true;
-            }
-            System.out.print("Enter the acceptance probability: ");
-            acceptanceProbability = sc.nextInt();
-            sc.nextLine();
-            if((acceptanceProbability < 0 || acceptanceProbability > 100) && ok){
-                ok = false;
-            }else{
-                ok = true;
-            }
-            System.out.print("Enter the revision probability: ");
-            revisionProbability = sc.nextInt();
-            sc.nextLine();
-            if((revisionProbability < 0 || revisionProbability > 100) && ok){
-                ok = false;
-            }else{
-                ok = true;
-            }
-            System.out.print("Enter the rejection probability: ");
-            notAcceptedProbability = sc.nextInt();
-            sc.nextLine();
-            if((notAcceptedProbability < 0 || notAcceptedProbability > 100) && ok){
-                ok = false;
-            }else{
-                ok = true;
+            while(!ok){
+                System.out.print("Enter the trial’s name: ");
+                name = sc.nextLine();
+                if(name.equals("")) {
+                    System.out.println("Pleas enter a correct trial's name");
+                    System.out.println(" ");//puchi nose si te gusta esta frase otro
+                } else{
+                    ok = true;
+                }
             }
 
-            if(acceptanceProbability+revisionProbability+notAcceptedProbability > 100 && ok){
-                ok = false;
+            ok = false;
+            while (!ok) {
+                System.out.print("Enter the journal’s name: ");
+                nameMag = sc.nextLine();
+                if(nameMag.equals("")){
+                    System.out.println("Pleas enter a correct journal's name");
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
             }
+            ok = false;
+            while(!ok){
+                System.out.print("Enter the journal’s quartile: ");
+                quartil = sc.nextLine();
+                if(!quartil.equals("Q1") && !quartil.equals("Q2") && !quartil.equals("Q3") && !quartil.equals("Q4")){
+                    System.out.println("Pleas enter a correct journal's quartile, values between Q1-Q4");
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
+            }
+            while(!ok2) {
+                ok = false;
+                while (!ok) {
+                    System.out.print("Enter the acceptance probability: ");
+                    acceptanceProbability = sc.nextInt();
+                    //sc.nextLine();
+                    if ((acceptanceProbability < 0 || acceptanceProbability > 100)) {
+                        System.out.println("Pleas enter a correct acceptance probability, values between 0-100");
+                        System.out.println(" ");
+                    } else {
+                        ok = true;
+                    }
+                }
+                ok = false;
 
-            if(!ok){
-                System.err.println("The information is not valid, please try again");
-            }else{
+                while (!ok) {
+                    System.out.print("Enter the revision probability: ");
+                    revisionProbability = sc.nextInt();
+                    //sc.nextLine();
+                    if ((revisionProbability < 0 || revisionProbability > 100)) {
+                        System.out.println("Pleas enter a correct revision probability, values between 0-100");
+                        System.out.println(" ");
+                    } else {
+                        ok = true;
+                    }
+                }
+                ok = false;
+
+                while (!ok) {
+                    System.out.print("Enter the rejection probability: ");
+                    notAcceptedProbability = sc.nextInt();
+                    //sc.nextLine();
+                    if ((notAcceptedProbability < 0 || notAcceptedProbability > 100)) {
+                        System.out.println("Pleas enter a correct rejection probability, values between 0-100");
+                        System.out.println(" ");
+                    } else {
+                        ok = true;
+                    }
+                }
+
+                if(acceptanceProbability+revisionProbability+notAcceptedProbability != 100){
+                    System.out.println("Pleas the sum of acceptance probability + revision probability + rejection probability must be equal to 100");
+                    System.out.println(" ");
+                }else ok2 = true;
+            }
                 System.out.println(" ");
                 System.out.println("The trial was created successfully!");
                 return new Publication(name, nameMag, quartil, acceptanceProbability, revisionProbability, notAcceptedProbability);
-            }
-        }while(!ok);
-        return null;
+        }while(!ok && !ok2);
     }
 
     public void trialChoiceShowView(LinkedList<Test> tests){
@@ -653,37 +686,69 @@ public class ViewController {
     }
 
     public Test createMasterEstudy() {
-        String name, master;
-        int credits, prob;
+        String name = null, master = null;
+        int credits = 0, prob = 0;
         boolean ok = false;
+        boolean equal = false;
         Scanner sc = new Scanner(System.in);
 
         do{
-            System.out.println(" ");
-            System.out.print("Enter the trial’s name: ");
-            name = sc.nextLine();
-            System.out.print("Enter the master’s name: ");
-            master = sc.nextLine();
-            System.out.print("Enter the master’s ECTS number: ");
-            credits = sc.nextInt();
-            System.out.print("Enter the credit pass probability: ");
-            prob = sc.nextInt();
+            while(!ok){
+                System.out.println(" ");
+                System.out.print("Enter the trial’s name: ");
+                name = sc.nextLine();
 
-            if((credits < 60 || credits > 120) || (prob < 0 || prob > 100)){
-                ok = false;
-            }else{
-                ok = true;
+                if(name.equals("" ) ){// falta mirar si te el mateix nom que la resta
+                    System.out.println("Pleas enter a correct journal's name");
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
+            }
+            ok = false;
+
+            while(!ok){
+                System.out.print("Enter the master’s name: ");
+                master = sc.nextLine();
+
+                if(master.equals("") ){
+                    System.out.println("Pleas enter a correct master's name");
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
+            }
+            ok = false;
+
+            while(!ok){
+                System.out.print("Enter the master’s ECTS number: ");
+                credits = sc.nextInt();
+
+                if( credits > 120 || credits < 60){
+                    System.out.println("Pleas enter a correct credits value, [60-210]");
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
+            }
+            ok = false;
+
+            while(!ok){
+                System.out.print("Enter the credit pass probability: ");
+                prob = sc.nextInt();
+
+                if( prob > 100 || prob < 0){
+                    System.out.println("Pleas enter a correct prob value, [0-100]");
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
             }
 
-            if(!ok){
-                System.err.println("The information is not valid, please try again");
-            }else{
                 System.out.println(" ");
                 System.out.println("The trial was created successfully!");
                 return new estudiMaster(name, master, credits, prob);
-            }
         }while(!ok);
-        return null;
     }
 
     public void masterPassed(Player player){

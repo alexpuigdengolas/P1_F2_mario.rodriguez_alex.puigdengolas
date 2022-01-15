@@ -31,4 +31,5 @@ public class Test {
     void getPenalitation(Test test, Edition edition, int playerIterarion) {
 
     }
+
 }
