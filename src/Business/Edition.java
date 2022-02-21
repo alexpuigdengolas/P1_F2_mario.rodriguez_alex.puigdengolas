@@ -1,5 +1,7 @@
 package Business;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class Edition {
     private List<Test> tests;
     private List<Player> players;
 
-    private BusinessController businessController;
+    private transient BusinessController businessController;
 
     public Edition(int year, int initialPlayers, int numTest, int rounds, List<Test> tests, List<Player> players) {
         this.year = year;
