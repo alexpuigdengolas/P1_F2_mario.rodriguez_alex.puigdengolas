@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "master": "Media Security",
+    "credits": 61,
+    "probability": 60,
+    "name": "Studies",
+    "type": "estudiMaster"
+  }
+]

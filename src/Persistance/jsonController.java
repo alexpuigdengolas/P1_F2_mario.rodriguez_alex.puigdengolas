@@ -91,8 +91,8 @@ public class jsonController {
         return editions;
     }
 
-    public List<Test> readTestJSON(String testPubliAddress, String testDefAddress, String testMasterAddress, String testReqAddress) {
-        List<Test> tests = new ArrayList<>();
+    public LinkedList<Test> readTestJSON(String testPubliAddress, String testDefAddress, String testMasterAddress, String testReqAddress) {
+        LinkedList<Test> tests = new LinkedList<>();
         Test[] testsArray;
         Gson gson;
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BusinessController {
     ViewController viewController = new ViewController(this);
-    List<Test> tests = new LinkedList<Test>();
+    LinkedList<Test> tests = new LinkedList<Test>();
     List<Edition> editions = new LinkedList<Edition>();
 
 
@@ -24,8 +24,13 @@ public class BusinessController {
         if (csvOn) {
             editions = csv.readCSV("CSV/Edicions.csv");
         }else{
-            tests = json.readTestJSON("JSON/EdicionsPubliTest.json", "JSON/EdicionsDefTest.json", "JSON/EdicionsMasterTest.json", "JSON/EdicionsReqTest.json");
             editions = json.readJSON("JSON/Edicions.json");
+            tests = json.readTestJSON("JSON/EdicionsPubliTest.json", "JSON/EdicionsDefTest.json", "JSON/EdicionsMasterTest.json", "JSON/EdicionsReqTest.json");
+            for(int i = 0; i < editions.size(); i++){
+                if(editions.get(i).getYear() == Calendar.getInstance().get(Calendar.YEAR)){
+                    editions.get(i).setTests(this.tests);
+                }
+            }
         }
 
         for (Edition edition: editions) {
@@ -49,8 +54,8 @@ public class BusinessController {
         if(csvOn){
             csv.writeCSV(editions, "CSV/Edicions.csv");
         }else{
-            json.writeEditionsJSON(editions, "JSON/Edicions.json");
             json.writeTestsJSON(editions, "JSON/EdicionsPubliTest.json", "JSON/EdicionsDefTest.json", "JSON/EdicionsMasterTest.json", "JSON/EdicionsReqTest.json");
+            json.writeEditionsJSON(editions, "JSON/Edicions.json");
 
         }
     }

@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "entity": "Computers",
+    "quantity": 20000.0,
+    "name": "Budget",
+    "type": "budgetRequest"
+  }
+]

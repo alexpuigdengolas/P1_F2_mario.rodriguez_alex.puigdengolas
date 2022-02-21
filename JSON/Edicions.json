@@ -2,55 +2,69 @@
   {
     "year": 2022,
     "initialPlayers": 5,
-    "numTest": 5,
+    "numTest": 4,
     "rounds": 0,
     "tests": [
       {
-        "name": "A",
+        "nameMag": "La Salle Journal",
+        "quartil": "Q3",
+        "acceptanceProbability": 60,
+        "revisionProbability": 20,
+        "notAcceptedProbability": 20,
+        "name": "Publi",
         "type": "Publication"
       },
       {
-        "name": "B",
-        "type": "doctoralDefense"
-      },
-      {
-        "name": "C",
+        "master": "Media Security",
+        "credits": 61,
+        "probability": 60,
+        "name": "Studies",
         "type": "estudiMaster"
       },
       {
-        "name": "D",
+        "entity": "Computers",
+        "quantity": 20000.0,
+        "name": "Budget",
         "type": "budgetRequest"
       },
       {
-        "name": "E",
-        "type": "Publication"
+        "field": "Smart Phones",
+        "diff": 4,
+        "name": "Thesis",
+        "type": "doctoralDefense"
+      },
+      {
+        "field": "Smart Phones",
+        "diff": 4,
+        "name": "Thesis",
+        "type": "doctoralDefense"
       }
     ],
     "players": [
       {
         "name": "A",
         "investigationPoints": 5,
-        "role": "Enginyer"
+        "role": "Doctor"
       },
       {
         "name": "B",
         "investigationPoints": 5,
-        "role": "Enginyer"
+        "role": "Doctor"
       },
       {
         "name": "C",
         "investigationPoints": 5,
-        "role": "Enginyer"
+        "role": "Doctor"
       },
       {
         "name": "D",
         "investigationPoints": 5,
-        "role": "Enginyer"
+        "role": "Doctor"
       },
       {
         "name": "E",
         "investigationPoints": 5,
-        "role": "Enginyer"
+        "role": "Doctor"
       }
     ]
   }
