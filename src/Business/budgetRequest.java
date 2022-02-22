@@ -2,6 +2,8 @@ package Business;
 
 import Presentation.ViewController;
 
+import java.util.List;
+
 public class budgetRequest extends Test{
     private String entity;
     private double quantity;
@@ -45,7 +47,7 @@ public class budgetRequest extends Test{
 
         if(totalPi > (int)(Math.log(quantity) / Math.log(2))){
             for(int j = 0; j < edition.getPlayers().size(); j++) {
-                getReward(test, edition.getPlayers().get(j));
+                getReward(test, edition.getPlayers(), j);
                 edition.getBusinessController().getViewController().BudgetPassed(edition.getPlayers().get(j));
             }
         }else{
@@ -58,18 +60,22 @@ public class budgetRequest extends Test{
     }
 
     @Override
-    void getReward(Test test, Player player) {
-        super.getReward(test, player);
-        player.setInvestigationPoints((int) Math.ceil(player.getInvestigationPoints()/2));
+    void getReward(Test test, List<Player> players, int playerIteration) {
+        super.getReward(test, players, playerIteration);
+        players.get(playerIteration).setInvestigationPoints((int) Math.ceil(players.get(playerIteration).getInvestigationPoints()/2));
+        if (players.get(playerIteration).getInvestigationPoints() >= 10 && !players.get(playerIteration).getClass().getSimpleName().equals("Doctor")){
+            players.get(playerIteration).checkRole();
+        }
     }
 
     @Override
-    void getPenalitation(Test test, Edition edition, int playerIterarion) {
-        super.getPenalitation(test, edition, playerIterarion);
-        if (edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
-            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 1);
-        } else{
-            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
+    void getPenalitation(Test test, Edition edition, int playerIteration) {
+        super.getPenalitation(test, edition, playerIteration);
+        edition.getPlayers().get(playerIteration).getPenalizationBudget();
+        if(edition.getPlayers().get(playerIteration).getInvestigationPoints() <= 0){
+            System.out.println(edition.getPlayers().get(playerIteration).getName() + " was eliminated!");
+            edition.getPlayers().remove(playerIteration);
+            edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }
     }
 }

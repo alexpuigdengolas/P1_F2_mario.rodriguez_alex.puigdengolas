@@ -2,6 +2,8 @@ package Business;
 
 import Presentation.ViewController;
 
+import java.util.List;
+
 public class Test {
     private String name;
     private String type;
@@ -25,7 +27,7 @@ public class Test {
 
     }
 
-    void getReward(Test test, Player player) {
+    void getReward(Test test, List<Player> players, int playerIteration) {
 
     }
 

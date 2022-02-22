@@ -95,4 +95,6 @@ public class Edition {
             edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }
     }
+
+
 }

@@ -3,6 +3,11 @@ package Business.Role;
 import Business.Player;
 
 public class Doctor extends Player {
+    public Doctor(String name, int ip) {
+        this.setName(name);
+        this.setInvestigationPoints(ip);
+    }
+
     //Publication
     @Override
     public void getRewardPublication(String quartil) {

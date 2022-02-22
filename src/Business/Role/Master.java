@@ -3,6 +3,11 @@ package Business.Role;
 import Business.Player;
 
 public class Master extends Player {
+    public Master(String name, int ip) {
+        this.setName(name);
+        this.setInvestigationPoints(ip);
+    }
+
     //Publication
     @Override
     public void getRewardPublication(String quartil) {
@@ -70,5 +75,10 @@ public class Master extends Player {
     public void getPenalizationBudget() {
         super.getPenalizationBudget();
         this.setInvestigationPoints(this.getInvestigationPoints() - 2);
+    }
+
+    @Override
+    public Player checkRole() {
+        return new Doctor(this.getName(), 5);
     }
 }

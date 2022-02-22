@@ -2,6 +2,8 @@ package Business;
 
 import Presentation.ViewController;
 
+import java.util.List;
+
 public class doctoralDefense extends Test{
     private String field;
     private int diff;
@@ -40,7 +42,7 @@ public class doctoralDefense extends Test{
             result = Math.sqrt(noGoodResult);
             for (int i = 0; i < edition.getPlayers().size(); i++) {
                 if(edition.getPlayers().get(i).getInvestigationPoints() < result){
-                    getReward(test, edition.getPlayers().get(i));
+                    getReward(test, edition.getPlayers(), i);
                     edition.getBusinessController().getViewController().deffensePassed(edition.getPlayers().get(i));
                 }else{
                     getPenalitation(test, edition, i);
@@ -53,30 +55,23 @@ public class doctoralDefense extends Test{
     }
 
     @Override
-    void getReward(Test test, Player player) {
-        super.getReward(test, player);
-        if(player.getRole().equals("Màster")){
-            player.setInvestigationPoints(10);
-            player.checkRole();
-        }else{
-            if(player.getRole().equals("Enginyer")) {
-                player.setInvestigationPoints(player.getInvestigationPoints() + 5);
-            }else if(player.getRole().equals("Doctor")){
-                player.setInvestigationPoints(player.getInvestigationPoints() + (5*2));
-            }
-            player.checkRole();
+    void getReward(Test test, List<Player> players, int playerIteration) {
+        super.getReward(test, players, playerIteration);
+        players.get(playerIteration).getRewardDefense();
+        if(players.get(playerIteration).getInvestigationPoints() >= 10 && !players.get(playerIteration).getClass().getSimpleName().equals("Doctor")){
+            players.set(playerIteration, players.get(playerIteration).checkRole());
         }
     }
 
     @Override
-    void getPenalitation(Test test, Edition edition, int playerIterarion) {
-        super.getPenalitation(test, edition, playerIterarion);
-        if (edition.getPlayers().get(playerIterarion).getRole().equals("Enginyer")) {
-            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 5);
-        }else if (edition.getPlayers().get(playerIterarion).getRole().equals("Màster") || edition.getPlayers().get(playerIterarion).getRole().equals("Doctor")) {
-            edition.getPlayers().get(playerIterarion).setInvestigationPoints(edition.getPlayers().get(playerIterarion).getInvestigationPoints() - 2);
+    void getPenalitation(Test test, Edition edition, int playerIteration) {
+        super.getPenalitation(test, edition, playerIteration);
+        edition.getPlayers().get(playerIteration).getPenalizationDefense();
+        if(edition.getPlayers().get(playerIteration).getInvestigationPoints() <= 0){
+            System.out.println(edition.getPlayers().get(playerIteration).getName() + " was eliminated!");
+            edition.getPlayers().remove(playerIteration);
+            edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }
-        edition.removePlayer(edition, playerIterarion);
     }
 
     @Override

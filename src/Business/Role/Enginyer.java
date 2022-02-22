@@ -4,6 +4,16 @@ import Business.Player;
 
 public class Enginyer extends Player {
 
+    public Enginyer(){
+        this.setName("Pepe");
+        this.setInvestigationPoints(5);
+    }
+
+    public Enginyer(String name, int ip) {
+        this.setName(name);
+        this.setInvestigationPoints(ip);
+    }
+
     //Publication
     @Override
     public void getRewardPublication(String quartil) {
@@ -70,5 +80,10 @@ public class Enginyer extends Player {
     public void getPenalizationBudget() {
         super.getPenalizationBudget();
         this.setInvestigationPoints(this.getInvestigationPoints() - 2);
+    }
+
+    @Override
+    public Player checkRole() {
+        return new Master(this.getName(), 5);
     }
 }

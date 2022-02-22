@@ -1,6 +1,7 @@
 package Presentation;
 
 import Business.*;
+import Business.Role.Enginyer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -399,7 +400,7 @@ public class ViewController {
                 }
                 if (ok) {
                     for(int i = 0; i < initialPlayers; i++){
-                        players.add(new Player());
+                        players.add(new Enginyer());
                     }
                     editions.add(new Edition(year, initialPlayers, numTest, rounds, editionTests, players));
                 }

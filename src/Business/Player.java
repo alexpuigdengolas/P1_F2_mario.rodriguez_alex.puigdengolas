@@ -1,20 +1,20 @@
 package Business;
 
+import Business.Role.Doctor;
+import Business.Role.Master;
+
 public class Player {
     private String name;
     private int investigationPoints;
-    private String role;
 
     public Player() {
         this.name = "Pepe";
         this.investigationPoints = 5;
-        this.role = "Enginyer";
     }
 
     public Player(String name, int investigationPoints) {
         this.name = name;
         this.investigationPoints = investigationPoints;
-        this.role = "Enginyer";
     }
 
     public String getName() {
@@ -33,22 +33,8 @@ public class Player {
         this.investigationPoints = investigationPoints;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public void checkRole(){
-        if(investigationPoints >= 10 && role.equals("Enginyer")){
-            this.role = "Màster";
-            this.investigationPoints = 5;
-        }else if(investigationPoints >= 10 && role.equals("Màster")){
-            this.role = "Doctor";
-            this.investigationPoints = 5;
-        }
+    public Player checkRole(){
+        return this;
     }
 
 

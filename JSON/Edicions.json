@@ -40,33 +40,26 @@
         "type": "doctoralDefense"
       },
       {
-        "master": "sil",
-        "credits": 60,
-        "probability": 20,
         "name": "sil",
         "type": "estudiMaster"
       }
     ],
     "players": [
       {
-        "name": "DANI",
-        "investigationPoints": 5,
-        "role": "Doctor"
+        "name": "Manuek",
+        "investigationPoints": 2
       },
       {
-        "name": "PUCHI",
-        "investigationPoints": 2,
-        "role": "Doctor"
+        "name": "Laia",
+        "investigationPoints": 1
       },
       {
-        "name": "GUILLEM",
-        "investigationPoints": 6,
-        "role": "Doctor"
+        "name": "Pepe",
+        "investigationPoints": 3
       },
       {
-        "name": "SIL",
-        "investigationPoints": 6,
-        "role": "Doctor"
+        "name": "Emma",
+        "investigationPoints": 3
       }
     ]
   },
@@ -77,16 +70,10 @@
     "rounds": 0,
     "tests": [
       {
-        "master": "sil",
-        "credits": 60,
-        "probability": 20,
         "name": "sil",
         "type": "estudiMaster"
       },
       {
-        "master": "Media Security",
-        "credits": 61,
-        "probability": 60,
         "name": "Studies",
         "type": "estudiMaster"
       }
@@ -94,18 +81,15 @@
     "players": [
       {
         "name": "Pepe",
-        "investigationPoints": 5,
-        "role": "Enginyer"
+        "investigationPoints": 5
       },
       {
         "name": "Pepe",
-        "investigationPoints": 5,
-        "role": "Enginyer"
+        "investigationPoints": 5
       },
       {
         "name": "Pepe",
-        "investigationPoints": 5,
-        "role": "Enginyer"
+        "investigationPoints": 5
       }
     ]
   }

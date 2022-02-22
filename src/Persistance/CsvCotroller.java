@@ -1,6 +1,9 @@
 package Persistance;
 
 import Business.*;
+import Business.Role.Doctor;
+import Business.Role.Enginyer;
+import Business.Role.Master;
 
 import javax.swing.*;
 import java.io.*;
@@ -45,8 +48,18 @@ public class CsvCotroller {
         int j = 0;
         while (j < playerData.length){
             String info [] = playerData[j].split("/");
-            Player player = new Player(info[0], Integer.parseInt(info[1]));
-            players.add(player);
+            if(info[0].equals("Enginyer")) {
+                Enginyer player = new Enginyer(info[1], Integer.parseInt(info[2]));
+                players.add(player);
+            }
+            if(info[0].equals("Master")) {
+                Master player = new Master(info[1], Integer.parseInt(info[2]));
+                players.add(player);
+            }
+            if(info[0].equals("Doctor")) {
+                Doctor player = new Doctor(info[1], Integer.parseInt(info[2]));
+                players.add(player);
+            }
             j++;
         }
         return players;
@@ -157,6 +170,8 @@ public class CsvCotroller {
     private String getPlayers(List<Player> players) {
         StringBuilder result = new StringBuilder();
         for(int i = 0; i <players.size();i++) {
+            result.append(players.get(i).getClass().getSimpleName());
+            result.append("/");
             result.append(players.get(i).getName());
             result.append("/");
             result.append(players.get(i).getInvestigationPoints());
