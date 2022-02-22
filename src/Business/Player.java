@@ -50,4 +50,36 @@ public class Player {
             this.investigationPoints = 5;
         }
     }
+
+
+    //Publication
+    public void getRewardPublication(String quartil) {
+    }
+    public void getPenalizationPublication(String quartil){
+
+    }
+
+    //Doctoral Defense
+    public void getRewardDefense() {
+
+    }
+    public void getPenalizationDefense(){
+
+    }
+
+    //Master
+    public void getRewardMaster() {
+
+    }
+    public void getPenalizationMaster(){
+
+    }
+
+    //Budget
+    public void getRewardBudget() {
+        this.setInvestigationPoints(((int) Math.ceil(this.getInvestigationPoints()/2)) + this.getInvestigationPoints());
+    }
+    public void getPenalizationBudget(){
+
+    }
 }

@@ -8,4 +8,14 @@
     "name": "Publi",
     "type": "Publication"
   }
+][
+  {
+    "nameMag": "La Salle Journal",
+    "quartil": "Q3",
+    "acceptanceProbability": 60,
+    "revisionProbability": 20,
+    "notAcceptedProbability": 20,
+    "name": "Publi",
+    "type": "Publication"
+  }
 ]

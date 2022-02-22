@@ -2,7 +2,7 @@ package Business;
 
 import java.util.LinkedList;
 
-public class Compositor extends Role{
+public class Compositor {
     public void createTest(String name, String nameMagazine, String quartil, int acceptanceProbability, int revisionProbability, int notAcceptedProbability){
 
     }

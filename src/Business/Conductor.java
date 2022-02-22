@@ -2,7 +2,7 @@ package Business;
 
 import java.util.LinkedList;
 
-public class Conductor extends Role{
+public class Conductor {
     public void playerGame(){
 
     }

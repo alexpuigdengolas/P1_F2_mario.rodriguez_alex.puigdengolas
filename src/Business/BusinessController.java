@@ -194,7 +194,7 @@ public class BusinessController {
     private Player getWinner(Edition edition) {
         int winner = 0;
         int maxpi = 0;
-        for (int i = 0; edition.getPlayers().size() < i; i++){
+        for (int i = 0; edition.getPlayers().size() > i; i++){
             if(maxpi < edition.getPlayers().get(i).getInvestigationPoints()){
                 winner = i;
             }

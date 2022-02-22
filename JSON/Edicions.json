@@ -1,7 +1,7 @@
 [
   {
     "year": 2022,
-    "initialPlayers": 5,
+    "initialPlayers": 4,
     "numTest": 4,
     "rounds": 0,
     "tests": [
@@ -38,33 +38,74 @@
         "diff": 4,
         "name": "Thesis",
         "type": "doctoralDefense"
+      },
+      {
+        "master": "sil",
+        "credits": 60,
+        "probability": 20,
+        "name": "sil",
+        "type": "estudiMaster"
       }
     ],
     "players": [
       {
-        "name": "A",
+        "name": "DANI",
         "investigationPoints": 5,
         "role": "Doctor"
       },
       {
-        "name": "B",
-        "investigationPoints": 5,
+        "name": "PUCHI",
+        "investigationPoints": 2,
         "role": "Doctor"
       },
       {
-        "name": "C",
-        "investigationPoints": 5,
+        "name": "GUILLEM",
+        "investigationPoints": 6,
         "role": "Doctor"
       },
       {
-        "name": "D",
-        "investigationPoints": 5,
+        "name": "SIL",
+        "investigationPoints": 6,
         "role": "Doctor"
+      }
+    ]
+  },
+  {
+    "year": 2000,
+    "initialPlayers": 3,
+    "numTest": 2,
+    "rounds": 0,
+    "tests": [
+      {
+        "master": "sil",
+        "credits": 60,
+        "probability": 20,
+        "name": "sil",
+        "type": "estudiMaster"
       },
       {
-        "name": "E",
+        "master": "Media Security",
+        "credits": 61,
+        "probability": 60,
+        "name": "Studies",
+        "type": "estudiMaster"
+      }
+    ],
+    "players": [
+      {
+        "name": "Pepe",
         "investigationPoints": 5,
-        "role": "Doctor"
+        "role": "Enginyer"
+      },
+      {
+        "name": "Pepe",
+        "investigationPoints": 5,
+        "role": "Enginyer"
+      },
+      {
+        "name": "Pepe",
+        "investigationPoints": 5,
+        "role": "Enginyer"
       }
     ]
   }

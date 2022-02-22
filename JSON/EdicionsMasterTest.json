@@ -6,4 +6,26 @@
     "name": "Studies",
     "type": "estudiMaster"
   }
+][
+  {
+    "master": "Media Security",
+    "credits": 61,
+    "probability": 60,
+    "name": "Studies",
+    "type": "estudiMaster"
+  },
+  {
+    "master": "sil",
+    "credits": 60,
+    "probability": 20,
+    "name": "sil",
+    "type": "estudiMaster"
+  },
+  {
+    "master": "Media Security",
+    "credits": 61,
+    "probability": 60,
+    "name": "Studies",
+    "type": "estudiMaster"
+  }
 ]
