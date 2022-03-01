@@ -13,6 +13,7 @@ public class BusinessController {
     ViewController viewController = new ViewController(this);
     LinkedList<Test> tests = new LinkedList<Test>();
     List<Edition> editions = new LinkedList<Edition>();
+    List<Player> players = new LinkedList<>();
 
 
     public BusinessController(){
@@ -26,9 +27,13 @@ public class BusinessController {
         }else{
             editions = json.readJSON("JSON/Edicions.json");
             tests = json.readTestJSON("JSON/EdicionsPubliTest.json", "JSON/EdicionsDefTest.json", "JSON/EdicionsMasterTest.json", "JSON/EdicionsReqTest.json");
+
+            players = json.readPlayersJSON("JSON/Enginyer.json", "JSON/Master.json", "JSON/Doctor.json");
             for(int i = 0; i < editions.size(); i++){
                 if(editions.get(i).getYear() == Calendar.getInstance().get(Calendar.YEAR)){
                     editions.get(i).setTests(this.tests);
+                    editions.get(i).getPlayers().clear();
+                    editions.get(i).setPlayers((LinkedList<Player>) this.players);
                 }
             }
         }
@@ -55,6 +60,7 @@ public class BusinessController {
             csv.writeCSV(editions, "CSV/Edicions.csv");
         }else{
             json.writeTestsJSON(editions, "JSON/EdicionsPubliTest.json", "JSON/EdicionsDefTest.json", "JSON/EdicionsMasterTest.json", "JSON/EdicionsReqTest.json");
+            json.writePlayersJSON(editions, "JSON/Enginyer.json", "JSON/Master.json", "JSON/Doctor.json");
             json.writeEditionsJSON(editions, "JSON/Edicions.json");
 
         }

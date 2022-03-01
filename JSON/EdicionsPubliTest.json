@@ -1,7 +1,7 @@
 [
   {
     "nameMag": "A",
-    "quartil": "Q4",
+    "quartil": "Q1",
     "acceptanceProbability": 20,
     "revisionProbability": 60,
     "notAcceptedProbability": 20,

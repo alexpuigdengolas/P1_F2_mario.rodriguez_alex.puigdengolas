@@ -5,5 +5,12 @@
     "probability": 50,
     "name": "C",
     "type": "estudiMaster"
+  },
+  {
+    "master": "D",
+    "credits": 120,
+    "probability": 80,
+    "name": "D",
+    "type": "estudiMaster"
   }
 ]

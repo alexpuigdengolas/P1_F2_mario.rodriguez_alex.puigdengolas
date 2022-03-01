@@ -1,13 +1,13 @@
 [
   {
     "year": 2022,
-    "initialPlayers": 4,
+    "initialPlayers": 2,
     "numTest": 4,
     "rounds": 0,
     "tests": [
       {
         "nameMag": "A",
-        "quartil": "Q4",
+        "quartil": "Q1",
         "acceptanceProbability": 20,
         "revisionProbability": 60,
         "notAcceptedProbability": 20,
@@ -22,10 +22,11 @@
         "type": "estudiMaster"
       },
       {
-        "entity": "D",
-        "quantity": 200000.0,
+        "master": "D",
+        "credits": 120,
+        "probability": 80,
         "name": "D",
-        "type": "budgetRequest"
+        "type": "estudiMaster"
       },
       {
         "field": "B",
@@ -43,19 +44,11 @@
     "players": [
       {
         "name": "A",
-        "investigationPoints": 7
-      },
-      {
-        "name": "B",
-        "investigationPoints": 7
+        "investigationPoints": 15
       },
       {
         "name": "C",
-        "investigationPoints": 7
-      },
-      {
-        "name": "D",
-        "investigationPoints": 7
+        "investigationPoints": 2
       }
     ]
   }

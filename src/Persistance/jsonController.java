@@ -1,6 +1,9 @@
 package Persistance;
 
 import Business.*;
+import Business.Role.Doctor;
+import Business.Role.Enginyer;
+import Business.Role.Master;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -8,6 +11,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javax.print.Doc;
 import javax.swing.*;
 import javax.xml.crypto.KeySelector;
 import java.io.*;
@@ -68,6 +72,41 @@ public class jsonController {
         }
     }
 
+    public void writePlayersJSON(List<Edition> editions, String enginyerAddress, String masterAddress, String doctorAddress) {
+        try {
+            FileWriter enginyerWriter = new FileWriter(enginyerAddress);
+            FileWriter masterWriter = new FileWriter(masterAddress);
+            FileWriter doctorWriter = new FileWriter(doctorAddress);
+            Gson testGson = new GsonBuilder().setPrettyPrinting().create();
+
+            List<Enginyer> enginyers = new ArrayList<>();
+            List<Master> masters = new ArrayList<>();
+            List<Doctor> doctors = new ArrayList<>();
+
+
+            for (int i = 0; i < editions.size(); i++) {
+                for (int j = 0; j < editions.get(i).getPlayers().size(); j++) {
+                    if (editions.get(i).getPlayers().get(j).getClass().getSimpleName().equals("Enginyer")) {
+                        enginyers.add((Enginyer) editions.get(i).getPlayers().get(j));
+                    } else if (editions.get(i).getPlayers().get(j).getClass().getSimpleName().equals("Master")) {
+                        masters.add((Master) editions.get(i).getPlayers().get(j));
+                    } else if (editions.get(i).getPlayers().get(j).getClass().getSimpleName().equals("Doctor")) {
+                        doctors.add((Doctor) editions.get(i).getPlayers().get(j));
+                    }
+                }
+                testGson.toJson(enginyers, enginyerWriter);
+                testGson.toJson(masters, masterWriter);
+                testGson.toJson(doctors, doctorWriter);
+
+            }
+            enginyerWriter.close();
+            masterWriter.close();
+            doctorWriter.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public List<Edition> readJSON(String address) {
         List<Edition> editions = new ArrayList<Edition>();
 
@@ -97,16 +136,6 @@ public class jsonController {
         Gson gson;
 
         try {
-            /*
-            gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.fromJson(gson.newJsonReader(new FileReader(address)), Test[].class);
-            testsArray = gson.fromJson(gson.newJsonReader(new FileReader(address)), Test[].class);
-            if (testsArray == null) {
-                tests = new LinkedList<>();
-            } else {
-                List<Test> list = Arrays.asList(testsArray);
-                tests = new LinkedList<>(list);
-            }*/
 
             gson = new GsonBuilder().setPrettyPrinting().create();
             Publication[] publications = gson.fromJson(gson.newJsonReader(new FileReader(testPubliAddress)), Publication[].class);
@@ -134,5 +163,35 @@ public class jsonController {
             e.printStackTrace();
         }
         return tests;
+    }
+
+    public LinkedList<Player> readPlayersJSON(String enginyerAddress, String masterAddress, String doctorAddress) {
+        LinkedList<Player> players = new LinkedList<>();
+        Player[] playerArray;
+        Gson gson;
+
+        try {
+
+            gson = new GsonBuilder().setPrettyPrinting().create();
+            Enginyer[] enginyers = gson.fromJson(gson.newJsonReader(new FileReader(enginyerAddress)), Enginyer[].class);
+            if(enginyers != null){
+                players.addAll(Arrays.asList(enginyers));
+            }
+
+            Master[] masters = gson.fromJson(gson.newJsonReader(new FileReader(masterAddress)), Master[].class);
+            if(masters != null){
+                players.addAll(Arrays.asList(masters));
+            }
+
+            Doctor[] doctors = gson.fromJson(gson.newJsonReader(new FileReader(doctorAddress)), Doctor[].class);
+            if(doctors != null) {
+                players.addAll(Arrays.asList(doctors));
+            }
+
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+        }
+        return players;
     }
 }
