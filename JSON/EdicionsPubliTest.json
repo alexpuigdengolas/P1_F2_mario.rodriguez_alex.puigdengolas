@@ -1,21 +1,11 @@
 [
   {
-    "nameMag": "La Salle Journal",
-    "quartil": "Q3",
-    "acceptanceProbability": 60,
-    "revisionProbability": 20,
+    "nameMag": "A",
+    "quartil": "Q4",
+    "acceptanceProbability": 20,
+    "revisionProbability": 60,
     "notAcceptedProbability": 20,
-    "name": "Publi",
-    "type": "Publication"
-  }
-][
-  {
-    "nameMag": "La Salle Journal",
-    "quartil": "Q3",
-    "acceptanceProbability": 60,
-    "revisionProbability": 20,
-    "notAcceptedProbability": 20,
-    "name": "Publi",
+    "name": "A",
     "type": "Publication"
   }
 ]

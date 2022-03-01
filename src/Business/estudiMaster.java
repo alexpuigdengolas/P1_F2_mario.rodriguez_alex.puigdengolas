@@ -77,7 +77,7 @@ public class estudiMaster extends Test{
         super.getReward(test, players, playerIteration);
         players.get(playerIteration).getRewardDefense();
         if(players.get(playerIteration).getInvestigationPoints() >= 10 && !players.get(playerIteration).getClass().getSimpleName().equals("Doctor")){
-            players.set(playerIteration, players.get(playerIteration).checkRole());
+            players.get(playerIteration).checkRole(players, playerIteration);
         }
     }
 

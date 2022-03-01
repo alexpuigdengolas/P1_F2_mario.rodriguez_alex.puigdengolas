@@ -2,6 +2,8 @@ package Business.Role;
 
 import Business.Player;
 
+import java.util.List;
+
 public class Master extends Player {
     public Master(String name, int ip) {
         this.setName(name);
@@ -78,7 +80,9 @@ public class Master extends Player {
     }
 
     @Override
-    public Player checkRole() {
-        return new Doctor(this.getName(), 5);
+    public void checkRole(List<Player> players, int playerIteration) {
+        Doctor player = new Doctor(this.getName(), 5);
+        players.remove(playerIteration);
+        players.add(playerIteration, player);
     }
 }

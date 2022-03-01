@@ -1,17 +1,9 @@
 [
   {
-    "master": "Media Security",
+    "master": "C",
     "credits": 61,
-    "probability": 60,
-    "name": "Studies",
-    "type": "estudiMaster"
-  }
-][
-  {
-    "master": "Media Security",
-    "credits": 61,
-    "probability": 60,
-    "name": "Studies",
+    "probability": 50,
+    "name": "C",
     "type": "estudiMaster"
   }
 ]

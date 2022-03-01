@@ -6,90 +6,56 @@
     "rounds": 0,
     "tests": [
       {
-        "nameMag": "La Salle Journal",
-        "quartil": "Q3",
-        "acceptanceProbability": 60,
-        "revisionProbability": 20,
+        "nameMag": "A",
+        "quartil": "Q4",
+        "acceptanceProbability": 20,
+        "revisionProbability": 60,
         "notAcceptedProbability": 20,
-        "name": "Publi",
+        "name": "A",
         "type": "Publication"
       },
       {
-        "master": "Media Security",
+        "master": "C",
         "credits": 61,
-        "probability": 60,
-        "name": "Studies",
+        "probability": 50,
+        "name": "C",
         "type": "estudiMaster"
       },
       {
-        "entity": "Computers",
-        "quantity": 20000.0,
-        "name": "Budget",
+        "entity": "D",
+        "quantity": 200000.0,
+        "name": "D",
         "type": "budgetRequest"
       },
       {
-        "field": "Smart Phones",
-        "diff": 4,
-        "name": "Thesis",
+        "field": "B",
+        "diff": 6,
+        "name": "B",
         "type": "doctoralDefense"
       },
       {
-        "field": "Smart Phones",
-        "diff": 4,
-        "name": "Thesis",
+        "field": "B",
+        "diff": 6,
+        "name": "B",
         "type": "doctoralDefense"
-      },
-      {
-        "name": "sil",
-        "type": "estudiMaster"
       }
     ],
     "players": [
       {
-        "name": "Manuek",
-        "investigationPoints": 2
+        "name": "A",
+        "investigationPoints": 7
       },
       {
-        "name": "Laia",
-        "investigationPoints": 1
+        "name": "B",
+        "investigationPoints": 7
       },
       {
-        "name": "Pepe",
-        "investigationPoints": 3
+        "name": "C",
+        "investigationPoints": 7
       },
       {
-        "name": "Emma",
-        "investigationPoints": 3
-      }
-    ]
-  },
-  {
-    "year": 2000,
-    "initialPlayers": 3,
-    "numTest": 2,
-    "rounds": 0,
-    "tests": [
-      {
-        "name": "sil",
-        "type": "estudiMaster"
-      },
-      {
-        "name": "Studies",
-        "type": "estudiMaster"
-      }
-    ],
-    "players": [
-      {
-        "name": "Pepe",
-        "investigationPoints": 5
-      },
-      {
-        "name": "Pepe",
-        "investigationPoints": 5
-      },
-      {
-        "name": "Pepe",
-        "investigationPoints": 5
+        "name": "D",
+        "investigationPoints": 7
       }
     ]
   }

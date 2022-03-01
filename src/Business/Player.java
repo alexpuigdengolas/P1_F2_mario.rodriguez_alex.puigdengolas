@@ -1,7 +1,6 @@
 package Business;
 
-import Business.Role.Doctor;
-import Business.Role.Master;
+import java.util.List;
 
 public class Player {
     private String name;
@@ -33,9 +32,7 @@ public class Player {
         this.investigationPoints = investigationPoints;
     }
 
-    public Player checkRole(){
-        return this;
-    }
+    public void checkRole(List<Player> players, int playerIteration){}
 
 
     //Publication

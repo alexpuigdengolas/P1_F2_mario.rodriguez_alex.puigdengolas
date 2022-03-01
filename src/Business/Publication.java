@@ -110,7 +110,7 @@ public class Publication extends Test{
         quartil = publication.getQuartil();
         players.get(playerIteration).getRewardPublication(quartil);
         if(players.get(playerIteration).getInvestigationPoints() >= 10 && !players.get(playerIteration).getClass().getSimpleName().equals("Doctor")){
-            players.set(playerIteration, players.get(playerIteration).checkRole());
+            players.get(playerIteration).checkRole(players, playerIteration);
         }
     }
 

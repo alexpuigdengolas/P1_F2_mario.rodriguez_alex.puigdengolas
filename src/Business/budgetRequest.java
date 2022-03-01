@@ -62,9 +62,9 @@ public class budgetRequest extends Test{
     @Override
     void getReward(Test test, List<Player> players, int playerIteration) {
         super.getReward(test, players, playerIteration);
-        players.get(playerIteration).setInvestigationPoints((int) Math.ceil(players.get(playerIteration).getInvestigationPoints()/2));
+        players.get(playerIteration).getRewardBudget();
         if (players.get(playerIteration).getInvestigationPoints() >= 10 && !players.get(playerIteration).getClass().getSimpleName().equals("Doctor")){
-            players.get(playerIteration).checkRole();
+            players.get(playerIteration).checkRole(players, playerIteration);
         }
     }
 
