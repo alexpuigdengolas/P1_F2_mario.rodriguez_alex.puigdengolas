@@ -7,14 +7,25 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class will be used to show any information that is needed
+ */
 public class ViewController {
     BusinessController businessController;
 
+    /**
+     * This method is the constructor of the controller
+     * @param businessController the business controller that controls all the execution of the code
+     */
     //Controller
     public ViewController(BusinessController businessController) {
         this.businessController = businessController;
     }
 
+    /**
+     * This is the view that will make the user chose between the tow modes of execution of the code
+     * @return returns a boolean that shows the mode of execution of the code
+     */
     public boolean startView(){
         Scanner sc = new Scanner(System.in);
         String option;
@@ -54,6 +65,48 @@ public class ViewController {
        return false;
     }
 
+    /**
+     * This view is the literal first one to appear in execution that will allow us to chose the way
+     * that the data will be read and written
+     * @return the boolean that shows the way that the data will be written
+     */
+    public boolean dataSelection() {
+        Scanner sc = new Scanner(System.in);
+        boolean ok = false, csvOn = false;
+        String option;
+        do{
+            System.out.println("The IEEE needs to know where your allegiance lies.");
+            System.out.println();
+            System.out.println("    I) People's front of Engineering (CSV)");
+            System.out.println("    II) Engineering People’s Front (JSON)");
+            System.out.println();
+            System.out.print("Pick a faction: ");
+            option = sc.nextLine();
+            if(option.equals("I")){
+                csvOn = true;
+                System.out.println();
+                System.out.println("Loading data from CSV files...");
+                System.out.println();
+                ok = true;
+            }else if(option.equals("II")){
+                System.out.println();
+                System.out.println("Loading data from JSON files...");
+                System.out.println();
+                ok = true;
+            }else{
+                System.out.println();
+                System.err.println("This option is not available please try again");
+                System.out.println();
+            }
+        }while(!ok);
+        return csvOn;
+    }
+
+    /**
+     * This is the view of that makes the user chose the type of things that makes you chose between creating
+     * editions or tests
+     * @return an int representing the option selected
+     */
     public int mainCompositorView() {
         String option;
         Scanner sc = new Scanner(System.in);
@@ -88,6 +141,11 @@ public class ViewController {
         return 0;
     }
 
+    /**
+     * This view will allow the user to manage the Trials and make possible to
+     * create, delete and show all the trials
+     * @return the option selected
+     */
     public String manageTrialsView() {
         Scanner sc = new Scanner(System.in);
         String option;
@@ -116,6 +174,10 @@ public class ViewController {
         return null;
     }
 
+    /**
+     * This view will appear if the we want to create a trial
+     * @return the int that indicates witch type of trial we want to create
+     */
     public int trialChoiceView() {
         String option;
         Scanner sc = new Scanner(System.in);
@@ -144,6 +206,10 @@ public class ViewController {
         return 0;
     }
 
+    /**
+     * This view will show when we create a Paper publication
+     * @return the paper publication we all created
+     */
     public Publication createPaperPublication() {
         String name = null, nameMag=null, quartil=null,option;
         int acceptanceProbability = 0, revisionProbability = 0, notAcceptedProbability = 0;
@@ -255,6 +321,10 @@ public class ViewController {
         }while(!ok && !ok2);
     }
 
+    /**
+     * This view will show the user all the trials already existing
+     * @param tests is all the tests that we have saved
+     */
     public void trialChoiceShowView(LinkedList<Test> tests){
         boolean ok = false, aux;
         String optionAux;
@@ -298,6 +368,10 @@ public class ViewController {
         }while(!ok);
     }
 
+    /**
+     * This view will show to the user when he wants to delete a test
+     * @param tests is all the tests that we have saved
+     */
     public void trialChoiceDeleteView(LinkedList<Test> tests) {
         boolean ok = false, aux;
         String optionAux, confirmation;
@@ -352,6 +426,11 @@ public class ViewController {
         }while(!ok);
     }
 
+    /**
+     * This view will allow the user to manage the Editions and make possible to
+     * create, delete, duplicate and show all the editions and the trials that they contain
+     * @return the option selected
+     */
     public String manageEditionView() {
         Scanner sc = new Scanner(System.in);
         String option;
@@ -381,6 +460,11 @@ public class ViewController {
         return null;
     }
 
+    /**
+     * This view will show when we create an Edition
+     * @param tests is all the tests that we have saved
+     * @param editions is all the editions that we have saved
+     */
     public void createEditionView(List<Test> tests, List<Edition> editions) {
         boolean ok = false, aux;
         String option;
@@ -482,6 +566,10 @@ public class ViewController {
 
     }
 
+    /**
+     * This view will show when we want to see the Editions
+     * @param editions is all the editions that we have saved
+     */
     public void showEditionView(List<Edition> editions) {
         boolean ok = false;
         Scanner sc = new Scanner(System.in);
@@ -526,6 +614,10 @@ public class ViewController {
         }while(!ok);
     }
 
+    /**
+     * This view will show when we want to duplicate an Edition
+     * @param editions is all the editions that we have saved
+     */
     public void duplicateEdition(List<Edition> editions) {
         boolean ok = false, aux;
         String optionAux;
@@ -602,6 +694,10 @@ public class ViewController {
         }while(!ok);
     }
 
+    /**
+     * This view will show when we want to delete an Edition
+     * @param editions is all the editions that we have saved
+     */
     public void deleteEditionView(List<Edition> editions) {
         boolean ok,aux;
         Scanner sc = new Scanner(System.in);
@@ -661,7 +757,11 @@ public class ViewController {
         }while(!ok);
     }
 
-    //Conductor
+    /**
+     * This view will be used when we execute an edition
+     * @param edition the current edition
+     * @param year the current year
+     */
     public void mainConductorView(Edition edition, int year) {
         String name;
         boolean aux;
@@ -691,6 +791,10 @@ public class ViewController {
         }
     }
 
+    /**
+     * This view will be showed if the year is not available
+     * @param year the year that we are analyzing
+     */
     public void noEditionView(int year) {
         System.out.println(" ");
         System.out.println("Entering execution mode...");
@@ -700,22 +804,41 @@ public class ViewController {
         System.out.println("Shutting down...");
     }
 
+    /**
+     * This view will indicate that the publication has been passed
+     * @param player the player that has passed
+     */
     public void acceptedPublication(Player player) {
         System.out.println("Accepted! PI count: "+player.getInvestigationPoints());
     }
 
+    /**
+     * This view will indicate that the publication hasn't been passed
+     * @param player the player that hasn't passed
+     */
     public void rejectedPublication(Player player) {
         System.out.println("Rejected! PI count: "+player.getInvestigationPoints());
     }
 
+    /**
+     * This view will indicate that the publication is being revised
+     */
     public void revisedPublication() {
         System.out.print("Revisions... ");
     }
 
+    /**
+     * This view will get showed when the player is submitting
+     * @param player the player that is submitting
+     */
     public void submitting(Player player) {
         System.out.print(player.getName()+" is submitting...");
     }
 
+    /**
+     * this view will be showed if we want to get to the next test
+     * @return a boolean if we want to execute the next test
+     */
     public boolean nextTest() {
         Scanner sc = new Scanner(System.in);
         boolean ok = false;
@@ -736,42 +859,19 @@ public class ViewController {
         return false;
     }
 
+    /**
+     * This will get showed if the edition has ended
+     * @param edition current edition
+     * @param winner the winner of the edition
+     */
     public void editionEnded(Edition edition, Player winner) {
         System.out.println("THE TRIALS "+edition.getYear()+" HAVE ENDED - "+winner.getName()+" WON");
     }
 
-    public boolean dataSelection() {
-        Scanner sc = new Scanner(System.in);
-        boolean ok = false, csvOn = false;
-        String option;
-        do{
-            System.out.println("The IEEE needs to know where your allegiance lies.");
-            System.out.println();
-            System.out.println("    I) People's front of Engineering (CSV)");
-            System.out.println("    II) Engineering People’s Front (JSON)");
-            System.out.println();
-            System.out.print("Pick a faction: ");
-            option = sc.nextLine();
-            if(option.equals("I")){
-                csvOn = true;
-                System.out.println();
-                System.out.println("Loading data from CSV files...");
-                System.out.println();
-                ok = true;
-            }else if(option.equals("II")){
-                System.out.println();
-                System.out.println("Loading data from JSON files...");
-                System.out.println();
-                ok = true;
-            }else{
-                System.out.println();
-                System.err.println("This option is not available please try again");
-                System.out.println();
-            }
-        }while(!ok);
-        return csvOn;
-    }
-
+    /**
+     * This view will show when creating a DoctoralDefense
+     * @return a test with all the information of the doctoral defense
+     */
     public Test createDoctoralDefense() {
         String name, field,option;
         int diff;
@@ -811,14 +911,26 @@ public class ViewController {
         return null;
     }
 
-    public void deffensePassed(Player player) {
+    /**
+     * This view will indicate that the defense has been passed
+     * @param player the player that has passed
+     */
+    public void defensePassed(Player player) {
         System.out.println(player.getName()+" was successful. Congrats! PI count: "+player.getInvestigationPoints());
     }
 
-    public void deffenseNotPassed(Player player) {
+    /**
+     * This view will indicate that the defense hasn't been passed
+     * @param player the player that hasn't passed
+     */
+    public void defenseNotPassed(Player player) {
         System.out.println(player.getName()+" wasn't successful. Sorry... PI count: "+player.getInvestigationPoints());
     }
 
+    /**
+     * This view will show when creating a MasterStudy
+     * @return a test with all the information of the master study
+     */
     public Test createMasterEstudy() {
         String name = null, master = null,option;
         int credits = 0, prob = 0;
@@ -896,14 +1008,26 @@ public class ViewController {
         }while(!ok);
     }
 
+    /**
+     * This view will indicate that the master study has been passed
+     * @param player the player that has passed
+     */
     public void masterPassed(Player player){
         System.out.println(player.getName()+" was successful. Congrats! PI count: "+player.getInvestigationPoints());
     }
 
+    /**
+     * This view will indicate that the master study hasn't been passed
+     * @param player the player that hasn't passed
+     */
     public void masterNotPassed(Player player){
         System.out.println(player.getName()+" wasn't successful. Sorry... PI count: "+player.getInvestigationPoints());
     }
 
+    /**
+     * This view will show when creating a BudgetRequest
+     * @return a test with all the information of the budget request
+     */
     public Test createBudgetRequest() {
         String name, entity,option;
         double budget;
@@ -943,37 +1067,75 @@ public class ViewController {
         return null;
     }
 
+    /**
+     * This view will indicate that the budget request has been passed
+     * @param player the player that has passed
+     */
     public void BudgetPassed(Player player){
         System.out.println(player.getName()+" was successful. Congrats! PI count: "+player.getInvestigationPoints());
     }
 
+    /**
+     * This view will indicate that the budget request hasn't been passed
+     * @param player the player that hasn't passed
+     */
     public void BudgetNotPassed(Player player){
         System.out.println(player.getName()+" wasn't successful. Sorry... PI count: "+player.getInvestigationPoints());
     }
 
+    /**
+     * This view will get seen if all the players are eliminated
+     */
     public void allPlayersDisc() {
         System.out.println("All player was disscualified, GAME OVER");
     }
 
+    /**
+     * The view that shows the publication
+     * @param publication the publication that we want to show
+     */
     public void showPublication (Publication publication){
         System.out.println("Trial: "+publication.getName()+" (Paper publication)");
         System.out.println("Journal: "+publication.getNameMag()+" ("+publication.getQuartil()+")");
         System.out.println("Chances: "+publication.getAcceptanceProbability()+"% acceptance, "+publication.getRevisionProbability()+"% revision, "+ publication.getNotAcceptedProbability()+"% rejection");
     }
 
+    /**
+     * The view that shows the doctoralDefense
+     * @param doctoralDefense the doctoral defense that we want to show
+     */
     public void showDoctoralDefense(doctoralDefense doctoralDefense) {
         System.out.println("Field: "+doctoralDefense.getField()+" (Doctoral Defense)");
         System.out.println("Difficulty: "+doctoralDefense.getDiff());
     }
 
+    /**
+     * The view that shows the budgetRequest
+     * @param budgetRequest the budget request that we want to show
+     */
     public void showBudgetRequest(budgetRequest budgetRequest){
         System.out.println("Entity: "+budgetRequest.getEntity());
         System.out.println("Quantity: "+budgetRequest.getQuantity());
     }
 
+    /**
+     * The view that shows the studyMaster
+     * @param estudiMaster the study master that we want to show
+     */
     public void showEstudyMaster(estudiMaster estudiMaster){
         System.out.println("Master: "+estudiMaster.getMaster()+"("+estudiMaster.getCredits()+") ["+estudiMaster.getProbability()+"%]");
     }
 
-
+    /**
+     * This method will show all the information of the edition
+     * @param edition the edition we want to show
+     */
+    public void showEditionInformation(Edition edition){
+        System.out.println("Year: "+ edition.getYear());
+        System.out.println("Players: "+ edition.getInitialPlayers());
+        System.out.println("Trials: ");
+        for (int i = 0; i < edition.getTests().size(); i++) {
+            System.out.println("    " + (i + 1) + "- The Trials " + edition.getTests().get(i).getName() +" ("+edition.getTests().get(i).getClass().getSimpleName()+")");
+        }
+    }
 }

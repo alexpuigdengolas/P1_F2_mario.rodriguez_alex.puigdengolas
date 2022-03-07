@@ -12,11 +12,20 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class will create the the file .csv to contain the editions information
+ */
+
 public class CsvCotroller {
     private BufferedReader lector;//lee el archivo
     private String liniea; // lee cada linea
     private String partes[] = null; //Guarda las lineas
 
+    /**
+     * This method will allow us to read the file .csv
+     * @param nameCSV the name of the file
+     * @return the list of editions that the file contains
+     */
     public List<Edition> readCSV(String nameCSV){
         try{
             List<Edition> data = new ArrayList<Edition>();
@@ -39,6 +48,11 @@ public class CsvCotroller {
         }
     }
 
+    /**
+     * This method will read the players contained in the file .csv
+     * @param parte is the string that will contain all the information
+     * @return a list of all the players inside of the .csv
+     */
     private List<Player> generatePlayers(String parte) {
 
         List<Player> players = new ArrayList<Player>();
@@ -65,6 +79,11 @@ public class CsvCotroller {
         return players;
     }
 
+    /**
+     * This method will read the tests contained in the file .csv
+     * @param parte is the string that will contain all the information
+     * @return a list of all the tests inside of the .csv
+     */
     private List<Test> generateTests(String parte) {
         List<Test> tests = new ArrayList<Test>();
         parte = parte.replace("[", "");
@@ -91,6 +110,11 @@ public class CsvCotroller {
         return tests;
     }
 
+    /**
+     * This method will allow us to write the .csv with all the information of the edition
+     * @param editions the list of editions that we have in the program
+     * @param nameCSV the name of where we want to save the information
+     */
     public void writeCSV(List<Edition> editions, String nameCSV){
         try {
             FileWriter csvWriter = new FileWriter(nameCSV);
@@ -120,6 +144,12 @@ public class CsvCotroller {
         }
     }
 
+    /**
+     * This will give us a string that we will put in the .csv to save
+     * all the tests
+     * @param tests is the list of tests that we have in the program
+     * @return the string with the information
+     */
     private String getTests(List<Test> tests) {
         StringBuilder result = new StringBuilder();
         for(int i = 0; i <tests.size();i++) {
@@ -167,9 +197,15 @@ public class CsvCotroller {
         return result.toString();
     }
 
+    /**
+     * This will give us a string that we will put in the .csv to save
+     * all the players
+     * @param players is the list of players in the code
+     * @return the string with the information
+     */
     private String getPlayers(List<Player> players) {
         StringBuilder result = new StringBuilder();
-        for(int i = 0; i <players.size();i++) {
+        for (int i = 0; i < players.size(); i++) {
             result.append(players.get(i).getClass().getSimpleName());
             result.append("/");
             result.append(players.get(i).getName());
@@ -179,12 +215,4 @@ public class CsvCotroller {
         }
         return result.toString();
     }
-
-    public void printLinea(){
-        for (int i = 0 ; i < partes.length; i++ ){
-            System.out.print(partes[i]+"  |  ");
-
-        }
-    }
-
 }

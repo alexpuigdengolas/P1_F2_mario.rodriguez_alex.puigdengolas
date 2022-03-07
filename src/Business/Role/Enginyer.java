@@ -6,11 +6,20 @@ import java.util.List;
 
 public class Enginyer extends Player {
 
+    /**
+     * This is the empty constructor that will allow us to create the a default player Enginyer
+     */
     public Enginyer(){
         this.setName("Pepe");
         this.setInvestigationPoints(5);
     }
 
+    /**
+     * This constructor will be used to create a new Enginyer and add the
+     * desired information
+     * @param name is the name of the Enginyer
+     * @param ip is the amount of investigation points that the Enginyer has earned
+     */
     public Enginyer(String name, int ip) {
         this.setName(name);
         this.setInvestigationPoints(ip);
@@ -18,6 +27,10 @@ public class Enginyer extends Player {
 
     //Publication
     @Override
+    /**
+     * This method will give use the reward if we win in a Publication
+     * @param quartil the quartil of the paper
+     */
     public void getRewardPublication(String quartil) {
         switch (quartil){
             case "Q1":
@@ -35,6 +48,10 @@ public class Enginyer extends Player {
         }
         super.getRewardPublication(quartil);
     }
+    /**
+     * This method will give use the penalization if we lose in a Publication
+     * @param quartil the quartil of the paper
+     */
     @Override
     public void getPenalizationPublication(String quartil) {
         switch (quartil){
@@ -54,11 +71,17 @@ public class Enginyer extends Player {
     }
 
     //Defense
+    /**
+     * This method will give use the reward if we win in a DoctoralDefense
+     */
     @Override
     public void getRewardDefense() {
         super.getRewardDefense();
         this.setInvestigationPoints(this.getInvestigationPoints() + 5);
     }
+    /**
+     * This method will give use the penalization if we lose in a DoctoralDefense
+     */
     @Override
     public void getPenalizationDefense() {
         super.getPenalizationDefense();
@@ -66,11 +89,17 @@ public class Enginyer extends Player {
     }
 
     //Master
+    /**
+     * This method will give use the reward if we win in a MasterStudies
+     */
     @Override
     public void getRewardMaster() {
         super.getRewardMaster();
         this.setInvestigationPoints(10);
     }
+    /**
+     * This method will give use the penalization if we lose in a MasterStudies
+     */
     @Override
     public void getPenalizationMaster() {
         super.getPenalizationMaster();
@@ -78,12 +107,21 @@ public class Enginyer extends Player {
     }
 
     //Budget
+    /**
+     * This method will give use the penalization if we lose in a BudgetRequest
+     */
     @Override
     public void getPenalizationBudget() {
         super.getPenalizationBudget();
         this.setInvestigationPoints(this.getInvestigationPoints() - 2);
     }
 
+    /**
+     * This method will check that the role of the player is appropriate and that we doesn't need
+     * to get a promotion
+     * @param players is the list of players of the edition
+     * @param playerIteration is the id of the player that we want to check into
+     */
     @Override
     public void checkRole(List<Player> players, int playerIteration) {
         Master player = new Master(this.getName(), 5);

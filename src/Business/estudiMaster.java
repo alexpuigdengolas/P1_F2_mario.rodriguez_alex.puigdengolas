@@ -9,6 +9,13 @@ public class estudiMaster extends Test{
     private int credits;
     private int probability;
 
+    /**
+     * This constructor will allow us to create a study master
+     * @param name is the name of the test
+     * @param master is the name of the master theme
+     * @param credits the amount of credits that the study has
+     * @param probability the probability to succeed for every credit
+     */
     public estudiMaster(String name, String master, int credits, int probability) {
         super(name);
         setType("estudiMaster");
@@ -17,40 +24,53 @@ public class estudiMaster extends Test{
         this.probability = probability;
     }
 
-
+    /**
+     * The getter of the master theme
+     * @return the master theme
+     */
     public String getMaster() {
         return master;
     }
-    public String getMasterName(){
-        return getName();
-    }
 
+    /**
+     * The setter of the master theme
+     * @param master the master theme
+     */
     public void setMaster(String master) {
         this.master = master;
     }
 
+    /**
+     * The getter of the amount of credits
+     * @return the amount of credits
+     */
     public int getCredits() {
         return credits;
     }
 
-    public void setCredits(int credits) {
-        this.credits = credits;
-    }
-
+    /**
+     * The getter of the probability per credit to succeed
+     * @return the probability per credit to succeed
+     */
     public int getProbability() {
         return probability;
     }
 
-    public void setProbability(int probability) {
-        this.probability = probability;
-    }
-
+    /**
+     * This method allows to show the information of the master
+     * @param viewController the view controller that will show all the info
+     */
     @Override
     public void showInfo(ViewController viewController) {
         super.showInfo(viewController);
         viewController.showEstudyMaster(this);
     }
 
+    /**
+     * This method will execute the test
+     * @param test the test we want to execute
+     * @param edition the edition that has this test
+     */
     @Override
     public void execute(Test test, Edition edition) {
 
@@ -75,6 +95,12 @@ public class estudiMaster extends Test{
         }
     }
 
+    /**
+     * This will calculate the reward if the player wins
+     * @param test the test we want to get the reward from
+     * @param players the players of the edition
+     * @param playerIteration the id of the player selected
+     */
     @Override
     void getReward(Test test, List<Player> players, int playerIteration) {
         super.getReward(test, players, playerIteration);
@@ -84,6 +110,12 @@ public class estudiMaster extends Test{
         }
     }
 
+    /**
+     * This will calculate the reward if the player wins
+     * @param test the test we want to get the reward from
+     * @param edition the edition that is being executed
+     * @param playerIteration the id of the player selected
+     */
     @Override
     void getPenalitation(Test test, Edition edition, int playerIteration) {
         super.getPenalitation(test, edition, playerIteration);
@@ -94,6 +126,4 @@ public class estudiMaster extends Test{
             edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }
     }
-
-
 }

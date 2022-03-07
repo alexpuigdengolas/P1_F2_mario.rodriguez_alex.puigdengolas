@@ -9,6 +9,10 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class will allow contain all the Logic of the code, and we will use it as a bridge to connect all the
+ * parts of the code.
+ */
 public class BusinessController {
     ViewController viewController = new ViewController(this);
     LinkedList<Test> tests = new LinkedList<Test>();
@@ -16,7 +20,11 @@ public class BusinessController {
     List<Player> players = new LinkedList<>();
     List<estudiMaster> masters = new LinkedList<>();
 
-
+    /**
+     * This is the constructor of the class, but it will work as the starter of the code
+     * First executing the kind of file that we will get the information from, and then
+     * choosing if we want to execute the code as a Composer or a Conductor
+      */
     public BusinessController(){
         boolean csvOn = viewController.dataSelection();
 
@@ -67,6 +75,10 @@ public class BusinessController {
         }
     }
 
+    /**
+     * This method will allow us to set the tests that go into the edition selected
+     * @param editions this is the list of editions that we have in the code
+     */
     private void setTests(List<Edition> editions) {
         boolean exists = false;
         for(int i = 0; i < editions.size(); i++){
@@ -85,12 +97,15 @@ public class BusinessController {
         }
     }
 
+    /**
+     * This method will allow the user to get executed in the Composer mode,
+     * that will allow us to create editions and tests
+     */
     public void compositorController(){
         int optionManage = 0, trialChoice = 0, trialShowChoice = 0;
         String optionManageTrials, optionManageEditions;
         boolean exit = false, exitTrialManager = false, exitEditionManager = false;
         do {
-            Compositor actualUser = new Compositor();
 
             //Vista del compositor
             optionManage = viewController.mainCompositorView();
@@ -147,20 +162,19 @@ public class BusinessController {
         }while (!exit);
     }
 
-    public List<Edition> getEditions() {
-        return editions;
-    }
-
+    /**
+     * This method will return the ViewController that the code uses
+     * @return the view controller that we want to use
+     */
     public ViewController getViewController() {
         return viewController;
     }
 
-    public void setViewController(ViewController viewController) {
-        this.viewController = viewController;
-    }
-
+    /**
+     * This method will allow the user to get executed in the Conductor mode,
+     * that will allow us to execute the current year edition
+     */
     public void conductorComposer(){
-        Conductor actualUser = new Conductor();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
         Edition edition = lookForCurrentEdition(editions, currentYear);
@@ -173,6 +187,10 @@ public class BusinessController {
         }
     }
 
+    /**
+     * This method will execute the edition that is associated to the current year and the test's that it contains
+     * @param edition the current year edition
+     */
     private void executeEdition(Edition edition) {
         //Ver tema de probabilidades
         boolean nextTest = true;
@@ -198,6 +216,11 @@ public class BusinessController {
         }
     }
 
+    /**
+     * This class will return the winner of the currently executed edition
+     * @param edition the current year edition
+     * @return the player that wined the edition
+     */
     private Player getWinner(Edition edition) {
         int winner = 0;
         int maxpi = 0;
@@ -209,9 +232,12 @@ public class BusinessController {
         return edition.getPlayers().get(winner);
     }
 
-
-
-
+    /**
+     * This method will get all the editions and it will return the editions associated to this year
+     * @param editions the list of all the editions
+     * @param currentYear the current year (in a integer value)
+     * @return the object Edition associated to the current year
+     */
     private Edition lookForCurrentEdition(List<Edition> editions, int currentYear) {
         Edition currentEdition = null;
 
@@ -224,6 +250,11 @@ public class BusinessController {
         return currentEdition;
     }
 
+    /**
+     * Here we check if the edition's year is valid to create the new edition
+     * @param year the current year (in a integer value)
+     * @return a boolean that indicates if the year is valid
+     */
     public boolean checkEditionsYear(int year) {
         boolean ok = true;
         for(int i = 0; editions.size() > i; i++){
@@ -242,6 +273,11 @@ public class BusinessController {
         return ok;
     }
 
+    /**
+     * This method will show if there we have a valid input
+     * @param option is the input that we want to check
+     * @return a boolean that shows if the input is valid
+     */
     public boolean isNumber(String option){
         try {
             Integer.parseInt(option);
@@ -250,6 +286,12 @@ public class BusinessController {
             return false;
         }
     }
+
+    /**
+     * This method will see if there exists any test with the same name
+     * @param name the name that we want to check
+     * @return a boolean that shows if the input name is valid
+     */
     public boolean comprovaTest(String name){
         for(int i = 0; i < tests.get(i).getName().length(); i++){
             if(tests.get(i).getName().equals(name)){
@@ -258,7 +300,4 @@ public class BusinessController {
         }
         return true;
     }
-
-
-
 }

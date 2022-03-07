@@ -8,6 +8,12 @@ public class doctoralDefense extends Test{
     private String field;
     private int diff;
 
+    /**
+     * This constructor will allow us to create a test
+     * @param name the name we want the test to have
+     * @param field the field that is treated
+     * @param diff
+     */
     public doctoralDefense(String name, String field, int diff) {
         super(name);
         setType("doctoralDefense");
@@ -15,22 +21,24 @@ public class doctoralDefense extends Test{
         this.diff = diff;
     }
 
+    /**
+     * This is a getter of the field
+     * @return the field of the test
+     */
     public String getField() {
         return field;
     }
 
-    public void setField(String field) {
-        this.field = field;
-    }
-
+    //TODO: No se lo que es el diff pero cuando lo sepa lo tenemos que comentar
     public int getDiff() {
         return diff;
     }
 
-    public void setDiff(int diff) {
-        this.diff = diff;
-    }
-
+    /**
+     * This method will allow us to execute the test
+     * @param test the test we want to execute
+     * @param edition the edition that has this test
+     */
     @Override
     public void execute(Test test, Edition edition) {
         super.execute(test, edition);
@@ -43,10 +51,10 @@ public class doctoralDefense extends Test{
             for (int i = 0; i < edition.getPlayers().size(); i++) {
                 if(edition.getPlayers().get(i).getInvestigationPoints() < result){
                     getReward(test, edition.getPlayers(), i);
-                    edition.getBusinessController().getViewController().deffensePassed(edition.getPlayers().get(i));
+                    edition.getBusinessController().getViewController().defensePassed(edition.getPlayers().get(i));
                 }else{
                     getPenalitation(test, edition, i);
-                    edition.getBusinessController().getViewController().deffenseNotPassed(edition.getPlayers().get(i));
+                    edition.getBusinessController().getViewController().defenseNotPassed(edition.getPlayers().get(i));
                 }
             }
         }catch (Exception ignored){
@@ -54,6 +62,12 @@ public class doctoralDefense extends Test{
         }
     }
 
+    /**
+     * This will calculate the reward if the player wins
+     * @param test the test we want to get the reward from
+     * @param players the players of the edition
+     * @param playerIteration the id of the player selected
+     */
     @Override
     void getReward(Test test, List<Player> players, int playerIteration) {
         super.getReward(test, players, playerIteration);
@@ -63,6 +77,12 @@ public class doctoralDefense extends Test{
         }
     }
 
+    /**
+     * This will calculate the reward if the player wins
+     * @param test the test we want to get the reward from
+     * @param edition the edition that is being executed
+     * @param playerIteration the id of the player selected
+     */
     @Override
     void getPenalitation(Test test, Edition edition, int playerIteration) {
         super.getPenalitation(test, edition, playerIteration);
@@ -74,6 +94,10 @@ public class doctoralDefense extends Test{
         }
     }
 
+    /**
+     * This will allow us to show the test's information
+     * @param viewController the view controller that will show all the info
+     */
     @Override
     public void showInfo(ViewController viewController) {
         super.showInfo(viewController);

@@ -17,7 +17,16 @@ import javax.xml.crypto.KeySelector;
 import java.io.*;
 import java.util.*;
 
+/**
+ * This class will create the the file .json to contain the editions information
+ */
 public class jsonController {
+
+    /**
+     * This method will allow us to write the edition in a file .json
+     * @param editions the list of the editions that we have in the code
+     * @param address the address were we will save the information
+     */
     public void writeEditionsJSON(List<Edition> editions, String address) {
         try {
             FileWriter writer = new FileWriter(address);
@@ -31,6 +40,14 @@ public class jsonController {
         }
     }
 
+    /**
+     * This method will allow us to write the tests in a file .json
+     * @param editions the list of the editions that we have in the code
+     * @param testPubliAddress the address of the publication tests
+     * @param testDefAddress the address of the defense tests
+     * @param testMasterAddress the address of the master tests
+     * @param testReqAddress the address of the budget request tests
+     */
     public void writeTestsJSON(List<Edition> editions, String testPubliAddress, String testDefAddress, String testMasterAddress, String testReqAddress) {
         try {
             FileWriter testPubliWriter = new FileWriter(testPubliAddress);
@@ -72,6 +89,13 @@ public class jsonController {
         }
     }
 
+    /**
+     * This method will allow us to write the players in a file .json
+     * @param editions the list of the editions that we have in the code
+     * @param enginyerAddress the address where we will save the enginyers
+     * @param masterAddress the address where we will save the masters
+     * @param doctorAddress the address where we will save the doctors
+     */
     public void writePlayersJSON(List<Edition> editions, String enginyerAddress, String masterAddress, String doctorAddress) {
         try {
             FileWriter enginyerWriter = new FileWriter(enginyerAddress);
@@ -107,6 +131,11 @@ public class jsonController {
         }
     }
 
+    /**
+     * This method will allow us to read the edition in a file .json
+     * @param address the address where we have the .json file
+     * @return the list of editions contained in the .json
+     */
     public List<Edition> readJSON(String address) {
         List<Edition> editions = new ArrayList<Edition>();
 
@@ -130,9 +159,16 @@ public class jsonController {
         return editions;
     }
 
+    /**
+     * This method will allow us to read the tests in a file .json
+     * @param testPubliAddress the address of the publication tests
+     * @param testDefAddress the address of the defense tests
+     * @param testMasterAddress the address of the master tests
+     * @param testReqAddress the address of the budget request tests
+     * @return a list of the tests that are inside de .json
+     */
     public LinkedList<Test> readTestJSON(String testPubliAddress, String testDefAddress, String testMasterAddress, String testReqAddress) {
         LinkedList<Test> tests = new LinkedList<>();
-        Test[] testsArray;
         Gson gson;
 
         try {
@@ -165,6 +201,13 @@ public class jsonController {
         return tests;
     }
 
+    /**
+     * This method will allow us to read the players in a file .json
+     * @param enginyerAddress the address where we will save the enginyers
+     * @param masterAddress the address where we will save the masters
+     * @param doctorAddress the address where we will save the doctors
+     * @return a list of all the players of the .json
+     */
     public LinkedList<Player> readPlayersJSON(String enginyerAddress, String masterAddress, String doctorAddress) {
         LinkedList<Player> players = new LinkedList<>();
         Player[] playerArray;

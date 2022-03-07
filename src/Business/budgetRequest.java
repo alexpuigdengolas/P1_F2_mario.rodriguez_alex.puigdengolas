@@ -8,6 +8,12 @@ public class budgetRequest extends Test{
     private String entity;
     private double quantity;
 
+    /**
+     * This is a constructor for a test of the budget request kind
+     * @param name the name of the test
+     * @param entity the name of the entity
+     * @param quantity the quantity demanded
+     */
     public budgetRequest(String name, String entity, double quantity) {
         super(name);
         setType("budgetRequest");
@@ -15,28 +21,37 @@ public class budgetRequest extends Test{
         this.quantity = quantity;
     }
 
+    /**
+     * This is the getter of the entity that this budget is going to
+     * @return the entity name
+     */
     public String getEntity() {
         return entity;
     }
 
-    public void setEntity(String entity) {
-        this.entity = entity;
-    }
-
+    /**
+     * This is the getter of the amount of money that this budget is going to spend
+     * @return the amount of money that this budget is going to spend
+     */
     public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
-
+    /**
+     * This will allow us to show the test's information
+     * @param viewController the view controller that will show all the info
+     */
     @Override
     public void showInfo(ViewController viewController) {
         super.showInfo(viewController);
         viewController.showBudgetRequest(this);
     }
 
+    /**
+     * This method will allow us to execute the test
+     * @param test the test we want to execute
+     * @param edition the edition that has this test
+     */
     @Override
     public void execute(Test test, Edition edition) {
         super.execute(test, edition);
@@ -59,6 +74,12 @@ public class budgetRequest extends Test{
         }
     }
 
+    /**
+     * This will calculate the reward if the player wins
+     * @param test the test we want to get the reward from
+     * @param players the players of the edition
+     * @param playerIteration the id of the player selected
+     */
     @Override
     void getReward(Test test, List<Player> players, int playerIteration) {
         super.getReward(test, players, playerIteration);
@@ -68,6 +89,12 @@ public class budgetRequest extends Test{
         }
     }
 
+    /**
+     * This will calculate the reward if the player wins
+     * @param test the test we want to get the reward from
+     * @param edition the edition that is being executed
+     * @param playerIteration the id of the player selected
+     */
     @Override
     void getPenalitation(Test test, Edition edition, int playerIteration) {
         super.getPenalitation(test, edition, playerIteration);

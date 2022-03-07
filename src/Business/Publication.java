@@ -11,6 +11,16 @@ public class Publication extends Test{
     private int revisionProbability;
     private int notAcceptedProbability;
 
+    /**
+     * This method will allow us to create a Publication that will be filled with the information
+     * that we desire
+     * @param name the name that we want the publication to have
+     * @param nameMag the name of the mag of the publication
+     * @param quartil the quartil of the publication
+     * @param acceptanceProbability the probability to get accepted
+     * @param revisionProbability the probability to get revised
+     * @param notAcceptedProbability the probability to not get accepted
+     */
     public Publication(String name, String nameMag, String quartil, int acceptanceProbability, int revisionProbability, int notAcceptedProbability) {
         super(name);
         setType("Publication");
@@ -21,56 +31,69 @@ public class Publication extends Test{
         this.notAcceptedProbability = notAcceptedProbability;
     }
 
+    /**
+     * This method will create a publication that only contains the name
+     * @param name the name of the publication
+     */
     public Publication(String name) {
         super(name);
     }
 
+    /**
+     * Getter of the name of the mag
+     * @return the name of the mag
+     */
     public String getNameMag() {
         return nameMag;
     }
 
-    public void setNameMag(String nameMag) {
-        this.nameMag = nameMag;
-    }
-
+    /**
+     * Getter of the quartil of the publication
+     * @return the quartil of the publication
+     */
     public String getQuartil() {
         return quartil;
     }
 
-    public void setQuartil(String quartil) {
-        this.quartil = quartil;
-    }
-
+    /**
+     * The getter of the acceptance probability
+     * @returnthe acceptance probability
+     */
     public int getAcceptanceProbability() {
         return acceptanceProbability;
     }
 
-    public void setAcceptanceProbability(int acceptanceProbability) {
-        this.acceptanceProbability = acceptanceProbability;
-    }
-
+    /**
+     * The getter of the revision probability
+     * @returnthe revision probability
+     */
     public int getRevisionProbability() {
         return revisionProbability;
     }
 
-    public void setRevisionProbability(int revisionProbability) {
-        this.revisionProbability = revisionProbability;
-    }
-
+    /**
+     * The getter of the rejection probability
+     * @returnthe rejection probability
+     */
     public int getNotAcceptedProbability() {
         return notAcceptedProbability;
     }
 
-    public void setNotAcceptedProbability(int notAcceptedProbability) {
-        this.notAcceptedProbability = notAcceptedProbability;
-    }
-
+    /**
+     * This will allow us to show the test's information
+     * @param viewController the view controller that will show all the info
+     */
     @Override
     public void showInfo(ViewController viewController) {
         super.showInfo(viewController);
         viewController.showPublication(this);
     }
 
+    /**
+     * This method will allow us to execute the test
+     * @param test the test we want to execute
+     * @param edition the edition that has this test
+     */
     @Override
     public void execute(Test test, Edition edition) {
         super.execute(test, edition);
@@ -103,6 +126,12 @@ public class Publication extends Test{
         }
     }
 
+    /**
+     * This will calculate the reward if the player wins
+     * @param test the test we want to get the reward from
+     * @param players the players of the edition
+     * @param playerIteration the id of the player selected
+     */
     @Override
     void getReward(Test test, List<Player> players, int playerIteration) {
         super.getReward(test, players, playerIteration);
@@ -114,6 +143,12 @@ public class Publication extends Test{
         }
     }
 
+    /**
+     * This will calculate the reward if the player wins
+     * @param test the test we want to get the reward from
+     * @param edition the edition that is being executed
+     * @param playerIteration the id of the player selected
+     */
     @Override
     void getPenalitation(Test test, Edition edition, int playerIteration) {
         super.getPenalitation(test, edition, playerIteration);
