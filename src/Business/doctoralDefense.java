@@ -12,7 +12,7 @@ public class doctoralDefense extends Test{
      * This constructor will allow us to create a test
      * @param name the name we want the test to have
      * @param field the field that is treated
-     * @param diff
+     * @param diff the difficulty of the doctoral defense
      */
     public doctoralDefense(String name, String field, int diff) {
         super(name);
@@ -29,7 +29,10 @@ public class doctoralDefense extends Test{
         return field;
     }
 
-    //TODO: No se lo que es el diff pero cuando lo sepa lo tenemos que comentar
+    /**
+     * This is the getter of the difficulty
+     * @return the difficulty
+     */
     public int getDiff() {
         return diff;
     }
