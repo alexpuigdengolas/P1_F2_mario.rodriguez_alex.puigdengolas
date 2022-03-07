@@ -21,6 +21,9 @@ public class estudiMaster extends Test{
     public String getMaster() {
         return master;
     }
+    public String getMasterName(){
+        return getName();
+    }
 
     public void setMaster(String master) {
         this.master = master;

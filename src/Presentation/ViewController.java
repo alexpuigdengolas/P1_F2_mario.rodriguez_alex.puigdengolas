@@ -145,9 +145,9 @@ public class ViewController {
     }
 
     public Publication createPaperPublication() {
-        String name = null, nameMag=null, quartil=null;
+        String name = null, nameMag=null, quartil=null,option;
         int acceptanceProbability = 0, revisionProbability = 0, notAcceptedProbability = 0;
-        boolean ok = false, ok2 = false;
+        boolean ok = false, ok2 = false, aux;
         Scanner sc = new Scanner(System.in);
 
         do{
@@ -155,9 +155,10 @@ public class ViewController {
             while(!ok){
                 System.out.print("Enter the trial’s name: ");
                 name = sc.nextLine();
-                if(name.equals("")) {
-                    System.out.println("Pleas enter a correct trial's name");
-                    System.out.println(" ");//puchi nose si te gusta esta frase otro
+                aux = businessController.comprovaTest(name);
+                if(name.equals("") || !aux) {
+                    System.err.println("Please enter a correct trial's name");
+                    System.out.println(" ");
                 } else{
                     ok = true;
                 }
@@ -168,7 +169,7 @@ public class ViewController {
                 System.out.print("Enter the journal’s name: ");
                 nameMag = sc.nextLine();
                 if(nameMag.equals("")){
-                    System.out.println("Pleas enter a correct journal's name");
+                    System.err.println("Please enter a correct journal's name");
                     System.out.println(" ");
                 }else{
                     ok = true;
@@ -179,7 +180,7 @@ public class ViewController {
                 System.out.print("Enter the journal’s quartile: ");
                 quartil = sc.nextLine();
                 if(!quartil.equals("Q1") && !quartil.equals("Q2") && !quartil.equals("Q3") && !quartil.equals("Q4")){
-                    System.out.println("Pleas enter a correct journal's quartile, values between Q1-Q4");
+                    System.err.println("Please enter a correct journal's quartile, values between Q1-Q4");
                     System.out.println(" ");
                 }else{
                     ok = true;
@@ -189,10 +190,16 @@ public class ViewController {
                 ok = false;
                 while (!ok) {
                     System.out.print("Enter the acceptance probability: ");
-                    acceptanceProbability = sc.nextInt();
+                    option = sc.nextLine();
+                    aux = businessController.isNumber(option);
+                    if(aux){
+                        acceptanceProbability = Integer.parseInt(option);
+                    }else{
+                        acceptanceProbability = 101;
+                    }
                     //sc.nextLine();
                     if ((acceptanceProbability < 0 || acceptanceProbability > 100)) {
-                        System.out.println("Pleas enter a correct acceptance probability, values between 0-100");
+                        System.err.println("Please enter a correct acceptance probability, values between 0-100");
                         System.out.println(" ");
                     } else {
                         ok = true;
@@ -202,10 +209,16 @@ public class ViewController {
 
                 while (!ok) {
                     System.out.print("Enter the revision probability: ");
-                    revisionProbability = sc.nextInt();
+                    option = sc.nextLine();
+                    aux = businessController.isNumber(option);
+                    if(aux){
+                        revisionProbability = Integer.parseInt(option);
+                    }else{
+                        revisionProbability = 101;
+                    }
                     //sc.nextLine();
                     if ((revisionProbability < 0 || revisionProbability > 100)) {
-                        System.out.println("Pleas enter a correct revision probability, values between 0-100");
+                        System.err.println("Please enter a correct revision probability, values between 0-100");
                         System.out.println(" ");
                     } else {
                         ok = true;
@@ -215,10 +228,16 @@ public class ViewController {
 
                 while (!ok) {
                     System.out.print("Enter the rejection probability: ");
-                    notAcceptedProbability = sc.nextInt();
+                    option = sc.nextLine();
+                    aux = businessController.isNumber(option);
+                    if(aux){
+                        notAcceptedProbability = Integer.parseInt(option);
+                    }else{
+                        notAcceptedProbability = 101;
+                    }
                     //sc.nextLine();
                     if ((notAcceptedProbability < 0 || notAcceptedProbability > 100)) {
-                        System.out.println("Pleas enter a correct rejection probability, values between 0-100");
+                        System.err.println("Please enter a correct rejection probability, values between 0-100");
                         System.out.println(" ");
                     } else {
                         ok = true;
@@ -226,7 +245,7 @@ public class ViewController {
                 }
 
                 if(acceptanceProbability+revisionProbability+notAcceptedProbability != 100){
-                    System.out.println("Pleas the sum of acceptance probability + revision probability + rejection probability must be equal to 100");
+                    System.err.println("Please the sum of acceptance probability + revision probability + rejection probability must be equal to 100");
                     System.out.println(" ");
                 }else ok2 = true;
             }
@@ -237,8 +256,9 @@ public class ViewController {
     }
 
     public void trialChoiceShowView(LinkedList<Test> tests){
-        boolean ok = false;
-        String option;
+        boolean ok = false, aux;
+        String optionAux;
+        int option;
         Scanner sc = new Scanner(System.in);
 
 
@@ -257,14 +277,19 @@ public class ViewController {
                 System.out.println("    "+ (tests.size()+1) +") Back");
                 System.out.println(" ");
                 System.out.print("Enter an potion: ");
-                option = sc.nextLine();
-
-                if(Integer.parseInt(option) > tests.size()+1 || Integer.parseInt(option) < 1){
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if(aux){
+                    option = Integer.parseInt(optionAux);
+                }else{
+                    option = 0;
+                }
+                if(option > tests.size()+1 || option < 1){
                     System.err.println("The option is not available, please try again");
-                }else if(Integer.parseInt(option) != tests.size()+1){
+                }else if(option != tests.size()+1){
                     System.out.println(" ");
-                    System.out.println(tests.get(Integer.parseInt(option)-1).getName());
-                    tests.get(Integer.parseInt(option)-1).showInfo(this);
+                    System.out.println(tests.get(option-1).getName());
+                    tests.get(option-1).showInfo(this);
                     System.out.println(" ");
                 }else{
                     ok = true;
@@ -274,8 +299,9 @@ public class ViewController {
     }
 
     public void trialChoiceDeleteView(LinkedList<Test> tests) {
-        boolean ok = false;
-        String option, confirmation;
+        boolean ok = false, aux;
+        String optionAux, confirmation;
+        int option;
         Scanner sc = new Scanner(System.in);
 
 
@@ -294,17 +320,23 @@ public class ViewController {
                 System.out.println("    "+ (tests.size()+1) +") Back");
                 System.out.println(" ");
                 System.out.print("Enter an potion: ");
-                option = sc.nextLine();
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if(aux){
+                    option = Integer.parseInt(optionAux);
+                }else{
+                    option = 0;
+                }
 
-                if(Integer.parseInt(option) > tests.size()+1 || Integer.parseInt(option) < 1){
+                if(option > tests.size()+1 || option < 1){
                     System.err.println("The option is not available, please try again");
-                }else if(Integer.parseInt(option) != tests.size()+1){
+                }else if(option != tests.size()+1){
                     System.out.println(" ");
                     System.out.print("Enter the trial’s name for confirmation: ");
                     confirmation = sc.nextLine();
-                    if (confirmation.equals(tests.get(Integer.parseInt(option) - 1).getName())) {
+                    if (confirmation.equals(tests.get(option - 1).getName())) {
                         System.out.println(" ");
-                        tests.remove(Integer.parseInt(option)-1);
+                        tests.remove(option-1);
                         System.out.println("The trial was successfully deleted");
                         ok = true;
                     }else{
@@ -350,31 +382,65 @@ public class ViewController {
     }
 
     public void createEditionView(List<Test> tests, List<Edition> editions) {
-        boolean ok = false;
+        boolean ok = false, aux;
+        String option;
         Scanner sc = new Scanner(System.in);
-        int year, initialPlayers, numTest, rounds = 0, trialSelect;
+        int year =2023, initialPlayers=1  , numTest=3, rounds = 0, trialSelect;
         LinkedList<Test> editionTests = new LinkedList<Test>();
         LinkedList<Player> players = new LinkedList<Player>();
 
         do {
-            System.out.println(" ");
-            System.out.print("Enter the edition's year: ");
-            year = sc.nextInt();
-            sc.nextLine();
-            if(businessController.checkEditionsYear(year)){
-               ok = true;
+
+            while(!ok) {
+                System.out.println(" ");
+                System.out.print("Enter the edition's year: ");
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    year = Integer.parseInt(option);
+                }else{
+                    year = 0;
+                }
+                //sc.nextLine();
+                if (businessController.checkEditionsYear(year)) {
+                    ok = true;
+                }
             }
-            System.out.print("Enter the initial number of players: ");
-            initialPlayers = sc.nextInt();
-            sc.nextLine();
-            if((initialPlayers < 1 || initialPlayers > 5) && ok){
-                ok = true;
+            ok = false;
+            while(!ok) {
+                System.out.print("Enter the initial number of players: ");
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    initialPlayers = Integer.parseInt(option);
+                }else{
+                    initialPlayers = 0;
+                }
+                //sc.nextLine();
+                if ((initialPlayers > 0 && initialPlayers < 5) ) {
+                    ok = true;
+                }else{
+                    System.err.println("The initial number of players must must be more than 0 and less than 6");
+                    System.out.println("");
+                }
             }
-            System.out.print("Enter the number of trials: ");
-            numTest = sc.nextInt();
-            sc.nextLine();
-            if((numTest < 3 || numTest > 12) && ok){
-                ok = true;
+            ok = false;
+            while(!ok) {
+                System.out.print("Enter the number of trials: ");
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    numTest = Integer.parseInt(option);
+                }else{
+                    numTest = 0;
+                }
+                //sc.nextLine();
+                if ((numTest > 2 && numTest < 12)) {
+                    ok = true;
+                }else{
+                    System.err.println("The number oj trials must be more than 2 and less than 13");
+                    System.out.println("");
+                }
             }
             System.out.println(" ");
             if (tests.size() == 0) {
@@ -389,29 +455,39 @@ public class ViewController {
                 }
 
                 for (int i = 0; i < numTest; i++) {
-                    System.out.print("Pick a trial (" + (i + 1) + "/"+ numTest +"):");
-                    trialSelect = sc.nextInt();
-                    sc.nextLine();
+                    System.out.print("Pick a trial (" + (i + 1) + "/" + numTest + "):");
+                    option = sc.nextLine();
+                    aux = businessController.isNumber(option);
+                    if(aux){
+                        trialSelect = Integer.parseInt(option);
+                    }else{
+                        trialSelect = 0;
+                    }
                     if (trialSelect > tests.size() + 1 || trialSelect < 1) {
                         System.err.println("The option is not available, please try again");
+                        i--;
                     } else if (trialSelect != tests.size() + 1) {
                         editionTests.add(tests.get(trialSelect - 1));
                     }
                 }
-                if (ok) {
-                    for(int i = 0; i < initialPlayers; i++){
-                        players.add(new Enginyer());
-                    }
-                    editions.add(new Edition(year, initialPlayers, numTest, rounds, editionTests, players));
-                }
             }
+            if (ok) {
+                for(int i = 0; i < initialPlayers; i++){
+                    players.add(new Enginyer());
+                }
+                editions.add(new Edition(year, initialPlayers, numTest, rounds, editionTests, players));
+            }
+
         }while(!ok);
+
     }
 
     public void showEditionView(List<Edition> editions) {
         boolean ok = false;
         Scanner sc = new Scanner(System.in);
-        int option;
+        int option ;
+        String optionAux;
+        boolean aux;
         do{
             if(editions.size() == 0){
                 System.err.println("There are no editions in the system yet");
@@ -428,8 +504,13 @@ public class ViewController {
                 System.out.println(" ");
 
                 System.out.print("Enter an option: ");
-                option = sc.nextInt();
-                sc.nextLine();
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if(aux){
+                    option = Integer.parseInt(optionAux);
+                }else{
+                    option = 0;
+                }
                 if (option > editions.size() + 1 || option < 1) {
                     System.out.println(" ");
                     System.err.println("The option is not available, please try again");
@@ -446,9 +527,10 @@ public class ViewController {
     }
 
     public void duplicateEdition(List<Edition> editions) {
-        boolean ok = false;
+        boolean ok = false, aux;
+        String optionAux;
         Scanner sc = new Scanner(System.in);
-        int option, year, initialPlayers;
+        int option, year=2023, initialPlayers=2;
         Edition copyEdition;
 
         System.out.println("Which edition do you want to clone?");
@@ -465,38 +547,55 @@ public class ViewController {
                 System.out.println("    " + (editions.size() + 1) + ") Back");
                 System.out.println(" ");
                 System.out.print("Enter an option: ");
-                option = sc.nextInt();
-                sc.nextLine();
-                copyEdition = editions.get(option - 1);
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if (aux) {
+                    option = Integer.parseInt(optionAux);
+                } else {
+                    option = 0;
+                }
                 if (option > editions.size() + 1 || option < 1) {
                     System.out.println(" ");
                     System.err.println("The option is not available, please try again");
                     System.out.println(" ");
-                } else if (option != editions.size() + 1) {
+                } else if (option != editions.size()+1) {
+                    copyEdition = editions.get(option - 1);
+                    while (!ok) {
+                        System.out.println(" ");
+                        System.out.print("Enter the edition's year: ");
+                        optionAux = sc.nextLine();
+                        aux = businessController.isNumber(optionAux);
+                        if (aux) {
+                            year = Integer.parseInt(optionAux);
+                        } else {
+                            year = 0;
+                        }
+                        //sc.nextLine();
+                        if (businessController.checkEditionsYear(year)) {
+                            ok = true;
+                        }
+                    }
+                    ok = false;
+                    while (!ok) {
+                        System.out.print("Enter the initial number of players: ");
+                        optionAux = sc.nextLine();
+                        aux = businessController.isNumber(optionAux);
+                        if (aux) {
+                            initialPlayers = Integer.parseInt(optionAux);
+                        } else {
+                            initialPlayers = 0;
+                        }
+                        //sc.nextLine();
+                        if ((initialPlayers > 0 && initialPlayers < 5)) {
+                            ok = true;
+                        } else {
+                            System.err.println("The initial number of players must must be more than 0 and less than 6");
+                            System.out.println("");
+                        }
+                    }
                     System.out.println(" ");
-                    System.out.print("Enter the new edition's year: ");
-                    year = sc.nextInt();
-                    sc.nextLine();
-                    if (businessController.checkEditionsYear(year)) {
-                        ok = true;
-                    } else {
-                        ok = false;
-                    }
-                    System.out.print("Enter the new edition’s initial number of players: ");
-                    initialPlayers = sc.nextInt();
-                    sc.nextLine();
-                    if ((initialPlayers < 1 || initialPlayers > 5) && ok) {
-                        ok = false;
-                    } else {
-                        ok = true;
-                    }
-                    System.out.println(" ");
-                    if (ok) {
-                        ok = true;
-                        editions.add(new Edition(year, initialPlayers, copyEdition.getNumTest(), copyEdition.getRounds(), copyEdition.getTests(), copyEdition.getPlayers()));
-                    }
-
-                } else {
+                    editions.add(new Edition(year, initialPlayers, copyEdition.getNumTest(), copyEdition.getRounds(), copyEdition.getTests(), copyEdition.getPlayers()));
+                }else{
                     ok = true;
                 }
             }
@@ -504,10 +603,12 @@ public class ViewController {
     }
 
     public void deleteEditionView(List<Edition> editions) {
-        boolean ok = false;
+        boolean ok,aux;
         Scanner sc = new Scanner(System.in);
-        int option, year, initialPlayers;
-        Edition copyEdition;
+        int year, option;//, initialPlayers;
+        String optionAux;
+
+        //Edition copyEdition;
 
         System.out.println("Which edition do you want to delete?");
         System.out.println(" ");
@@ -523,17 +624,28 @@ public class ViewController {
                 System.out.println("    " + (editions.size() + 1) + ") Back");
                 System.out.println(" ");
                 System.out.print("Enter an option: ");
-                option = sc.nextInt();
-                sc.nextLine();
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if (aux) {
+                    option = Integer.parseInt(optionAux);
+                } else {
+                    option = 0;
+                }
                 if (option > editions.size() + 1 || option < 1) {
                     System.out.println(" ");
                     System.err.println("The option is not available, please try again");
                     System.out.println(" ");
+                    ok = false;
                 } else if (option != editions.size() + 1) {
                     System.out.println(" ");
                     System.out.print("Enter the edition’s year for confirmation: ");
-                    year = sc.nextInt();
-                    sc.nextLine();
+                    optionAux = sc.nextLine();
+                    aux = businessController.isNumber(optionAux);
+                    if (aux) {
+                        year = Integer.parseInt(optionAux);
+                    } else {
+                        year = 0;
+                    }
                     if (year == editions.get(option - 1).getYear()) {
                         editions.remove(option - 1);
                         System.out.println("The edition was successfully deleted.");
@@ -542,6 +654,8 @@ public class ViewController {
                         System.err.println("The edition wasn't successfully deleted.");
                         ok = true;
                     }
+                }else{
+                    ok = true;
                 }
             }
         }while(!ok);
@@ -550,20 +664,31 @@ public class ViewController {
     //Conductor
     public void mainConductorView(Edition edition, int year) {
         String name;
+        boolean aux;
         Scanner sc = new Scanner(System.in);
 
         System.out.println(" ");
         System.out.println("Entering execution mode...");
 
         System.out.println(" ");
-        System.out.println("    --- The Trials "+ year +" ---");
+        System.out.println("    --- The Trials " + year + " ---");
         System.out.println(" ");
-        for(int i = 0; i < edition.getInitialPlayers(); i++){
-            System.out.print("Enter the player's name ("+(i+1)+"/"+edition.getInitialPlayers()+"): ");
+        for (int i = 0; i < edition.getInitialPlayers(); i++) {
+            System.out.print("Enter the player's name (" + (i + 1) + "/" + edition.getInitialPlayers() + "): ");
             name = sc.nextLine();
-            edition.getPlayers().get(i).setName(name);
+            aux = false;
+            for (int j = 0; j < edition.getPlayers().size(); j++) {
+                if (edition.getPlayers().get(j).getName().equals(name)) {
+                    aux = true;
+                }
+            }
+            if (!aux) {
+                edition.getPlayers().get(i).setName(name);
+            }else {
+                System.out.println("This name is already used, please try again");
+                i--;
+            }
         }
-
     }
 
     public void noEditionView(int year) {
@@ -648,19 +773,27 @@ public class ViewController {
     }
 
     public Test createDoctoralDefense() {
-        String name, field;
+        String name, field,option;
         int diff;
-        boolean ok = false;
+        boolean ok ,aux;
         Scanner sc = new Scanner(System.in);
 
         do{
             System.out.println(" ");
-            System.out.print("Enter the trial’s name: ");
+            System.out.print("Enter the trial’s name: "); //TODO: supongo que mirar si no hay otro on el mismo nombre
             name = sc.nextLine();
+
             System.out.print("Enter the thesis field of study: ");
             field = sc.nextLine();
             System.out.print("Enter the defense difficulty: ");
-            diff = sc.nextInt();
+            option = sc.nextLine();
+            aux = businessController.isNumber(option);
+            if(aux){
+                diff = Integer.parseInt(option);
+            }else{
+                diff = 0;
+            }
+
             if(diff < 1 || diff > 10){
                 ok = false;
             }else{
@@ -687,10 +820,9 @@ public class ViewController {
     }
 
     public Test createMasterEstudy() {
-        String name = null, master = null;
+        String name = null, master = null,option;
         int credits = 0, prob = 0;
-        boolean ok = false;
-        boolean equal = false;
+        boolean ok = false,aux;
         Scanner sc = new Scanner(System.in);
 
         do{
@@ -698,9 +830,9 @@ public class ViewController {
                 System.out.println(" ");
                 System.out.print("Enter the trial’s name: ");
                 name = sc.nextLine();
-
-                if(name.equals("" ) ){// falta mirar si te el mateix nom que la resta
-                    System.out.println("Pleas enter a correct journal's name");
+                aux = businessController.comprovaTest(name);// comprova si el nom esta repetit
+                if(name.equals("") || !aux ){
+                    System.err.println("Please enter a correct trial's name");
                     System.out.println(" ");
                 }else{
                     ok = true;
@@ -712,8 +844,9 @@ public class ViewController {
                 System.out.print("Enter the master’s name: ");
                 master = sc.nextLine();
 
-                if(master.equals("") ){
-                    System.out.println("Pleas enter a correct master's name");
+                //aux = businessController.comprovaTest(master); Aqui falta mirar si el master esta be
+                if(master.equals("")  ){
+                    System.err.println("Please enter a correct master's name");
                     System.out.println(" ");
                 }else{
                     ok = true;
@@ -723,10 +856,15 @@ public class ViewController {
 
             while(!ok){
                 System.out.print("Enter the master’s ECTS number: ");
-                credits = sc.nextInt();
-
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    credits = Integer.parseInt(option);
+                }else{
+                    credits = 0;
+                }
                 if( credits > 120 || credits < 60){
-                    System.out.println("Pleas enter a correct credits value, [60-210]");
+                    System.err.println("Please enter a correct credits value, [60-210]");
                     System.out.println(" ");
                 }else{
                     ok = true;
@@ -736,10 +874,16 @@ public class ViewController {
 
             while(!ok){
                 System.out.print("Enter the credit pass probability: ");
-                prob = sc.nextInt();
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    prob = Integer.parseInt(option);
+                }else{
+                    prob = 101;
+                }
 
                 if( prob > 100 || prob < 0){
-                    System.out.println("Pleas enter a correct prob value, [0-100]");
+                    System.err.println("Pleas enter a correct prob value, [0-100]");
                     System.out.println(" ");
                 }else{
                     ok = true;
@@ -761,19 +905,26 @@ public class ViewController {
     }
 
     public Test createBudgetRequest() {
-        String name, entity;
+        String name, entity,option;
         double budget;
-        boolean ok = false;
+        boolean ok,aux;
         Scanner sc = new Scanner(System.in);
 
         do{
             System.out.println(" ");
-            System.out.print("Enter the trial’s name: ");
+            System.out.print("Enter the trial’s name: "); // falta mirar que no es repetixi el nom
             name = sc.nextLine();
             System.out.print("Enter the entity’s name: ");
             entity = sc.nextLine();
             System.out.print("Enter the budget demanded: ");
-            budget = sc.nextInt();
+
+            option = sc.nextLine();
+            aux = businessController.isNumber(option);
+            if(aux){
+                budget = Integer.parseInt(option);
+            }else{
+                budget = 0;
+            }
 
             if((budget < 1000 || budget > 2000000000)){
                 ok = false;

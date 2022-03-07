@@ -14,6 +14,7 @@ public class BusinessController {
     LinkedList<Test> tests = new LinkedList<Test>();
     List<Edition> editions = new LinkedList<Edition>();
     List<Player> players = new LinkedList<>();
+    List<estudiMaster> masters = new LinkedList<>();
 
 
     public BusinessController(){
@@ -228,8 +229,36 @@ public class BusinessController {
         for(int i = 0; editions.size() > i; i++){
             if(editions.get(i).getYear() == year){
                 ok = false;
+                System.err.printf("There is already an edition this year, please choose again:");
+                System.out.println(" ");
+                break;
             }
+        }
+        if (year < 2022) {
+            ok = false;
+            System.err.println("The year of the edition must be equal or greater than the current one(2022)");
+            System.out.println("");
         }
         return ok;
     }
+
+    public boolean isNumber(String option){
+        try {
+            Integer.parseInt(option);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
+    }
+    public boolean comprovaTest(String name){
+        for(int i = 0; i < tests.get(i).getName().length(); i++){
+            if(tests.get(i).getName().equals(name)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
 }
