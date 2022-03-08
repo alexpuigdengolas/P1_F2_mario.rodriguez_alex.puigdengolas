@@ -91,7 +91,7 @@ public class doctoralDefense extends Test{
         super.getPenalitation(test, edition, playerIteration);
         edition.getPlayers().get(playerIteration).getPenalizationDefense();
         if(edition.getPlayers().get(playerIteration).getInvestigationPoints() <= 0){
-            System.out.println(edition.getPlayers().get(playerIteration).getName() + " was eliminated!");
+            edition.getBusinessController().viewController.playerEliminated(edition.getPlayers().get(playerIteration));
             edition.getPlayers().remove(playerIteration);
             edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }

@@ -156,7 +156,7 @@ public class Publication extends Test{
         quartil = publication.getQuartil();
         edition.getPlayers().get(playerIteration).getPenalizationPublication(quartil);
         if(edition.getPlayers().get(playerIteration).getInvestigationPoints() <= 0){
-            System.out.println(edition.getPlayers().get(playerIteration).getName() + " was eliminated!");
+            edition.getBusinessController().viewController.playerEliminated(edition.getPlayers().get(playerIteration));
             edition.getPlayers().remove(playerIteration);
             edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }

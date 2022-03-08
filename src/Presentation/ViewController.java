@@ -563,6 +563,7 @@ public class ViewController {
             }
 
         }while(!ok);
+        System.out.println(" ");
 
     }
 
@@ -880,7 +881,7 @@ public class ViewController {
 
         do{
             System.out.println(" ");
-            System.out.print("Enter the trial’s name: "); //TODO: supongo que mirar si no hay otro on el mismo nombre
+            System.out.print("Enter the trial’s name: "); //TODO: supongo que mirar si no hay otro con el mismo nombre
             name = sc.nextLine();
 
             System.out.print("Enter the thesis field of study: ");
@@ -1137,5 +1138,37 @@ public class ViewController {
         for (int i = 0; i < edition.getTests().size(); i++) {
             System.out.println("    " + (i + 1) + "- The Trials " + edition.getTests().get(i).getName() +" ("+edition.getTests().get(i).getClass().getSimpleName()+")");
         }
+    }
+
+    /**
+     * This view will show when shutting down
+     */
+    public void shutDown() {
+        System.out.println(" ");
+        System.out.println("Shutting down...");
+    }
+
+    /**
+     * This will show if the year already exists
+     */
+    public void yearErrorChoseAgain() {
+        System.err.printf("There is already an edition this year, please choose again:");
+        System.out.println(" ");
+    }
+
+    /**
+     * This will show if the year is too big
+     */
+    public void reallyBigYearError() {
+        System.err.println("The year of the edition must be equal or greater than the current one(2022)");
+        System.out.println("");
+    }
+
+    /**
+     * This will show if the player is eliminated
+     * @param player the player that has been eliminated
+     */
+    public void playerEliminated(Player player){
+        System.out.println(player.getName() + " was eliminated!");
     }
 }
