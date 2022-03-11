@@ -265,7 +265,7 @@ public class BusinessController {
                 break;
             }
         }
-        if (year < 2022) {
+        if (year > 2022) {
             ok = false;
             System.err.println("The year of the edition must be equal or greater than the current one(2022)");
             System.out.println("");
