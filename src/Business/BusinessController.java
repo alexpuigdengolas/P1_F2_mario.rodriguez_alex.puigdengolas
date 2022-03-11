@@ -143,7 +143,6 @@ public class BusinessController {
                     optionManageEditions = viewController.manageEditionView();
                     if (optionManageEditions.equals("a")) {
                         viewController.createEditionView(tests, editions);
-                        System.out.println(" ");
                     } else if (optionManageEditions.equals("b")) {
                         viewController.showEditionView(editions);
                     } else if (optionManageEditions.equals("c")) {
@@ -156,8 +155,7 @@ public class BusinessController {
                 }while (!exitEditionManager);
             } else {
                 exit = true;
-                System.out.println(" ");
-                System.out.println("Shutting down...");
+                viewController.shutDown();
             }
         }while (!exit);
     }
@@ -260,15 +258,13 @@ public class BusinessController {
         for(int i = 0; editions.size() > i; i++){
             if(editions.get(i).getYear() == year){
                 ok = false;
-                System.err.printf("There is already an edition this year, please choose again:");
-                System.out.println(" ");
+                viewController.yearErrorChoseAgain();
                 break;
             }
         }
         if (year > 2022) {
             ok = false;
-            System.err.println("The year of the edition must be equal or greater than the current one(2022)");
-            System.out.println("");
+            viewController.reallyBigYearError();
         }
         return ok;
     }
