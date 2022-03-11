@@ -18,7 +18,6 @@ public class BusinessController {
     LinkedList<Test> tests = new LinkedList<Test>();
     List<Edition> editions = new LinkedList<Edition>();
     List<Player> players = new LinkedList<>();
-    List<estudiMaster> masters = new LinkedList<>();
 
     /**
      * This is the constructor of the class, but it will work as the starter of the code
@@ -262,7 +261,7 @@ public class BusinessController {
                 break;
             }
         }
-        if (year > 2022) {
+        if (year < 2022) {
             ok = false;
             viewController.reallyBigYearError();
         }
