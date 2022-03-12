@@ -1,19 +1,21 @@
-package business.Role;
+package business.role;
 
 import business.Player;
 
+import java.util.List;
+
 /**
- * This class extends from Player and will be used to represent all the Doctors
+ * This class extends from Player and will be used to represent all the master
  */
-public class Doctor extends Player {
+public class Master extends Player {
 
     /**
-     * This constructor will be used to create a new Doctor and add the
+     * This constructor will be used to create a new Master and add the
      * desired information
-     * @param name is the name of the Doctor
-     * @param ip is the amount of investigation points that hte Doctor has earned
+     * @param name is the name of the Master
+     * @param ip is the amount of investigation points that hte Master has earned
      */
-    public Doctor(String name, int ip) {
+    public Master(String name, int ip) {
         this.setName(name);
         this.setInvestigationPoints(ip);
     }
@@ -27,25 +29,25 @@ public class Doctor extends Player {
     public void getRewardPublication(String quartil) {
         switch (quartil){
             case "Q1":
-                this.setInvestigationPoints(this.getInvestigationPoints() + (4*2));
+                this.setInvestigationPoints( this.getInvestigationPoints() + 4);
 
             case "Q2":
-                this.setInvestigationPoints(this.getInvestigationPoints() + (3*2));
+                this.setInvestigationPoints(this.getInvestigationPoints() + 3);
 
             case "Q3":
-                this.setInvestigationPoints(this.getInvestigationPoints() + (2*2));
+                this.setInvestigationPoints(this.getInvestigationPoints() + 2);
 
             case "Q4":
-                this.setInvestigationPoints(this.getInvestigationPoints() + (1*2));
+                this.setInvestigationPoints(this.getInvestigationPoints() + 1);
 
         }
         super.getRewardPublication(quartil);
     }
+    @Override
     /**
      * This method will give use the penalization if we lose in a Publication
      * @param quartil the quartil of the paper
      */
-    @Override
     public void getPenalizationPublication(String quartil) {
         switch (quartil){
             case "Q1":
@@ -70,7 +72,8 @@ public class Doctor extends Player {
     @Override
     public void getRewardDefense() {
         super.getRewardDefense();
-        this.setInvestigationPoints(this.getInvestigationPoints() + (5*2));
+        //Aseguramos que el jugador asciende de rango al meterke 10 puntos
+        this.setInvestigationPoints(10);
     }
     /**
      * This method will give use the penalization if we lose in a DoctoralDefense
@@ -82,13 +85,13 @@ public class Doctor extends Player {
     }
 
     //Master
-    @Override
     /**
      * This method will give use the reward if we win in a MasterStudies
      */
+    @Override
     public void getRewardMaster() {
         super.getRewardMaster();
-        this.setInvestigationPoints(this.getInvestigationPoints() + 6);
+        this.setInvestigationPoints(this.getInvestigationPoints() + 3);
     }
     /**
      * This method will give use the penalization if we lose in a MasterStudies
@@ -96,16 +99,29 @@ public class Doctor extends Player {
     @Override
     public void getPenalizationMaster() {
         super.getPenalizationMaster();
-        this.setInvestigationPoints(this.getInvestigationPoints() - 1);
+        this.setInvestigationPoints(this.getInvestigationPoints() - 3);
     }
 
     //Budget
-    @Override
     /**
      * This method will give use the penalization if we lose in a BudgetRequest
      */
+    @Override
     public void getPenalizationBudget() {
         super.getPenalizationBudget();
-        this.setInvestigationPoints(this.getInvestigationPoints() - 1);
+        this.setInvestigationPoints(this.getInvestigationPoints() - 2);
+    }
+
+    /**
+     * This method will check that the role of the player is appropriate and that we doesn't need
+     * to get a promotion
+     * @param players is the list of players of the edition
+     * @param playerIteration is the id of the player that we want to check into
+     */
+    @Override
+    public void checkRole(List<Player> players, int playerIteration) {
+        Doctor player = new Doctor(this.getName(), 5);
+        players.remove(playerIteration);
+        players.add(playerIteration, player);
     }
 }

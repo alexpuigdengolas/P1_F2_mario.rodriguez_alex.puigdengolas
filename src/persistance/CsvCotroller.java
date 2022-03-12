@@ -1,9 +1,9 @@
 package persistance;
 
 import business.*;
-import business.Role.Doctor;
-import business.Role.Enginyer;
-import business.Role.Master;
+import business.role.Doctor;
+import business.role.Enginyer;
+import business.role.Master;
 
 import javax.swing.*;
 import java.io.*;

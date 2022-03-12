@@ -1,7 +1,7 @@
 package presentation;
 
 import business.*;
-import business.Role.Enginyer;
+import business.role.Enginyer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -774,20 +774,23 @@ public class ViewController {
         System.out.println(" ");
         System.out.println("    --- The Trials " + year + " ---");
         System.out.println(" ");
-        for (int i = 0; i < edition.getInitialPlayers(); i++) {
-            System.out.print("Enter the player's name (" + (i + 1) + "/" + edition.getInitialPlayers() + "): ");
-            name = sc.nextLine();
-            aux = false;
-            for (int j = 0; j < edition.getPlayers().size(); j++) {
-                if (edition.getPlayers().get(j).getName().equals(name)) {
-                    aux = true;
+        if(edition.getRounds() == 0) {
+            for (int i = 0; i < edition.getInitialPlayers(); i++) {
+                System.out.print("Enter the player's name (" + (i + 1) + "/" + edition.getInitialPlayers() + "): ");
+                name = sc.nextLine();
+                aux = false;
+
+                for (int j = 0; j < edition.getPlayers().size(); j++) {
+                    if (edition.getPlayers().get(j).getName().equals(name)) {
+                        aux = true;
+                    }
                 }
-            }
-            if (!aux) {
-                edition.getPlayers().get(i).setName(name);
-            }else {
-                System.out.println("This name is already used, please try again");
-                i--;
+                if (!aux) {
+                    edition.getPlayers().get(i).setName(name);
+                } else {
+                    System.out.println("This name is already used, please try again");
+                    i--;
+                }
             }
         }
     }
