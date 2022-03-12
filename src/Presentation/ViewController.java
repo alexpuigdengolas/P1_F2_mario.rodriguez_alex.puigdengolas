@@ -11,7 +11,7 @@ import java.util.Scanner;
  * This class will be used to show any information that is needed
  */
 public class ViewController {
-    BusinessController businessController;
+    private BusinessController businessController;
 
     /**
      * This method is the constructor of the controller

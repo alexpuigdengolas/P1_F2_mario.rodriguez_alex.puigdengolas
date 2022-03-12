@@ -1,10 +1,9 @@
 package Business;
 
 import Persistance.CsvCotroller;
-import Persistance.jsonController;
+import Persistance.JsonController;
 import Presentation.ViewController;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,10 +13,10 @@ import java.util.List;
  * parts of the code.
  */
 public class BusinessController {
-    ViewController viewController = new ViewController(this);
-    LinkedList<Test> tests = new LinkedList<Test>();
-    List<Edition> editions = new LinkedList<Edition>();
-    List<Player> players = new LinkedList<>();
+    private ViewController viewController = new ViewController(this);
+    private LinkedList<Test> tests = new LinkedList<Test>();
+    private List<Edition> editions = new LinkedList<Edition>();
+    private List<Player> players = new LinkedList<>();
 
     /**
      * This is the constructor of the class, but it will work as the starter of the code
@@ -28,7 +27,7 @@ public class BusinessController {
         boolean csvOn = viewController.dataSelection();
 
         CsvCotroller csv = new CsvCotroller(); //creamos objeto
-        jsonController json = new jsonController();
+        JsonController json = new JsonController();
 
         if (csvOn) {
             editions = csv.readCSV("CSV/Edicions.csv");
@@ -295,4 +294,6 @@ public class BusinessController {
         }
         return true;
     }
+
+
 }

@@ -102,7 +102,7 @@ public class estudiMaster extends Test{
      * @param playerIteration the id of the player selected
      */
     @Override
-    void getReward(Test test, List<Player> players, int playerIteration) {
+    public void getReward(Test test, List<Player> players, int playerIteration) {
         super.getReward(test, players, playerIteration);
         players.get(playerIteration).getRewardDefense();
         if(players.get(playerIteration).getInvestigationPoints() >= 10 && !players.get(playerIteration).getClass().getSimpleName().equals("Doctor")){
@@ -117,11 +117,11 @@ public class estudiMaster extends Test{
      * @param playerIteration the id of the player selected
      */
     @Override
-    void getPenalitation(Test test, Edition edition, int playerIteration) {
+    public void getPenalitation(Test test, Edition edition, int playerIteration) {
         super.getPenalitation(test, edition, playerIteration);
         edition.getPlayers().get(playerIteration).getPenalizationMaster();
         if(edition.getPlayers().get(playerIteration).getInvestigationPoints() <= 0){
-            edition.getBusinessController().viewController.playerEliminated(edition.getPlayers().get(playerIteration));
+            edition.getBusinessController().getViewController().playerEliminated(edition.getPlayers().get(playerIteration));
             edition.getPlayers().remove(playerIteration);
             edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }

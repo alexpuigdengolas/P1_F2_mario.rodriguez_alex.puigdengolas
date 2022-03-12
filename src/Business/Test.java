@@ -53,7 +53,7 @@ public class Test {
      * @param players the players of the edition
      * @param playerIteration the id of the player selected
      */
-    void getReward(Test test, List<Player> players, int playerIteration) {
+    public void getReward(Test test, List<Player> players, int playerIteration) {
 
     }
 
@@ -63,7 +63,7 @@ public class Test {
      * @param edition the edition that is being executed
      * @param playerIteration the id of the player selected
      */
-    void getPenalitation(Test test, Edition edition, int playerIteration) {
+    public void getPenalitation(Test test, Edition edition, int playerIteration) {
 
     }
 

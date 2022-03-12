@@ -133,7 +133,7 @@ public class Publication extends Test{
      * @param playerIteration the id of the player selected
      */
     @Override
-    void getReward(Test test, List<Player> players, int playerIteration) {
+    public void getReward(Test test, List<Player> players, int playerIteration) {
         super.getReward(test, players, playerIteration);
         Publication publication = (Publication) test;
         quartil = publication.getQuartil();
@@ -150,13 +150,13 @@ public class Publication extends Test{
      * @param playerIteration the id of the player selected
      */
     @Override
-    void getPenalitation(Test test, Edition edition, int playerIteration) {
+    public void getPenalitation(Test test, Edition edition, int playerIteration) {
         super.getPenalitation(test, edition, playerIteration);
         Publication publication = (Publication) test;
         quartil = publication.getQuartil();
         edition.getPlayers().get(playerIteration).getPenalizationPublication(quartil);
         if(edition.getPlayers().get(playerIteration).getInvestigationPoints() <= 0){
-            edition.getBusinessController().viewController.playerEliminated(edition.getPlayers().get(playerIteration));
+            edition.getBusinessController().getViewController().playerEliminated(edition.getPlayers().get(playerIteration));
             edition.getPlayers().remove(playerIteration);
             edition.setInitialPlayers(edition.getInitialPlayers()-1);
         }
