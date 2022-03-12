@@ -1,9 +1,12 @@
-package Business;
+package business;
 
-import Presentation.ViewController;
+import presentation.ViewController;
 
 import java.util.List;
 
+/**
+ * This class extends from Test and will be used to represent all the doctoral budget requests
+ */
 public class budgetRequest extends Test{
     private String entity;
     private double quantity;
@@ -63,11 +66,13 @@ public class budgetRequest extends Test{
         if(totalPi > (int)(Math.log(quantity) / Math.log(2))){
             for(int j = 0; j < edition.getPlayers().size(); j++) {
                 getReward(test, edition.getPlayers(), j);
+                if(edition.getPlayers().size() > j)
                 edition.getBusinessController().getViewController().BudgetPassed(edition.getPlayers().get(j));
             }
         }else{
             for(int j = 0; j < edition.getPlayers().size(); j++) {
                 getPenalitation(test, edition, j);
+                if(edition.getPlayers().size() > j)
                 edition.getBusinessController().getViewController().BudgetNotPassed(edition.getPlayers().get(j));
 
             }

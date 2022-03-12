@@ -1,9 +1,12 @@
-package Business;
+package business;
 
-import Presentation.ViewController;
+import presentation.ViewController;
 
 import java.util.List;
 
+/**
+ * This class will be used to represent all the tests
+ */
 public class Test {
     private String name;
     private String type;

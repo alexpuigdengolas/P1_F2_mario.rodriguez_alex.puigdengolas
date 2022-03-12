@@ -1,8 +1,8 @@
-package Business;
+package business;
 
-import Persistance.CsvCotroller;
-import Persistance.JsonController;
-import Presentation.ViewController;
+import persistance.CsvCotroller;
+import persistance.JsonController;
+import presentation.ViewController;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -60,7 +60,7 @@ public class BusinessController {
 
         //Conductor
         }else{
-            conductorComposer();
+            conductorController();
         }
 
         if(csvOn){
@@ -170,7 +170,7 @@ public class BusinessController {
      * This method will allow the user to get executed in the Conductor mode,
      * that will allow us to execute the current year edition
      */
-    public void conductorComposer(){
+    public void conductorController(){
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
         Edition edition = lookForCurrentEdition(editions, currentYear);
@@ -193,10 +193,11 @@ public class BusinessController {
         Player winner = new Player();
 
         int i;
-        for (i = 0; i < edition.getNumTest() && nextTest; i++) {
-            if(i > 0){
+        for (i = edition.getRounds(); i < edition.getNumTest() && nextTest; i++) {
+            if(i > edition.getRounds()){
                 nextTest = viewController.nextTest();
                 if(!nextTest){
+                    edition.setRounds(i);
                     break;
                 }
             }
@@ -206,8 +207,8 @@ public class BusinessController {
                 viewController.allPlayersDisc();
             }
         }
+        winner = getWinner(edition);
         if (i == edition.getNumTest()){
-            winner = getWinner(edition);
             viewController.editionEnded(edition, winner);
         }
     }
@@ -225,7 +226,8 @@ public class BusinessController {
                 winner = i;
             }
         }
-        return edition.getPlayers().get(winner);
+        if(winner < edition.getPlayers().size()) return edition.getPlayers().get(winner);
+        else return null;
     }
 
     /**

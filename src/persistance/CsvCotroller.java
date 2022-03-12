@@ -1,15 +1,13 @@
-package Persistance;
+package persistance;
 
-import Business.*;
-import Business.Role.Doctor;
-import Business.Role.Enginyer;
-import Business.Role.Master;
+import business.*;
+import business.Role.Doctor;
+import business.Role.Enginyer;
+import business.Role.Master;
 
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

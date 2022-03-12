@@ -1,9 +1,12 @@
-package Business;
+package business;
 
-import Presentation.ViewController;
+import presentation.ViewController;
 
 import java.util.List;
 
+/**
+ * This class extends from Test and will be used to represent all the publications
+ */
 public class Publication extends Test{
     private String nameMag;
     private String quartil;
@@ -57,7 +60,7 @@ public class Publication extends Test{
 
     /**
      * The getter of the acceptance probability
-     * @returnthe acceptance probability
+     * @return the acceptance probability
      */
     public int getAcceptanceProbability() {
         return acceptanceProbability;
@@ -65,7 +68,7 @@ public class Publication extends Test{
 
     /**
      * The getter of the revision probability
-     * @returnthe revision probability
+     * @return the revision probability
      */
     public int getRevisionProbability() {
         return revisionProbability;
@@ -73,7 +76,7 @@ public class Publication extends Test{
 
     /**
      * The getter of the rejection probability
-     * @returnthe rejection probability
+     * @return the rejection probability
      */
     public int getNotAcceptedProbability() {
         return notAcceptedProbability;
@@ -98,7 +101,6 @@ public class Publication extends Test{
     public void execute(Test test, Edition edition) {
         super.execute(test, edition);
         Publication publication = (Publication) test;
-        String quartil = publication.getQuartil();
         try {
             for (int i = 0; i < edition.getPlayers().size(); i++) {
                 boolean result = false;

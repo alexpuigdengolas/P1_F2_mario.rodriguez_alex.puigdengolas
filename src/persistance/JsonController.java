@@ -1,19 +1,12 @@
-package Persistance;
+package persistance;
 
-import Business.*;
-import Business.Role.Doctor;
-import Business.Role.Enginyer;
-import Business.Role.Master;
+import business.*;
+import business.Role.Doctor;
+import business.Role.Enginyer;
+import business.Role.Master;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import javax.print.Doc;
-import javax.swing.*;
-import javax.xml.crypto.KeySelector;
 import java.io.*;
 import java.util.*;
 

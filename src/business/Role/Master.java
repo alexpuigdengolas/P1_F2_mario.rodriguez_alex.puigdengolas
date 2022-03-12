@@ -1,36 +1,31 @@
-package Business.Role;
+package business.Role;
 
-import Business.Player;
+import business.Player;
 
 import java.util.List;
 
-public class Enginyer extends Player {
+/**
+ * This class extends from Player and will be used to represent all the master
+ */
+public class Master extends Player {
 
     /**
-     * This is the empty constructor that will allow us to create the a default player Enginyer
-     */
-    public Enginyer(){
-        this.setName("Pepe");
-        this.setInvestigationPoints(5);
-    }
-
-    /**
-     * This constructor will be used to create a new Enginyer and add the
+     * This constructor will be used to create a new Master and add the
      * desired information
-     * @param name is the name of the Enginyer
-     * @param ip is the amount of investigation points that the Enginyer has earned
+     * @param name is the name of the Master
+     * @param ip is the amount of investigation points that hte Master has earned
      */
-    public Enginyer(String name, int ip) {
+    public Master(String name, int ip) {
         this.setName(name);
         this.setInvestigationPoints(ip);
     }
 
     //Publication
-    @Override
     /**
      * This method will give use the reward if we win in a Publication
      * @param quartil the quartil of the paper
      */
+    @Override
     public void getRewardPublication(String quartil) {
         switch (quartil){
             case "Q1":
@@ -48,24 +43,24 @@ public class Enginyer extends Player {
         }
         super.getRewardPublication(quartil);
     }
+    @Override
     /**
      * This method will give use the penalization if we lose in a Publication
      * @param quartil the quartil of the paper
      */
-    @Override
     public void getPenalizationPublication(String quartil) {
         switch (quartil){
             case "Q1":
-                this.setInvestigationPoints(this.getInvestigationPoints() - 5);
+                this.setInvestigationPoints(this.getInvestigationPoints() - 2);
 
             case "Q2":
-                this.setInvestigationPoints(this.getInvestigationPoints() - 4);
+                this.setInvestigationPoints(this.getInvestigationPoints() - 2);
 
             case "Q3":
-                this.setInvestigationPoints(this.getInvestigationPoints() - 3);
+                this.setInvestigationPoints(this.getInvestigationPoints() - 1);
 
             case "Q4":
-                this.setInvestigationPoints(this.getInvestigationPoints() - 2);
+                this.setInvestigationPoints(this.getInvestigationPoints() - 1);
         }
         super.getPenalizationPublication(quartil);
     }
@@ -77,7 +72,8 @@ public class Enginyer extends Player {
     @Override
     public void getRewardDefense() {
         super.getRewardDefense();
-        this.setInvestigationPoints(this.getInvestigationPoints() + 5);
+        //Aseguramos que el jugador asciende de rango al meterke 10 puntos
+        this.setInvestigationPoints(10);
     }
     /**
      * This method will give use the penalization if we lose in a DoctoralDefense
@@ -85,7 +81,7 @@ public class Enginyer extends Player {
     @Override
     public void getPenalizationDefense() {
         super.getPenalizationDefense();
-        this.setInvestigationPoints(this.getInvestigationPoints() - 5);
+        this.setInvestigationPoints(this.getInvestigationPoints() - 2);
     }
 
     //Master
@@ -95,7 +91,7 @@ public class Enginyer extends Player {
     @Override
     public void getRewardMaster() {
         super.getRewardMaster();
-        this.setInvestigationPoints(10);
+        this.setInvestigationPoints(this.getInvestigationPoints() + 3);
     }
     /**
      * This method will give use the penalization if we lose in a MasterStudies
@@ -103,7 +99,7 @@ public class Enginyer extends Player {
     @Override
     public void getPenalizationMaster() {
         super.getPenalizationMaster();
-        this.setInvestigationPoints(this.getInvestigationPoints() -3);
+        this.setInvestigationPoints(this.getInvestigationPoints() - 3);
     }
 
     //Budget
@@ -124,7 +120,7 @@ public class Enginyer extends Player {
      */
     @Override
     public void checkRole(List<Player> players, int playerIteration) {
-        Master player = new Master(this.getName(), 5);
+        Doctor player = new Doctor(this.getName(), 5);
         players.remove(playerIteration);
         players.add(playerIteration, player);
     }

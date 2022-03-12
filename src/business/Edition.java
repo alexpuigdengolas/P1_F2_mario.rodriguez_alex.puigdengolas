@@ -1,6 +1,4 @@
-package Business;
-
-import com.google.gson.annotations.Expose;
+package business;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -131,6 +129,9 @@ public class Edition {
      */
     public void showInfo() {
         this.getBusinessController().getViewController().showEditionInformation(this);
+    }
 
+    public void setRounds(int rounds) {
+        this.rounds = rounds;
     }
 }

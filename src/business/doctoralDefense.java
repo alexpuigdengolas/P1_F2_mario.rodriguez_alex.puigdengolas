@@ -1,9 +1,12 @@
-package Business;
+package business;
 
-import Presentation.ViewController;
+import presentation.ViewController;
 
 import java.util.List;
 
+/**
+ * This class extends from Test and will be used to represent all the doctoral defenses
+ */
 public class doctoralDefense extends Test{
     private String field;
     private int diff;

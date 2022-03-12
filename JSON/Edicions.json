@@ -3,7 +3,7 @@
     "year": 2022,
     "initialPlayers": 2,
     "numTest": 4,
-    "rounds": 0,
+    "rounds": 1,
     "tests": [
       {
         "nameMag": "A",
@@ -47,8 +47,8 @@
         "investigationPoints": 15
       },
       {
-        "name": "C",
-        "investigationPoints": 2
+        "name": "B",
+        "investigationPoints": 16
       }
     ]
   }

@@ -1,7 +1,7 @@
-package Presentation;
+package presentation;
 
-import Business.*;
-import Business.Role.Enginyer;
+import business.*;
+import business.Role.Enginyer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -866,7 +866,8 @@ public class ViewController {
      * @param winner the winner of the edition
      */
     public void editionEnded(Edition edition, Player winner) {
-        System.out.println("THE TRIALS "+edition.getYear()+" HAVE ENDED - "+winner.getName()+" WON");
+        if (winner != null) System.out.println("THE TRIALS "+edition.getYear()+" HAVE ENDED - "+winner.getName()+" WON");
+        else System.out.println("In this edition we don't have any winner");
     }
 
     /**
