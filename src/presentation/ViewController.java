@@ -501,7 +501,7 @@ public class ViewController {
                     initialPlayers = 0;
                 }
                 //sc.nextLine();
-                if ((initialPlayers > 0 && initialPlayers < 5) ) {
+                if ((initialPlayers > 0 && initialPlayers < 6) ) {
                     ok = true;
                 }else{
                     System.err.println("The initial number of players must must be more than 0 and less than 6");
@@ -559,7 +559,7 @@ public class ViewController {
                 for(int i = 0; i < initialPlayers; i++){
                     players.add(new Enginyer());
                 }
-                editions.add(new Edition(year, initialPlayers, numTest, rounds, editionTests, players));
+                editions.add(new Edition(this.businessController ,year, initialPlayers, numTest, rounds, editionTests, players));
             }
 
         }while(!ok);
@@ -624,6 +624,7 @@ public class ViewController {
         String optionAux;
         Scanner sc = new Scanner(System.in);
         int option, year=2023, initialPlayers=2;
+        List<Player> players;
         Edition copyEdition;
 
         System.out.println("Which edition do you want to clone?");
@@ -653,6 +654,7 @@ public class ViewController {
                     System.out.println(" ");
                 } else if (option != editions.size()+1) {
                     copyEdition = editions.get(option - 1);
+                    players = copyEdition.getPlayers();
                     while (!ok) {
                         System.out.println(" ");
                         System.out.print("Enter the edition's year: ");
@@ -679,15 +681,25 @@ public class ViewController {
                             initialPlayers = 0;
                         }
                         //sc.nextLine();
-                        if ((initialPlayers > 0 && initialPlayers < 5)) {
+                        if ((initialPlayers > 0 && initialPlayers < 6)) {
                             ok = true;
+                            if(initialPlayers > copyEdition.getPlayers().size()) {
+                                for (int i = 0; i < initialPlayers - editions.size(); i++) {
+                                    players.add(new Enginyer());
+                                }
+                            }else if (initialPlayers < copyEdition.getPlayers().size()){
+                                players.clear();
+                                for (int i = 0; i < initialPlayers; i++) {
+                                    players.add(new Enginyer());
+                                }
+                            }
                         } else {
                             System.err.println("The initial number of players must must be more than 0 and less than 6");
                             System.out.println("");
                         }
                     }
                     System.out.println(" ");
-                    editions.add(new Edition(year, initialPlayers, copyEdition.getNumTest(), copyEdition.getRounds(), copyEdition.getTests(), copyEdition.getPlayers()));
+                    editions.add(new Edition(this.businessController, year, initialPlayers, copyEdition.getNumTest(), 0, copyEdition.getTests(), players));
                 }else{
                     ok = true;
                 }
@@ -880,37 +892,43 @@ public class ViewController {
     public Test createDoctoralDefense() {
         String name, field,option;
         int diff;
-        boolean ok ,aux;
+        boolean ok = false ,aux;
         Scanner sc = new Scanner(System.in);
 
         do{
             System.out.println(" ");
-            System.out.print("Enter the trial’s name: "); //TODO: supongo que mirar si no hay otro con el mismo nombre
+            System.out.print("Enter the trial’s name: ");
             name = sc.nextLine();
-
-            System.out.print("Enter the thesis field of study: ");
-            field = sc.nextLine();
-            System.out.print("Enter the defense difficulty: ");
-            option = sc.nextLine();
-            aux = businessController.isNumber(option);
-            if(aux){
-                diff = Integer.parseInt(option);
-            }else{
-                diff = 0;
-            }
-
-            if(diff < 1 || diff > 10){
-                ok = false;
-            }else{
-                ok = true;
-            }
-
-            if(!ok){
-                System.err.println("The information is not valid, please try again");
-            }else{
+            aux = businessController.comprovaTest(name);
+            if(name.equals("") || !aux) {
+                System.err.println("Please enter a correct trial's name");
                 System.out.println(" ");
-                System.out.println("The trial was created successfully!");
-                return new doctoralDefense(name, field, diff);
+            } else{
+
+                System.out.print("Enter the thesis field of study: ");
+                field = sc.nextLine();
+                System.out.print("Enter the defense difficulty: ");
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    diff = Integer.parseInt(option);
+                }else{
+                    diff = 0;
+                }
+
+                if(diff < 1 || diff > 10){
+                    ok = false;
+                }else{
+                    ok = true;
+                }
+
+                if(!ok){
+                    System.err.println("The information is not valid, please try again");
+                }else{
+                    System.out.println(" ");
+                    System.out.println("The trial was created successfully!");
+                    return new doctoralDefense(name, field, diff);
+                }
             }
         }while(!ok);
         return null;
@@ -947,7 +965,7 @@ public class ViewController {
                 System.out.println(" ");
                 System.out.print("Enter the trial’s name: ");
                 name = sc.nextLine();
-                aux = businessController.comprovaTest(name);// comprova si el nom esta repetit
+                aux = businessController.comprovaTest(name);
                 if(name.equals("") || !aux ){
                     System.err.println("Please enter a correct trial's name");
                     System.out.println(" ");
@@ -961,12 +979,17 @@ public class ViewController {
                 System.out.print("Enter the master’s name: ");
                 master = sc.nextLine();
 
-                //aux = businessController.comprovaTest(master); Aqui falta mirar si el master esta be
-                if(master.equals("")  ){
-                    System.err.println("Please enter a correct master's name");
-                    System.out.println(" ");
+                aux = businessController.comprovaTest(master); //Aqui falta mirar si el master esta be
+                if(aux) {
+                    if (master.equals("")) {
+                        System.err.println("Please enter a correct master's name");
+                        System.out.println(" ");
+                    } else {
+                        ok = true;
+                    }
                 }else{
-                    ok = true;
+                    System.err.println("Please enter a correct trial's name");
+                    System.out.println(" ");
                 }
             }
             ok = false;
@@ -1036,37 +1059,45 @@ public class ViewController {
     public Test createBudgetRequest() {
         String name, entity,option;
         double budget;
-        boolean ok,aux;
+        boolean ok = false,aux;
         Scanner sc = new Scanner(System.in);
 
         do{
             System.out.println(" ");
             System.out.print("Enter the trial’s name: "); // falta mirar que no es repetixi el nom
+
             name = sc.nextLine();
-            System.out.print("Enter the entity’s name: ");
-            entity = sc.nextLine();
-            System.out.print("Enter the budget demanded: ");
 
-            option = sc.nextLine();
-            aux = businessController.isNumber(option);
-            if(aux){
-                budget = Integer.parseInt(option);
-            }else{
-                budget = 0;
-            }
+            aux = businessController.comprovaTest(name); //Aqui falta mirar si el master esta be
+            if(aux) {
+                System.out.print("Enter the entity’s name: ");
+                entity = sc.nextLine();
+                System.out.print("Enter the budget demanded: ");
 
-            if((budget < 1000 || budget > 2000000000)){
-                ok = false;
-            }else{
-                ok = true;
-            }
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if (aux) {
+                    budget = Integer.parseInt(option);
+                } else {
+                    budget = 0;
+                }
 
-            if(!ok){
-                System.err.println("The information is not valid, please try again");
+                if ((budget < 1000 || budget > 2000000000)) {
+                    ok = false;
+                } else {
+                    ok = true;
+                }
+
+                if (!ok) {
+                    System.err.println("The information is not valid, please try again");
+                } else {
+                    System.out.println(" ");
+                    System.out.println("The trial was created successfully!");
+                    return new budgetRequest(name, entity, budget);
+                }
             }else{
+                System.err.println("Please enter a correct trial's name");
                 System.out.println(" ");
-                System.out.println("The trial was created successfully!");
-                return new budgetRequest(name, entity, budget);
             }
         }while(!ok);
         return null;

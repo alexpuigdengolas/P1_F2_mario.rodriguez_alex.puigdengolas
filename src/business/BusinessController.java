@@ -289,7 +289,7 @@ public class BusinessController {
      * @return a boolean that shows if the input name is valid
      */
     public boolean comprovaTest(String name){
-        for(int i = 0; i < tests.get(i).getName().length(); i++){
+        for(int i = 0; i < tests.size(); i++){
             if(tests.get(i).getName().equals(name)){
                 return false;
             }

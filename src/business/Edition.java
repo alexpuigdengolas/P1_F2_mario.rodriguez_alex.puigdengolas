@@ -34,6 +34,16 @@ public class Edition {
         this.players = players;
     }
 
+    public Edition(BusinessController businessController, int year, int initialPlayers, int numTest, int rounds, List<Test> tests, List<Player> players) {
+        this.businessController = businessController;
+        this.year = year;
+        this.initialPlayers = initialPlayers;
+        this.numTest = numTest;
+        this.rounds = rounds;
+        this.tests = tests;
+        this.players = players;
+    }
+
     /**
      * This is a getter for the business controller
      * @return the business controller
