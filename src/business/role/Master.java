@@ -123,5 +123,6 @@ public class Master extends Player {
         Doctor player = new Doctor(this.getName(), 5);
         players.remove(playerIteration);
         players.add(playerIteration, player);
+        System.out.println(this.getName() + " has become a Enginyer!");
     }
 }

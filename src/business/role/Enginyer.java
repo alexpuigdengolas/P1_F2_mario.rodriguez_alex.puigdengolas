@@ -130,5 +130,6 @@ public class Enginyer extends Player {
         Master player = new Master(this.getName(), 5);
         players.remove(playerIteration);
         players.add(playerIteration, player);
+        System.out.println(this.getName() + " has become a Master!");
     }
 }

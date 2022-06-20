@@ -346,7 +346,7 @@ public class ViewController {
                 System.out.println(" ");
                 System.out.println("    "+ (tests.size()+1) +") Back");
                 System.out.println(" ");
-                System.out.print("Enter an potion: ");
+                System.out.print("Enter an option: ");
                 optionAux = sc.nextLine();
                 aux = businessController.isNumber(optionAux);
                 if(aux){
@@ -393,7 +393,7 @@ public class ViewController {
                 System.out.println(" ");
                 System.out.println("    "+ (tests.size()+1) +") Back");
                 System.out.println(" ");
-                System.out.print("Enter an potion: ");
+                System.out.print("Enter an option: ");
                 optionAux = sc.nextLine();
                 aux = businessController.isNumber(optionAux);
                 if(aux){
