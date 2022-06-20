@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../../../../../2020 - 2021/DPOO/P1/P1-DPOO/lib/gson-2.6.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../../../../2020 - 2021/DPOO/P1/P1-DPOO/lib/json-simple-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../P2/dpoo-2122-s2-b1/libs/gson-2.8.6.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
