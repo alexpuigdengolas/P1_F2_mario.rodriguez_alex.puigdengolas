@@ -4,6 +4,10 @@ import business.*;
 import business.role.Doctor;
 import business.role.Enginyer;
 import business.role.Master;
+import business.tests.Publication;
+import business.tests.budgetRequest;
+import business.tests.doctoralDefense;
+import business.tests.estudiMaster;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

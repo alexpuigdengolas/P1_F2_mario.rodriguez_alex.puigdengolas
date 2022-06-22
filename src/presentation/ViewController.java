@@ -2,6 +2,10 @@ package presentation;
 
 import business.*;
 import business.role.Enginyer;
+import business.tests.Publication;
+import business.tests.budgetRequest;
+import business.tests.doctoralDefense;
+import business.tests.estudiMaster;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -1040,16 +1044,16 @@ public class ViewController {
      * This view will indicate that the master study has been passed
      * @param player the player that has passed
      */
-    public void masterPassed(Player player){
-        System.out.println(player.getName()+" was successful. Congrats! PI count: "+player.getInvestigationPoints());
+    public void masterPassed(Player player, int totalEcts, int ectsPassed){
+        System.out.println(player.getName()+" was successful with "+ectsPassed+"/"+totalEcts+". Congrats! PI count: "+player.getInvestigationPoints());
     }
 
     /**
      * This view will indicate that the master study hasn't been passed
      * @param player the player that hasn't passed
      */
-    public void masterNotPassed(Player player){
-        System.out.println(player.getName()+" wasn't successful. Sorry... PI count: "+player.getInvestigationPoints());
+    public void masterNotPassed(Player player, int totalEcts, int ectsPassed){
+        System.out.println(player.getName()+" wasn't successful with "+ectsPassed+"/"+totalEcts+". PI count: "+player.getInvestigationPoints());
     }
 
     /**
@@ -1105,18 +1109,32 @@ public class ViewController {
 
     /**
      * This view will indicate that the budget request has been passed
-     * @param player the player that has passed
+     * @param players the group of players that has passed
      */
-    public void BudgetPassed(Player player){
-        System.out.println(player.getName()+" was successful. Congrats! PI count: "+player.getInvestigationPoints());
+    public void BudgetPassed(List<Player> players){
+        System.out.println("The research group got the budget!");
+        for (Player player : players) {
+            if(player.getClass().getSimpleName().equals("Doctor")) {
+                System.out.println(player.getName() + ", PhD. PI count: " + player.getInvestigationPoints());
+            }else{
+                System.out.println(player.getName() + ". PI count: " + player.getInvestigationPoints());
+            }
+        }
     }
 
     /**
      * This view will indicate that the budget request hasn't been passed
-     * @param player the player that hasn't passed
+     * @param players the group of players that hasn't passed
      */
-    public void BudgetNotPassed(Player player){
-        System.out.println(player.getName()+" wasn't successful. Sorry... PI count: "+player.getInvestigationPoints());
+    public void BudgetNotPassed(List<Player> players){
+        System.out.println("The research group didn't got the budget");
+        for (Player player : players) {
+            if(player.getClass().getSimpleName().equals("Doctor")) {
+                System.out.println(player.getName() + ", PhD. PI count: " + player.getInvestigationPoints());
+            }else{
+                System.out.println(player.getName() + ". PI count: " + player.getInvestigationPoints());
+            }
+        }
     }
 
     /**

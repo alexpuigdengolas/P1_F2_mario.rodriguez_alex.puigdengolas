@@ -1,5 +1,8 @@
-package business;
+package business.tests;
 
+import business.Edition;
+import business.Player;
+import business.Test;
 import presentation.ViewController;
 
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.List;
 /**
  * This class extends from Test and will be used to represent all the doctoral defenses
  */
-public class doctoralDefense extends Test{
+public class doctoralDefense extends Test {
     private String field;
     private int diff;
 
