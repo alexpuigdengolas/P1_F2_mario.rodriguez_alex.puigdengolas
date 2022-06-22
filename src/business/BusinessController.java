@@ -129,7 +129,7 @@ public class BusinessController {
 
                     } else if (optionManageTrials.equals("c")) {
                         //Delete Test View
-                        viewController.trialChoiceDeleteView((LinkedList<Test>) tests);
+                        viewController.trialChoiceDeleteView((LinkedList<Test>) tests, editions);
 
                     } else {
                         exitTrialManager = true;
@@ -201,7 +201,7 @@ public class BusinessController {
                     break;
                 }
             }
-
+            viewController.showCurrentTest(edition.getTests().get(i), i);
             edition.getTests().get(i).execute(edition.getTests().get(i), edition);
             if(edition.getPlayers().size() == 0){
                 viewController.allPlayersDisc();

@@ -376,8 +376,8 @@ public class ViewController {
      * This view will show to the user when he wants to delete a test
      * @param tests is all the tests that we have saved
      */
-    public void trialChoiceDeleteView(LinkedList<Test> tests) {
-        boolean ok = false, aux;
+    public void trialChoiceDeleteView(LinkedList<Test> tests, List<Edition> editions) {
+        boolean ok = false, aux, error = false;
         String optionAux, confirmation;
         int option;
         Scanner sc = new Scanner(System.in);
@@ -406,25 +406,38 @@ public class ViewController {
                     option = 0;
                 }
 
-                if(option > tests.size()+1 || option < 1){
-                    System.err.println("The option is not available, please try again");
-                }else if(option != tests.size()+1){
-                    System.out.println(" ");
-                    System.out.print("Enter the trial’s name for confirmation: ");
-                    confirmation = sc.nextLine();
-                    if (confirmation.equals(tests.get(option - 1).getName())) {
+                for (Edition edition : editions) {
+                    for (int j = 0; edition.getTests().size() > j; j++) {
+                        if (edition.getTests().get(j).getName().equals(tests.get(option - 1).getName())) {
+                            error = true;
+                            break;
+                        }
+                    }
+                }
+
+                if(error){
+                    System.out.println("The test cant be deleted if it is in a existing edition");
+                }else {
+                    if (option > tests.size() + 1 || option < 1) {
+                        System.err.println("The option is not available, please try again");
+                    } else if (option != tests.size() + 1) {
                         System.out.println(" ");
-                        tests.remove(option-1);
-                        System.out.println("The trial was successfully deleted");
-                        ok = true;
-                    }else{
-                        System.err.println("The trial wasn't successfully deleted");
+                        System.out.print("Enter the trial’s name for confirmation: ");
+                        confirmation = sc.nextLine();
+                        if (confirmation.equals(tests.get(option - 1).getName())) {
+                            System.out.println(" ");
+                            tests.remove(option - 1);
+                            System.out.println("The trial was successfully deleted");
+                            ok = true;
+                        } else {
+                            System.err.println("The trial wasn't successfully deleted");
+                            ok = true;
+                        }
+
+                        System.out.println(" ");
+                    } else {
                         ok = true;
                     }
-
-                    System.out.println(" ");
-                }else{
-                    ok = true;
                 }
             }
         }while(!ok);
@@ -864,6 +877,7 @@ public class ViewController {
         boolean ok = false;
         String option;
         do {
+            System.out.println(" ");
             System.out.println("Continue the execution? [yes/no]: ");
             option = sc.nextLine();
             if (option.equals("yes") || option.equals("Yes")) {
@@ -874,6 +888,7 @@ public class ViewController {
                 return false;
             } else {
                 System.err.println("This answer is not available, please try again");
+                System.out.println(" ");
             }
         }while (!ok);
         return false;
@@ -1223,5 +1238,11 @@ public class ViewController {
      */
     public void playerEliminated(Player player){
         System.out.println(player.getName() + " was eliminated!");
+    }
+
+    public void showCurrentTest(Test test, int i) {
+        System.out.println(" ");
+        System.out.println("Trial #"+(i+1)+" - "+test.getName());
+        System.out.println(" ");
     }
 }
