@@ -416,7 +416,7 @@ public class ViewController {
                 }
 
                 if(error){
-                    System.out.println("The test cant be deleted if it is in a existing edition");
+                    System.err.println("The test cant be deleted (it is in a existing edition)");
                 }else {
                     if (option > tests.size() + 1 || option < 1) {
                         System.err.println("The option is not available, please try again");
@@ -434,12 +434,12 @@ public class ViewController {
                             ok = true;
                         }
 
-                        System.out.println(" ");
                     } else {
                         ok = true;
                     }
                 }
             }
+            System.out.println(" ");
         }while(!ok);
     }
 
