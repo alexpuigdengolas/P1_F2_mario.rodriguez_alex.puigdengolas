@@ -44,7 +44,7 @@ public class CsvCotroller {
             liniea = null;
             partes = null;
             return data;
-        }catch (Exception e){
+        }catch (IOException e){
             JOptionPane.showMessageDialog(null,e);
             return null;
         }
@@ -141,7 +141,7 @@ public class CsvCotroller {
 
             csvWriter.flush();
             csvWriter.close();
-        }catch (Exception e){
+        }catch (IOException e){
             JOptionPane.showMessageDialog(null,e);
         }
     }

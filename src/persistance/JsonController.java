@@ -32,7 +32,7 @@ public class JsonController {
             gson.toJson(editions, writer);
             writer.close();
 
-        }catch (Exception e){
+        }catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -81,7 +81,7 @@ public class JsonController {
             testDefWriter.close();
             testMasterWriter.close();
             testReqWriter.close();
-        }catch(Exception e){
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
@@ -123,7 +123,7 @@ public class JsonController {
             enginyerWriter.close();
             masterWriter.close();
             doctorWriter.close();
-        }catch(Exception e){
+        }catch(IOException e){
             e.printStackTrace();
         }
     }

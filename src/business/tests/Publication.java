@@ -104,30 +104,26 @@ public class Publication extends Test {
     public void execute(Test test, Edition edition) {
         super.execute(test, edition);
         Publication publication = (Publication) test;
-        try {
-            for (int i = 0; i < edition.getPlayers().size(); i++) {
-                boolean result = false;
-                edition.getBusinessController().getViewController().submitting(edition.getPlayers().get(i));
-                while (!result) {
-                    double num = Math.random() * 100;
+        for (int i = 0; i < edition.getPlayers().size(); i++) {
+            boolean result = false;
+            edition.getBusinessController().getViewController().submitting(edition.getPlayers().get(i));
+            while (!result) {
+                double num = Math.random() * 100;
 
-                    if (num < publication.getAcceptanceProbability()) {
-                        getReward(test, edition.getPlayers(), i);
-                        edition.getBusinessController().getViewController().acceptedPublication(edition.getPlayers().get(i));
+                if (num < publication.getAcceptanceProbability()) {
+                    getReward(test, edition.getPlayers(), i);
+                    edition.getBusinessController().getViewController().acceptedPublication(edition.getPlayers().get(i));
+                    result = true;
+                } else {
+                    if (num > publication.getRevisionProbability() + publication.getAcceptanceProbability()) {
+                        getPenalitation(test, edition, i);
+                        edition.getBusinessController().getViewController().rejectedPublication(edition.getPlayers().get(i));
                         result = true;
                     } else {
-                        if (num > publication.getRevisionProbability() + publication.getAcceptanceProbability()) {
-                            getPenalitation(test, edition, i);
-                            edition.getBusinessController().getViewController().rejectedPublication(edition.getPlayers().get(i));
-                            result = true;
-                        } else {
-                            edition.getBusinessController().getViewController().revisedPublication();
-                        }
+                        edition.getBusinessController().getViewController().revisedPublication();
                     }
                 }
             }
-        }catch (Exception ignored){
-
         }
     }
 

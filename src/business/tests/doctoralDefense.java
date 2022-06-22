@@ -51,23 +51,19 @@ public class doctoralDefense extends Test {
     @Override
     public void execute(Test test, Edition edition) {
         super.execute(test, edition);
-        try {
-            double result, noGoodResult = 0;
-            for(int i = 0; i < diff; i++){
-                noGoodResult = noGoodResult + 2*(i+1) - 1;
+        double result, noGoodResult = 0;
+        for(int i = 0; i < diff; i++){
+            noGoodResult = noGoodResult + 2*(i+1) - 1;
+        }
+        result = Math.sqrt(noGoodResult);
+        for (int i = 0; i < edition.getPlayers().size(); i++) {
+            if(edition.getPlayers().get(i).getInvestigationPoints() < result){
+                getReward(test, edition.getPlayers(), i);
+                edition.getBusinessController().getViewController().defensePassed(edition.getPlayers().get(i));
+            }else{
+                getPenalitation(test, edition, i);
+                edition.getBusinessController().getViewController().defenseNotPassed(edition.getPlayers().get(i));
             }
-            result = Math.sqrt(noGoodResult);
-            for (int i = 0; i < edition.getPlayers().size(); i++) {
-                if(edition.getPlayers().get(i).getInvestigationPoints() < result){
-                    getReward(test, edition.getPlayers(), i);
-                    edition.getBusinessController().getViewController().defensePassed(edition.getPlayers().get(i));
-                }else{
-                    getPenalitation(test, edition, i);
-                    edition.getBusinessController().getViewController().defenseNotPassed(edition.getPlayers().get(i));
-                }
-            }
-        }catch (Exception ignored){
-
         }
     }
 
