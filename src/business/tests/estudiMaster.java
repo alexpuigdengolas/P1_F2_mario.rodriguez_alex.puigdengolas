@@ -1,5 +1,8 @@
-package business;
+package business.tests;
 
+import business.Edition;
+import business.Player;
+import business.Test;
 import presentation.ViewController;
 
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.List;
 /**
  * This class extends from Test and will be used to represent all the estudi masters
  */
-public class estudiMaster extends Test{
+public class estudiMaster extends Test {
     private String master;
     private int credits;
     private int probability;
@@ -91,11 +94,11 @@ public class estudiMaster extends Test{
             if(pass > fail){
                 getReward(test, edition.getPlayers(), i);
                 if(edition.getPlayers().size() > i)
-                edition.getBusinessController().getViewController().masterPassed(edition.getPlayers().get(i));
+                edition.getBusinessController().getViewController().masterPassed(edition.getPlayers().get(i), credits, pass);
             }else{
                 getPenalitation(test, edition, i);
                 if(edition.getPlayers().size() > i)
-                edition.getBusinessController().getViewController().masterNotPassed(edition.getPlayers().get(i));
+                edition.getBusinessController().getViewController().masterNotPassed(edition.getPlayers().get(i), credits, pass);
             }
         }
     }
