@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * This class will create the the file .json to contain the editions information
  */
-public class JsonController {
+public class JsonController implements JsonDAO {
 
     /**
      * This method will allow us to write the edition in a file .json

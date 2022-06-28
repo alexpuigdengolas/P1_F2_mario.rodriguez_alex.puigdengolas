@@ -18,7 +18,7 @@ import java.util.List;
  * This class will create the the file .csv to contain the editions information
  */
 
-public class CsvCotroller {
+public class CsvCotroller implements CsvDAO {
     private BufferedReader lector;//lee el archivo
     private String liniea; // lee cada linea
     private String partes[] = null; //Guarda las lineas
