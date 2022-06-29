@@ -138,9 +138,50 @@ public class Publication extends Test {
         super.getReward(test, players, playerIteration);
         Publication publication = (Publication) test;
         quartil = publication.getQuartil();
-        players.get(playerIteration).getRewardPublication(quartil);
+        if(players.get(playerIteration).getClass().getSimpleName().equals("Enginyer")){
+            rewardEnginyerMaster(quartil, players.get(playerIteration));
+        }else if(players.get(playerIteration).getClass().getSimpleName().equals("Master")){
+            rewardEnginyerMaster(quartil, players.get(playerIteration));
+        }else{
+            rewardDoctor(quartil, players.get(playerIteration));
+        }
+
         if(players.get(playerIteration).getInvestigationPoints() >= 10 && !players.get(playerIteration).getClass().getSimpleName().equals("Doctor")){
             players.get(playerIteration).checkRole(players, playerIteration);
+        }
+    }
+
+    private void rewardDoctor(String quartil, Player player) {
+        switch (quartil){
+            case "Q1":
+                player.setInvestigationPoints(player.getInvestigationPoints() + (8));
+
+            case "Q2":
+                player.setInvestigationPoints(player.getInvestigationPoints() + (6));
+
+            case "Q3":
+                player.setInvestigationPoints(player.getInvestigationPoints() + (4));
+
+            case "Q4":
+                player.setInvestigationPoints(player.getInvestigationPoints() + (2));
+
+        }
+    }
+
+    private void rewardEnginyerMaster(String quartil, Player player) {
+        switch (quartil){
+            case "Q1":
+                player.setInvestigationPoints(player.getInvestigationPoints() + 4);
+
+            case "Q2":
+                player.setInvestigationPoints(player.getInvestigationPoints() + 3);
+
+            case "Q3":
+                player.setInvestigationPoints(player.getInvestigationPoints() + 2);
+
+            case "Q4":
+                player.setInvestigationPoints(player.getInvestigationPoints() + 1);
+
         }
     }
 
@@ -155,11 +196,49 @@ public class Publication extends Test {
         super.getPenalitation(test, edition, playerIteration);
         Publication publication = (Publication) test;
         quartil = publication.getQuartil();
-        edition.getPlayers().get(playerIteration).getPenalizationPublication(quartil);
+        if(edition.getPlayers().get(playerIteration).getClass().getSimpleName().equals("Enginyer")){
+            penEnginyer(quartil, edition.getPlayers().get(playerIteration));
+        }else if(edition.getPlayers().get(playerIteration).getClass().getSimpleName().equals("Master")){
+            penDoctorMaster(quartil, edition.getPlayers().get(playerIteration));
+        }else{
+            penDoctorMaster(quartil, edition.getPlayers().get(playerIteration));
+        }
         if(edition.getPlayers().get(playerIteration).getInvestigationPoints() <= 0){
             edition.getBusinessController().getViewController().playerEliminated(edition.getPlayers().get(playerIteration));
             edition.getPlayers().remove(playerIteration);
             edition.setInitialPlayers(edition.getInitialPlayers()-1);
+        }
+    }
+
+    private void penEnginyer(String quartil, Player player) {
+        switch (quartil){
+            case "Q1":
+                player.setInvestigationPoints(player.getInvestigationPoints() - 5);
+
+            case "Q2":
+                player.setInvestigationPoints(player.getInvestigationPoints() - 4);
+
+            case "Q3":
+                player.setInvestigationPoints(player.getInvestigationPoints() - 3);
+
+            case "Q4":
+                player.setInvestigationPoints(player.getInvestigationPoints() - 2);
+        }
+    }
+
+    private void penDoctorMaster(String quartil, Player player) {
+        switch (quartil){
+            case "Q1":
+                player.setInvestigationPoints(player.getInvestigationPoints() - 2);
+
+            case "Q2":
+                player.setInvestigationPoints(player.getInvestigationPoints() - 2);
+
+            case "Q3":
+                player.setInvestigationPoints(player.getInvestigationPoints() - 1);
+
+            case "Q4":
+                player.setInvestigationPoints(player.getInvestigationPoints() - 1);
         }
     }
 }

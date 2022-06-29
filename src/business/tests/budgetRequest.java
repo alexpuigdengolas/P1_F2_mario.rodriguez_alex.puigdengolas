@@ -82,7 +82,7 @@ public class budgetRequest extends Test {
     @Override
     public void getReward(Test test, List<Player> players, int playerIteration) {
         super.getReward(test, players, playerIteration);
-        players.get(playerIteration).getRewardBudget();
+        players.get(playerIteration).setInvestigationPoints(players.get(playerIteration).getInvestigationPoints() + (int) Math.ceil(players.get(playerIteration).getInvestigationPoints()/2));
         if (players.get(playerIteration).getInvestigationPoints() >= 10 && !players.get(playerIteration).getClass().getSimpleName().equals("Doctor")){
             players.get(playerIteration).checkRole(players, playerIteration);
         }
@@ -97,7 +97,11 @@ public class budgetRequest extends Test {
     @Override
     public void getPenalitation(Test test, Edition edition, int playerIteration) {
         super.getPenalitation(test, edition, playerIteration);
-        edition.getPlayers().get(playerIteration).getPenalizationBudget();
+        if(edition.getPlayers().get(playerIteration).getClass().getSimpleName().equals("Doctor")){
+            edition.getPlayers().get(playerIteration).setInvestigationPoints(edition.getPlayers().get(playerIteration).getInvestigationPoints() - 1);
+        }else {
+            edition.getPlayers().get(playerIteration).setInvestigationPoints(edition.getPlayers().get(playerIteration).getInvestigationPoints() - 2);
+        }
         if(edition.getPlayers().get(playerIteration).getInvestigationPoints() <= 0){
             edition.getBusinessController().getViewController().playerEliminated(edition.getPlayers().get(playerIteration));
             edition.getPlayers().remove(playerIteration);

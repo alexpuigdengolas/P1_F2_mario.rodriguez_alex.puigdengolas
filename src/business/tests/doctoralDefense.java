@@ -76,7 +76,14 @@ public class doctoralDefense extends Test {
     @Override
     public void getReward(Test test, List<Player> players, int playerIteration) {
         super.getReward(test, players, playerIteration);
-        players.get(playerIteration).getRewardDefense();
+        if(players.get(playerIteration).getClass().getSimpleName().equals("Enginyer")){
+            players.get(playerIteration).setInvestigationPoints(players.get(playerIteration).getInvestigationPoints() + 5);
+        }else if(players.get(playerIteration).getClass().getSimpleName().equals("Master")){
+            players.get(playerIteration).setInvestigationPoints(10);
+        }else{
+            players.get(playerIteration).setInvestigationPoints(players.get(playerIteration).getInvestigationPoints() + 10);
+        }
+
         if(players.get(playerIteration).getInvestigationPoints() >= 10 && !players.get(playerIteration).getClass().getSimpleName().equals("Doctor")){
             players.get(playerIteration).checkRole(players, playerIteration);
         }
@@ -91,7 +98,12 @@ public class doctoralDefense extends Test {
     @Override
     public void getPenalitation(Test test, Edition edition, int playerIteration) {
         super.getPenalitation(test, edition, playerIteration);
-        edition.getPlayers().get(playerIteration).getPenalizationDefense();
+        if(edition.getPlayers().get(playerIteration).getClass().getSimpleName().equals("Enginyer")){
+            edition.getPlayers().get(playerIteration).setInvestigationPoints(edition.getPlayers().get(playerIteration).getInvestigationPoints() - 5);
+        }else {
+            edition.getPlayers().get(playerIteration).setInvestigationPoints(edition.getPlayers().get(playerIteration).getInvestigationPoints() - 2);
+        }
+
         if(edition.getPlayers().get(playerIteration).getInvestigationPoints() <= 0){
             edition.getBusinessController().getViewController().playerEliminated(edition.getPlayers().get(playerIteration));
             edition.getPlayers().remove(playerIteration);
