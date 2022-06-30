@@ -151,6 +151,11 @@ public class Publication extends Test {
         }
     }
 
+    /**
+     * This function will be used whem the Test has ben passed and the player how passed it is a Doctor
+     * @param quartil is the quartil of the magazine we want to publish the article
+     * @param player is the player how passed
+     */
     private void rewardDoctor(String quartil, Player player) {
         switch (quartil){
             case "Q1":
@@ -168,6 +173,11 @@ public class Publication extends Test {
         }
     }
 
+    /**
+     * This function will be used whem the Test has ben passed and the player how passed it isn't a Doctor
+     * @param quartil is the quartil of the magazine we want to publish the article
+     * @param player is the player how passed
+     */
     private void rewardEnginyerMaster(String quartil, Player player) {
         switch (quartil){
             case "Q1":
@@ -210,6 +220,11 @@ public class Publication extends Test {
         }
     }
 
+    /**
+     * This function will be used whem the Test has ben failed and the player how failed is an Engineer
+     * @param quartil is the quartil of the magazine we want to publish the article
+     * @param player is the player how failed
+     */
     private void penEnginyer(String quartil, Player player) {
         switch (quartil){
             case "Q1":
@@ -226,6 +241,11 @@ public class Publication extends Test {
         }
     }
 
+    /**
+     * This function will be used whem the Test has ben failed and the player how failed isn't an Engineer
+     * @param quartil is the quartil of the magazine we want to publish the article
+     * @param player is the player how failed
+     */
     private void penDoctorMaster(String quartil, Player player) {
         switch (quartil){
             case "Q1":

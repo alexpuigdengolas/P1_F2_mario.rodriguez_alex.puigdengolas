@@ -90,7 +90,7 @@ public class doctoralDefense extends Test {
     }
 
     /**
-     * This will calculate the reward if the player wins
+     * This will calculate the penalization if the player looses
      * @param test the test we want to get the reward from
      * @param edition the edition that is being executed
      * @param playerIteration the id of the player selected
