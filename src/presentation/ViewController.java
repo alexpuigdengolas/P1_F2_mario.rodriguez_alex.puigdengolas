@@ -39,7 +39,24 @@ public class ViewController {
      * @return returns a boolean that shows the mode of execution of the code
      */
     public boolean startView(){
-        return viewUI.startView();
+        viewUI.presentationView();
+        String option;
+
+        boolean ok = false;
+        do {
+            option = viewUI.startView();
+            if (option.equals("A")) {
+                ok = true;
+                return true;
+            } else if (option.equals("B")) {
+                ok = true;
+                return false;
+            }else{
+               viewUI.showErrorMessageln("The option is not available, please try again");
+               viewUI.showMessageln("Who are you?");
+            }
+        }while (!ok);
+        return false;
     }
 
     /**
@@ -48,7 +65,33 @@ public class ViewController {
      * @return the boolean that shows the way that the data will be written
      */
     public boolean dataSelection() {
-        return viewUI.dataSelection();
+        String option;
+
+        boolean ok = false, csvOn = false;
+        do{
+            option = viewUI.dataSelection();
+
+
+        if(option.equals("I")){
+            csvOn = true;
+            viewUI.makeLine();
+            viewUI.showMessageln("Loading data from CSV files...");
+            viewUI.makeLine();
+            ok = true;
+        }else if(option.equals("II")){
+            viewUI.makeLine();
+            viewUI.showMessageln("Loading data from JSON files...");
+            viewUI.makeLine();
+            ok = true;
+        }else{
+            viewUI.makeLine();
+            viewUI.showErrorMessageln("This option is not available please try again");
+            viewUI.makeLine();
+        }
+
+        }while(!ok);
+
+        return csvOn;
     }
 
     /**
@@ -57,7 +100,32 @@ public class ViewController {
      * @return an int representing the option selected
      */
     public int mainCompositorView() {
-        return viewUI.mainCompositorView();
+        boolean ok = false;
+        String option;
+
+
+        viewUI.makeLine();
+        viewUI.showMessageln("Entering management mode...");
+        do{
+            option = viewUI.mainCompositorView();
+            if (option.equals("1")) {
+                ok = true;
+                return Integer.parseInt(option);
+            } else if (option.equals("2")) {
+                ok = true;
+                return Integer.parseInt(option);
+            } else if (option.equals("3")) {
+                ok = true;
+                return Integer.parseInt(option);
+            } else {
+                viewUI.makeLine();
+                viewUI.showErrorMessageln("The option is not available, please try again");
+                viewUI.makeLine();
+            }
+        }while (!ok);
+
+
+        return 0;
     }
 
     /**
@@ -66,7 +134,21 @@ public class ViewController {
      * @return the option selected
      */
     public String manageTrialsView() {
-        return viewUI.manageTrialsView();
+        String option;
+        boolean ok = false;
+        do{
+            option = viewUI.manageTrialsView();
+            if(option.equals("a")||option.equals("b")||option.equals("c")||option.equals("d")){
+                ok = true;
+                return option;
+            }else{
+                viewUI.showErrorMessageln("The option is not available, please try again");
+            }
+        }while (!ok);
+
+        return null;
+
+
     }
 
     /**
@@ -74,7 +156,22 @@ public class ViewController {
      * @return the int that indicates witch type of trial we want to create
      */
     public int trialChoiceView() {
-        return viewUI.trialChoiceView();
+        String option;
+        boolean ok = false;
+
+        do{
+            option = viewUI.trialChoiceView();
+
+            if(option.equals("1") || option.equals("2") || option.equals("3") || option.equals("4")){
+                ok = true;
+                return Integer.parseInt(option);
+            }else{
+                viewUI.makeLine();
+                viewUI.showErrorMessageln("The option is not available, please try again");
+                viewUI.makeLine();
+            }
+        }while (!ok);
+        return 0;
     }
 
     /**
@@ -82,7 +179,114 @@ public class ViewController {
      * @return the paper publication we all created
      */
     public Publication createPaperPublication() {
-        return viewUI.createPaperPublication();
+        String name = null, nameMag=null, quartil=null,option;
+        int acceptanceProbability = 0, revisionProbability = 0, notAcceptedProbability = 0;
+        boolean ok = false, ok2 = false, aux;
+        Scanner sc = new Scanner(System.in);
+
+        do{
+            System.out.println(" ");
+            while(!ok){
+                viewUI.showMessageln("Enter the trial’s name: ");
+                name = sc.nextLine();
+                aux = businessController.comprovaTest(name);
+                if(name.equals("") || !aux) {
+                    viewUI.showErrorMessageln("Please enter a correct trial's name");
+                    viewUI.makeLine();
+                } else{
+                    ok = true;
+                }
+            }
+
+            ok = false;
+            while (!ok) {
+                viewUI.showMessageln("Enter the journal’s name: ");
+                nameMag = sc.nextLine();
+                if(nameMag.equals("")){
+                    viewUI.showErrorMessageln("Please enter a correct journal's name");
+                    viewUI.makeLine();
+                }else{
+                    ok = true;
+                }
+            }
+            ok = false;
+            while(!ok){
+                viewUI.showMessageln("Enter the journal’s quartile: ");
+                quartil = sc.nextLine();
+                if(!quartil.equals("Q1") && !quartil.equals("Q2") && !quartil.equals("Q3") && !quartil.equals("Q4")){
+                    viewUI.showErrorMessageln("Please enter a correct journal's quartile, values between Q1-Q4");
+                    viewUI.makeLine();
+                }else{
+                    ok = true;
+                }
+            }
+            while(!ok2) {
+                ok = false;
+                while (!ok) {
+                    viewUI.showMessageln("Enter the acceptance probability: ");
+                    option = sc.nextLine();
+                    aux = businessController.isNumber(option);
+                    if(aux){
+                        acceptanceProbability = Integer.parseInt(option);
+                    }else{
+                        acceptanceProbability = 101;
+                    }
+                    //sc.nextLine();
+                    if ((acceptanceProbability < 0 || acceptanceProbability > 100)) {
+                        viewUI.showErrorMessageln("Please enter a correct acceptance probability, values between 0-100");
+                        viewUI.makeLine();
+                    } else {
+                        ok = true;
+                    }
+                }
+                ok = false;
+
+                while (!ok) {
+                    viewUI.showMessageln("Enter the revision probability: ");
+                    option = sc.nextLine();
+                    aux = businessController.isNumber(option);
+                    if(aux){
+                        revisionProbability = Integer.parseInt(option);
+                    }else{
+                        revisionProbability = 101;
+                    }
+                    //sc.nextLine();
+                    if ((revisionProbability < 0 || revisionProbability > 100)) {
+                        viewUI.showErrorMessageln("Please enter a correct revision probability, values between 0-100");
+                        viewUI.makeLine();
+                    } else {
+                        ok = true;
+                    }
+                }
+                ok = false;
+
+                while (!ok) {
+                    viewUI.showMessageln("Enter the rejection probability: ");
+                    option = sc.nextLine();
+                    aux = businessController.isNumber(option);
+                    if(aux){
+                        notAcceptedProbability = Integer.parseInt(option);
+                    }else{
+                        notAcceptedProbability = 101;
+                    }
+                    //sc.nextLine();
+                    if ((notAcceptedProbability < 0 || notAcceptedProbability > 100)) {
+                        viewUI.showErrorMessageln("Please enter a correct rejection probability, values between 0-100");
+                        viewUI.makeLine();
+                    } else {
+                        ok = true;
+                    }
+                }
+
+                if(acceptanceProbability+revisionProbability+notAcceptedProbability != 100){
+                    viewUI.showErrorMessageln("Please the sum of acceptance probability + revision probability + rejection probability must be equal to 100");
+                    viewUI.makeLine();
+                }else ok2 = true;
+            }
+            viewUI.makeLine();
+            viewUI.showMessageln("The trial was created successfully!");
+            return new Publication(name, nameMag, quartil, acceptanceProbability, revisionProbability, notAcceptedProbability);
+        }while(!ok && !ok2);
     }
 
     /**
@@ -90,7 +294,46 @@ public class ViewController {
      * @param tests is all the tests that we have saved
      */
     public void trialChoiceShowView(LinkedList<Test> tests){
-        viewUI.trialChoiceShowView(tests);
+        boolean ok = false, aux;
+        String optionAux;
+        int option;
+        Scanner sc = new Scanner(System.in);
+
+
+        do {
+            if (tests.size() == 0) {
+                viewUI.makeLine();
+                viewUI.showErrorMessageln("There are no test's in the system yet");
+                viewUI.makeLine();
+                ok = true;
+            } else {
+                viewUI.showMessageln(" ");
+                for(int i = 0; i < tests.size(); i++){
+                    viewUI.showMessageln("    "+ (i+1) +") "+ tests.get(i).getName());
+                }
+                viewUI.makeLine();
+                viewUI.showMessageln("    "+ (tests.size()+1) +") Back");
+                viewUI.makeLine();
+                viewUI.showMessage("Enter an option: ");
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if(aux){
+                    option = Integer.parseInt(optionAux);
+                }else{
+                    option = 0;
+                }
+                if(option > tests.size()+1 || option < 1){
+                    viewUI.showErrorMessageln("The option is not available, please try again");
+                }else if(option != tests.size()+1){
+                    viewUI.makeLine();
+                    viewUI.showMessageln(tests.get(option-1).getName());
+                    tests.get(option-1).showInfo(this);
+                    viewUI.makeLine();
+                }else{
+                    ok = true;
+                }
+            }
+        }while(!ok);
     }
 
     /**
@@ -98,7 +341,70 @@ public class ViewController {
      * @param tests is all the tests that we have saved
      */
     public void trialChoiceDeleteView(LinkedList<Test> tests, List<Edition> editions) {
-        viewUI.trialChoiceDeleteView(tests, editions);
+        boolean ok = false, aux, error = false;
+        String optionAux, confirmation;
+        int option;
+        Scanner sc = new Scanner(System.in);
+
+
+        do {
+            if (tests.size() == 0) {
+                viewUI.makeLine();
+                viewUI.showErrorMessageln("There are no test's in the system yet");
+                viewUI.makeLine();
+                ok = true;
+            } else {
+                viewUI.makeLine();
+                for(int i = 0; i < tests.size(); i++){
+                    viewUI.showMessageln("    "+ (i+1) +") "+ tests.get(i).getName());
+                }
+                viewUI.makeLine();
+                viewUI.showMessageln("    "+ (tests.size()+1) +") Back");
+                viewUI.makeLine();
+                viewUI.showMessage("Enter an option: ");
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if(aux){
+                    option = Integer.parseInt(optionAux);
+                }else{
+                    option = 0;
+                }
+
+                for (Edition edition : editions) {
+                    for (int j = 0; edition.getTests().size() > j; j++) {
+                        if (edition.getTests().get(j).getName().equals(tests.get(option - 1).getName())) {
+                            error = true;
+                            break;
+                        }
+                    }
+                }
+
+                if(error){
+                    viewUI.showErrorMessageln("The test cant be deleted (it is in a existing edition)");
+                }else {
+                    if (option > tests.size() + 1 || option < 1) {
+                        viewUI.showErrorMessageln("The option is not available, please try again");
+                    } else if (option != tests.size() + 1) {
+                        viewUI.makeLine();
+                        viewUI.showMessage("Enter the trial’s name for confirmation: ");
+                        confirmation = sc.nextLine();
+                        if (confirmation.equals(tests.get(option - 1).getName())) {
+                            viewUI.makeLine();
+                            tests.remove(option - 1);
+                            viewUI.showMessageln("The trial was successfully deleted");
+                            ok = true;
+                        } else {
+                            viewUI.showErrorMessageln("The trial wasn't successfully deleted");
+                            ok = true;
+                        }
+
+                    } else {
+                        ok = true;
+                    }
+                }
+            }
+            viewUI.makeLine();
+        }while(!ok);
     }
 
     /**

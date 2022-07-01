@@ -20,6 +20,7 @@ public class ViewUI {
 
     /**
      * This method is the constructor of the controller
+     *
      * @param viewController is the view controller that is calling this method
      */
     //Controller
@@ -28,15 +29,8 @@ public class ViewUI {
         this.businessController = this.viewController.getBusinessController();
     }
 
-    /**
-     * This is the view that will make the user chose between the tow modes of execution of the code
-     * @return returns a boolean that shows the mode of execution of the code
-     */
-    public boolean startView(){
-        Scanner sc = new Scanner(System.in);
-        String option;
-        boolean ok = false;
 
+    public void presentationView(){
         System.out.println(" _____ _          _____      _       _");
         System.out.println("/__   \\ |__  ___ /__   \\_ __(_) __ _| |___");
         System.out.println("  / /\\| '_ \\/ _ \\  / /\\| '__| |/ _` | / __|");
@@ -45,30 +39,22 @@ public class ViewUI {
         System.out.println(" ");
         System.out.println("Welcome to The Trials. Who are you?");
         System.out.println(" ");
-        do {
+    }
 
-            System.out.println("    A) The Composer");
-            System.out.println("    B) This year's Conductor");
-            System.out.println(" ");
-            System.out.print("Enter the role:  ");
-            option = sc.nextLine();
 
-            if (option.equals("A")) {
-                ok = true;
-                return true;
-            } else if (option.equals("B")) {
-                ok = true;
-                return false;
-            }else{
-                System.out.println("");
-                System.err.println("The option is not available, please try again");
-                System.out.println("");
-                System.out.println("Who are you?");
-                System.out.println(" ");
-            }
-        }while (!ok);
+    /**
+     * This is the view that will make the user chose between the tow modes of execution of the code
+     * @return returns a boolean that shows the mode of execution of the code
+     */
+    public String startView(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("    A) The Composer");
+        System.out.println("    B) This year's Conductor");
+        System.out.println(" ");
+        System.out.print("Enter the role:  ");
 
-        return false;
+
+        return sc.nextLine();
     }
 
     /**
@@ -76,36 +62,17 @@ public class ViewUI {
      * that the data will be read and written
      * @return the boolean that shows the way that the data will be written
      */
-    public boolean dataSelection() {
+    public String dataSelection() {
         Scanner sc = new Scanner(System.in);
-        boolean ok = false, csvOn = false;
-        String option;
-        do{
+
             System.out.println("The IEEE needs to know where your allegiance lies.");
             System.out.println();
             System.out.println("    I) People's front of Engineering (CSV)");
             System.out.println("    II) Engineering People’s Front (JSON)");
             System.out.println();
             System.out.print("Pick a faction: ");
-            option = sc.nextLine();
-            if(option.equals("I")){
-                csvOn = true;
-                System.out.println();
-                System.out.println("Loading data from CSV files...");
-                System.out.println();
-                ok = true;
-            }else if(option.equals("II")){
-                System.out.println();
-                System.out.println("Loading data from JSON files...");
-                System.out.println();
-                ok = true;
-            }else{
-                System.out.println();
-                System.err.println("This option is not available please try again");
-                System.out.println();
-            }
-        }while(!ok);
-        return csvOn;
+
+        return sc.nextLine();
     }
 
     /**
@@ -113,38 +80,20 @@ public class ViewUI {
      * editions or tests
      * @return an int representing the option selected
      */
-    public int mainCompositorView() {
-        String option;
+    public String mainCompositorView() {
+
         Scanner sc = new Scanner(System.in);
-        boolean ok = false;
 
         System.out.println(" ");
-        System.out.println("Entering management mode...");
-        do{
-            System.out.println(" ");
-            System.out.println("    1) Manage Test's");
-            System.out.println("    2) Manage Editions");
-            System.out.println(" ");
-            System.out.println("    3) Exit");
-            System.out.print("Enter an option:  ");
-            option = sc.nextLine();
+        System.out.println("    1) Manage Test's");
+        System.out.println("    2) Manage Editions");
+        System.out.println(" ");
+        System.out.println("    3) Exit");
+        System.out.print("Enter an option:  ");
 
-            if (option.equals("1")) {
-                ok = true;
-                return Integer.parseInt(option);
-            } else if (option.equals("2")) {
-                ok = true;
-                return Integer.parseInt(option);
-            } else if (option.equals("3")) {
-                ok = true;
-                return Integer.parseInt(option);
-            } else {
-                System.out.println(" ");
-                System.err.println("The option is not available, please try again");
-                System.out.println(" ");
-            }
-        }while (!ok);
-        return 0;
+
+
+        return sc.nextLine();
     }
 
     /**
@@ -154,295 +103,42 @@ public class ViewUI {
      */
     public String manageTrialsView() {
         Scanner sc = new Scanner(System.in);
-        String option;
-        boolean ok = false;
 
-        do {
-            System.out.println(" ");
-            System.out.println("Trial Management System");
-            System.out.println(" ");
-            System.out.println("    a) Create Trial");
-            System.out.println("    b) List Trials");
-            System.out.println("    c) Delete Trial");
-            System.out.println(" ");
-            System.out.println("    d) Back");
-            System.out.println(" ");
-            System.out.print("Enter an option:  ");
-            option = sc.nextLine();
+        System.out.println(" ");
+        System.out.println("Trial Management System");
+        System.out.println(" ");
+        System.out.println("    a) Create Trial");
+        System.out.println("    b) List Trials");
+        System.out.println("    c) Delete Trial");
+        System.out.println(" ");
+        System.out.println("    d) Back");
+        System.out.println(" ");
+        System.out.print("Enter an option:  ");
 
-            if(option.equals("a")||option.equals("b")||option.equals("c")||option.equals("d")){
-                ok = true;
-                return option;
-            }else{
-                System.err.println("The option is not available, please try again");
-            }
-        }while (!ok);
-        return null;
+
+        return sc.nextLine();
+
     }
 
     /**
      * This view will appear if the we want to create a trial
      * @return the int that indicates witch type of trial we want to create
      */
-    public int trialChoiceView() {
-        String option;
-        Scanner sc = new Scanner(System.in);
-        boolean ok = false;
+    public String trialChoiceView() {
 
-        do{
-            System.out.println("    --- Trial types ---");
-            System.out.println(" ");
-            System.out.println("1) Paper publication");
-            System.out.println("2) Doctoral thesis defense");
-            System.out.println("3) Master studies");
-            System.out.println("4) Budget request");
-            System.out.println(" ");
-            System.out.print("Enter the test's type:  ");
-            option = sc.nextLine();
-
-            if(option.equals("1") || option.equals("2") || option.equals("3") || option.equals("4")){
-                ok = true;
-                return Integer.parseInt(option);
-            }else{
-                System.out.println(" ");
-                System.err.println("The option is not available, please try again");
-                System.out.println(" ");
-            }
-        }while (!ok);
-        return 0;
-    }
-
-    /**
-     * This view will show when we create a Paper publication
-     * @return the paper publication we all created
-     */
-    public Publication createPaperPublication() {
-        String name = null, nameMag=null, quartil=null,option;
-        int acceptanceProbability = 0, revisionProbability = 0, notAcceptedProbability = 0;
-        boolean ok = false, ok2 = false, aux;
         Scanner sc = new Scanner(System.in);
 
-        do{
-            System.out.println(" ");
-            while(!ok){
-                System.out.print("Enter the trial’s name: ");
-                name = sc.nextLine();
-                aux = businessController.comprovaTest(name);
-                if(name.equals("") || !aux) {
-                    System.err.println("Please enter a correct trial's name");
-                    System.out.println(" ");
-                } else{
-                    ok = true;
-                }
-            }
-
-            ok = false;
-            while (!ok) {
-                System.out.print("Enter the journal’s name: ");
-                nameMag = sc.nextLine();
-                if(nameMag.equals("")){
-                    System.err.println("Please enter a correct journal's name");
-                    System.out.println(" ");
-                }else{
-                    ok = true;
-                }
-            }
-            ok = false;
-            while(!ok){
-                System.out.print("Enter the journal’s quartile: ");
-                quartil = sc.nextLine();
-                if(!quartil.equals("Q1") && !quartil.equals("Q2") && !quartil.equals("Q3") && !quartil.equals("Q4")){
-                    System.err.println("Please enter a correct journal's quartile, values between Q1-Q4");
-                    System.out.println(" ");
-                }else{
-                    ok = true;
-                }
-            }
-            while(!ok2) {
-                ok = false;
-                while (!ok) {
-                    System.out.print("Enter the acceptance probability: ");
-                    option = sc.nextLine();
-                    aux = businessController.isNumber(option);
-                    if(aux){
-                        acceptanceProbability = Integer.parseInt(option);
-                    }else{
-                        acceptanceProbability = 101;
-                    }
-                    //sc.nextLine();
-                    if ((acceptanceProbability < 0 || acceptanceProbability > 100)) {
-                        System.err.println("Please enter a correct acceptance probability, values between 0-100");
-                        System.out.println(" ");
-                    } else {
-                        ok = true;
-                    }
-                }
-                ok = false;
-
-                while (!ok) {
-                    System.out.print("Enter the revision probability: ");
-                    option = sc.nextLine();
-                    aux = businessController.isNumber(option);
-                    if(aux){
-                        revisionProbability = Integer.parseInt(option);
-                    }else{
-                        revisionProbability = 101;
-                    }
-                    //sc.nextLine();
-                    if ((revisionProbability < 0 || revisionProbability > 100)) {
-                        System.err.println("Please enter a correct revision probability, values between 0-100");
-                        System.out.println(" ");
-                    } else {
-                        ok = true;
-                    }
-                }
-                ok = false;
-
-                while (!ok) {
-                    System.out.print("Enter the rejection probability: ");
-                    option = sc.nextLine();
-                    aux = businessController.isNumber(option);
-                    if(aux){
-                        notAcceptedProbability = Integer.parseInt(option);
-                    }else{
-                        notAcceptedProbability = 101;
-                    }
-                    //sc.nextLine();
-                    if ((notAcceptedProbability < 0 || notAcceptedProbability > 100)) {
-                        System.err.println("Please enter a correct rejection probability, values between 0-100");
-                        System.out.println(" ");
-                    } else {
-                        ok = true;
-                    }
-                }
-
-                if(acceptanceProbability+revisionProbability+notAcceptedProbability != 100){
-                    System.err.println("Please the sum of acceptance probability + revision probability + rejection probability must be equal to 100");
-                    System.out.println(" ");
-                }else ok2 = true;
-            }
-            System.out.println(" ");
-            System.out.println("The trial was created successfully!");
-            return new Publication(name, nameMag, quartil, acceptanceProbability, revisionProbability, notAcceptedProbability);
-        }while(!ok && !ok2);
-    }
-
-    /**
-     * This view will show the user all the trials already existing
-     * @param tests is all the tests that we have saved
-     */
-    public void trialChoiceShowView(LinkedList<Test> tests){
-        boolean ok = false, aux;
-        String optionAux;
-        int option;
-        Scanner sc = new Scanner(System.in);
+        System.out.println("    --- Trial types ---");
+        System.out.println(" ");
+        System.out.println("1) Paper publication");
+        System.out.println("2) Doctoral thesis defense");
+        System.out.println("3) Master studies");
+        System.out.println("4) Budget request");
+        System.out.println(" ");
+        System.out.print("Enter the test's type:  ");
 
 
-        do {
-            if (tests.size() == 0) {
-                System.out.println(" ");
-                System.err.println("There are no test's in the system yet");
-                System.out.println(" ");
-                ok = true;
-            } else {
-                System.out.println(" ");
-                for(int i = 0; i < tests.size(); i++){
-                    System.out.println("    "+ (i+1) +") "+ tests.get(i).getName());
-                }
-                System.out.println(" ");
-                System.out.println("    "+ (tests.size()+1) +") Back");
-                System.out.println(" ");
-                System.out.print("Enter an option: ");
-                optionAux = sc.nextLine();
-                aux = businessController.isNumber(optionAux);
-                if(aux){
-                    option = Integer.parseInt(optionAux);
-                }else{
-                    option = 0;
-                }
-                if(option > tests.size()+1 || option < 1){
-                    System.err.println("The option is not available, please try again");
-                }else if(option != tests.size()+1){
-                    System.out.println(" ");
-                    System.out.println(tests.get(option-1).getName());
-                    tests.get(option-1).showInfo(this.viewController);
-                    System.out.println(" ");
-                }else{
-                    ok = true;
-                }
-            }
-        }while(!ok);
-    }
-
-    /**
-     * This view will show to the user when he wants to delete a test
-     * @param tests is all the tests that we have saved
-     */
-    public void trialChoiceDeleteView(LinkedList<Test> tests, List<Edition> editions) {
-        boolean ok = false, aux, error = false;
-        String optionAux, confirmation;
-        int option;
-        Scanner sc = new Scanner(System.in);
-
-
-        do {
-            if (tests.size() == 0) {
-                System.out.println(" ");
-                System.err.println("There are no test's in the system yet");
-                System.out.println(" ");
-                ok = true;
-            } else {
-                System.out.println(" ");
-                for(int i = 0; i < tests.size(); i++){
-                    System.out.println("    "+ (i+1) +") "+ tests.get(i).getName());
-                }
-                System.out.println(" ");
-                System.out.println("    "+ (tests.size()+1) +") Back");
-                System.out.println(" ");
-                System.out.print("Enter an option: ");
-                optionAux = sc.nextLine();
-                aux = businessController.isNumber(optionAux);
-                if(aux){
-                    option = Integer.parseInt(optionAux);
-                }else{
-                    option = 0;
-                }
-
-                for (Edition edition : editions) {
-                    for (int j = 0; edition.getTests().size() > j; j++) {
-                        if (edition.getTests().get(j).getName().equals(tests.get(option - 1).getName())) {
-                            error = true;
-                            break;
-                        }
-                    }
-                }
-
-                if(error){
-                    System.err.println("The test cant be deleted (it is in a existing edition)");
-                }else {
-                    if (option > tests.size() + 1 || option < 1) {
-                        System.err.println("The option is not available, please try again");
-                    } else if (option != tests.size() + 1) {
-                        System.out.println(" ");
-                        System.out.print("Enter the trial’s name for confirmation: ");
-                        confirmation = sc.nextLine();
-                        if (confirmation.equals(tests.get(option - 1).getName())) {
-                            System.out.println(" ");
-                            tests.remove(option - 1);
-                            System.out.println("The trial was successfully deleted");
-                            ok = true;
-                        } else {
-                            System.err.println("The trial wasn't successfully deleted");
-                            ok = true;
-                        }
-
-                    } else {
-                        ok = true;
-                    }
-                }
-            }
-            System.out.println(" ");
-        }while(!ok);
+        return sc.nextLine();
     }
 
     /**
@@ -1247,4 +943,39 @@ public class ViewUI {
         System.out.println("Trial #"+(i+1)+" - "+test.getName());
         System.out.println(" ");
     }
+
+    /**
+     * Shows a message into console with a jump line
+     *
+     * @param message to show
+     */
+    public void showMessageln(String message) {
+        System.out.println(message);
+    }
+
+    /**
+     * Shows a message into console
+     *
+     * @param message to show
+     */
+    public void showMessage(String message) {
+        System.out.print(message);
+    }
+    /**
+     * Shows a message error into console with a jump line
+     *
+     * @param message to show
+     */
+    public void showErrorMessageln(String message) {
+        System.err.println(message);
+    }
+
+    /**
+     * Make a empty line
+     */
+    public void makeLine() {
+        System.out.println(" ");
+    }
+
+
 }
