@@ -1005,7 +1005,7 @@ public class ViewController {
      * @param players the group of players that hasn't passed
      */
     public void BudgetNotPassed(List<Player> players){
-        viewUI.BudgetPassed(players);
+        viewUI.BudgetNotPassed(players);
     }
 
     /**
