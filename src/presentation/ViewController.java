@@ -185,7 +185,7 @@ public class ViewController {
         Scanner sc = new Scanner(System.in);
 
         do{
-            System.out.println(" ");
+            viewUI.makeLine();
             while(!ok){
                 viewUI.showMessageln("Enter the trial’s name: ");
                 name = sc.nextLine();
@@ -308,13 +308,7 @@ public class ViewController {
                 ok = true;
             } else {
                 viewUI.showMessageln(" ");
-                for(int i = 0; i < tests.size(); i++){
-                    viewUI.showMessageln("    "+ (i+1) +") "+ tests.get(i).getName());
-                }
-                viewUI.makeLine();
-                viewUI.showMessageln("    "+ (tests.size()+1) +") Back");
-                viewUI.makeLine();
-                viewUI.showMessage("Enter an option: ");
+                viewUI.showTrials(tests);
                 optionAux = sc.nextLine();
                 aux = businessController.isNumber(optionAux);
                 if(aux){
@@ -355,13 +349,7 @@ public class ViewController {
                 ok = true;
             } else {
                 viewUI.makeLine();
-                for(int i = 0; i < tests.size(); i++){
-                    viewUI.showMessageln("    "+ (i+1) +") "+ tests.get(i).getName());
-                }
-                viewUI.makeLine();
-                viewUI.showMessageln("    "+ (tests.size()+1) +") Back");
-                viewUI.makeLine();
-                viewUI.showMessage("Enter an option: ");
+                viewUI.showTrials(tests);
                 optionAux = sc.nextLine();
                 aux = businessController.isNumber(optionAux);
                 if(aux){
@@ -413,7 +401,19 @@ public class ViewController {
      * @return the option selected
      */
     public String manageEditionView() {
-        return viewUI.manageEditionView();
+        String option;
+        boolean ok = false;
+
+        do {
+            option = viewUI.manageEditionView();
+            if(option.equals("a")||option.equals("b")||option.equals("c")||option.equals("d") || option.equals("e")){
+                ok = true;
+                return option;
+            }else{
+                viewUI.showErrorMessageln("The option is not available, please try again");
+            }
+        }while (!ok);
+        return null;
     }
 
     /**
@@ -422,7 +422,90 @@ public class ViewController {
      * @param editions is all the editions that we have saved
      */
     public void createEditionView(List<Test> tests, List<Edition> editions) {
-        viewUI.createEditionView(tests, editions);
+        boolean ok = false, aux;
+        String option;
+        Scanner sc = new Scanner(System.in);
+        int year =2023, initialPlayers=1  , numTest=3, rounds = 0, trialSelect;
+        LinkedList<Test> editionTests = new LinkedList<Test>();
+        LinkedList<Player> players = new LinkedList<Player>();
+
+        do {
+
+           enterEditionYear();
+
+            while(!ok) {
+                viewUI.showMessage("Enter the initial number of players: ");
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    initialPlayers = Integer.parseInt(option);
+                }else{
+                    initialPlayers = 0;
+                }
+                //sc.nextLine();
+                if ((initialPlayers > 0 && initialPlayers < 6) ) {
+                    ok = true;
+                }else{
+                    viewUI.showErrorMessageln("The initial number of players must must be more than 0 and less than 6");
+                    viewUI.makeLine();
+                }
+            }
+            ok = false;
+            while(!ok) {
+                viewUI.showMessage("Enter the number of trials: ");
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    numTest = Integer.parseInt(option);
+                }else{
+                    numTest = 0;
+                }
+                //sc.nextLine();
+                if ((numTest > 2 && numTest < 12)) {
+                    ok = true;
+                }else{
+                    viewUI.showErrorMessageln("The number oj trials must be more than 2 and less than 13");
+                    viewUI.makeLine();
+                }
+            }
+            viewUI.makeLine();
+            if (tests.size() == 0) {
+                viewUI.makeLine();
+                viewUI.showErrorMessageln("There are no test's in the system yet");
+                viewUI.makeLine();
+                ok = true;
+            } else {
+                viewUI.makeLine();
+                for (int i = 0; i < tests.size(); i++) {
+                    viewUI.showMessageln("    " + (i + 1) + ") " + tests.get(i).getName());
+                }
+
+                for (int i = 0; i < numTest; i++) {
+                    viewUI.showMessage("Pick a trial (" + (i + 1) + "/" + numTest + "):");
+                    option = sc.nextLine();
+                    aux = businessController.isNumber(option);
+                    if(aux){
+                        trialSelect = Integer.parseInt(option);
+                    }else{
+                        trialSelect = 0;
+                    }
+                    if (trialSelect > tests.size() + 1 || trialSelect < 1) {
+                        viewUI.showErrorMessageln("The option is not available, please try again");
+                        i--;
+                    } else if (trialSelect != tests.size() + 1) {
+                        editionTests.add(tests.get(trialSelect - 1));
+                    }
+                }
+            }
+            if (ok) {
+                for(int i = 0; i < initialPlayers; i++){
+                    players.add(new Enginyer());
+                }
+                editions.add(new Edition(this.businessController ,year, initialPlayers, numTest, rounds, editionTests, players));
+            }
+
+        }while(!ok);
+        viewUI.makeLine();
     }
 
     /**
@@ -430,7 +513,40 @@ public class ViewController {
      * @param editions is all the editions that we have saved
      */
     public void showEditionView(List<Edition> editions) {
-        viewUI.showEditionView(editions);
+        boolean ok = false;
+        Scanner sc = new Scanner(System.in);
+        int option ;
+        String optionAux;
+        boolean aux;
+        do{
+            if(editions.size() == 0){
+                viewUI.showErrorMessageln("There are no editions in the system yet");
+                ok = true;
+            }else {
+                viewUI.makeLine();
+                viewUI.showMessageln("Here are the current editions, do you want to see more details or go back?");
+                viewUI.makeLine();
+                viewUI.showEditions(editions);
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if(aux){
+                    option = Integer.parseInt(optionAux);
+                }else{
+                    option = 0;
+                }
+                if (option > editions.size() + 1 || option < 1) {
+                    viewUI.makeLine();
+                    viewUI.showErrorMessageln("The option is not available, please try again");
+                    viewUI.makeLine();
+                } else if (option != editions.size() + 1) {
+                    viewUI.makeLine();
+                    editions.get((option) - 1).showInfo();
+                    viewUI.makeLine();
+                } else {
+                    ok = true;
+                }
+            }
+        }while(!ok);
     }
 
     /**
@@ -438,7 +554,72 @@ public class ViewController {
      * @param editions is all the editions that we have saved
      */
     public void duplicateEdition(List<Edition> editions) {
-        viewUI.duplicateEdition(editions);
+        boolean ok = false, aux;
+        String optionAux;
+        Scanner sc = new Scanner(System.in);
+        int option, year=2023,  initialPlayers=2;
+        List<Player> players;
+        Edition copyEdition;
+
+        viewUI.showMessageln("Which edition do you want to clone?");
+        viewUI.makeLine();
+        do{
+            if(editions.size() == 0){
+                viewUI.showErrorMessageln("There are no editions in the system yet");
+                ok = true;
+            }else {
+                viewUI.showEditions(editions);
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if (aux) {
+                    option = Integer.parseInt(optionAux);
+                } else {
+                    option = 0;
+                }
+                if (option > editions.size() + 1 || option < 1) {
+                    System.out.println(" ");
+                    viewUI.showErrorMessageln("The option is not available, please try again");
+                    System.out.println(" ");
+                } else if (option != editions.size()+1) {
+                    copyEdition = editions.get(option - 1);
+                    players = copyEdition.getPlayers();
+
+                    enterEditionYear();
+
+                    while (!ok) {
+                        viewUI.showMessage("Enter the initial number of players: ");
+                        optionAux = sc.nextLine();
+                        aux = businessController.isNumber(optionAux);
+                        if (aux) {
+                            initialPlayers = Integer.parseInt(optionAux);
+                        } else {
+                            initialPlayers = 0;
+                        }
+                        //sc.nextLine();
+                        if ((initialPlayers > 0 && initialPlayers < 6)) {
+                            ok = true;
+                            if(initialPlayers > copyEdition.getPlayers().size()) {
+                                for (int i = 0; i < initialPlayers - editions.size(); i++) {
+                                    players.add(new Enginyer());
+                                }
+                            }else if (initialPlayers < copyEdition.getPlayers().size()){
+                                players.clear();
+                                for (int i = 0; i < initialPlayers; i++) {
+                                    players.add(new Enginyer());
+                                }
+                            }
+                        } else {
+                            viewUI.showErrorMessageln("The initial number of players must must be more than 0 and less than 6");
+                            viewUI.makeLine();
+                        }
+                    }
+                    viewUI.makeLine();
+                    editions.add(new Edition(this.businessController, year, initialPlayers, copyEdition.getNumTest(), 0, copyEdition.getTests(), players));
+                }else{
+                    ok = true;
+                }
+            }
+        }while(!ok);
     }
 
     /**
@@ -446,7 +627,62 @@ public class ViewController {
      * @param editions is all the editions that we have saved
      */
     public void deleteEditionView(List<Edition> editions) {
-        viewUI.deleteEditionView(editions);
+        boolean ok,aux;
+        Scanner sc = new Scanner(System.in);
+        int year, option;//, initialPlayers;
+        String optionAux;
+
+        //Edition copyEdition;
+
+        viewUI.showMessageln("Which edition do you want to delete?");
+        viewUI.makeLine();
+        do{
+            if(editions.size() == 0){
+                viewUI.showErrorMessageln("There are no editions in the system yet");
+                ok = true;
+            }else {
+                for (int i = 0; i < editions.size(); i++) {
+                    viewUI.showMessageln("    " + (i + 1) + ") The Trials " + editions.get(i).getYear());
+                }
+                viewUI.makeLine();
+                viewUI.showMessageln("    " + (editions.size() + 1) + ") Back");
+                viewUI.makeLine();
+                viewUI.showMessage("Enter an option: ");
+                optionAux = sc.nextLine();
+                aux = businessController.isNumber(optionAux);
+                if (aux) {
+                    option = Integer.parseInt(optionAux);
+                } else {
+                    option = 0;
+                }
+                if (option > editions.size() + 1 || option < 1) {
+                    viewUI.makeLine();
+                    viewUI.showMessageln("The option is not available, please try again");
+                    viewUI.makeLine();
+                    ok = false;
+                } else if (option != editions.size() + 1) {
+                    viewUI.makeLine();
+                    viewUI.showMessage("Enter the edition’s year for confirmation: ");
+                    optionAux = sc.nextLine();
+                    aux = businessController.isNumber(optionAux);
+                    if (aux) {
+                        year = Integer.parseInt(optionAux);
+                    } else {
+                        year = 0;
+                    }
+                    if (year == editions.get(option - 1).getYear()) {
+                        editions.remove(option - 1);
+                        viewUI.showMessageln("The edition was successfully deleted.");
+                        ok = true;
+                    } else {
+                        viewUI.showMessageln("The edition wasn't successfully deleted.");
+                        ok = true;
+                    }
+                }else{
+                    ok = true;
+                }
+            }
+        }while(!ok);
     }
 
     /**
@@ -455,7 +691,31 @@ public class ViewController {
      * @param year the current year
      */
     public void mainConductorView(Edition edition, int year) {
-        viewUI.mainConductorView(edition, year);
+        String name;
+        boolean aux;
+        Scanner sc = new Scanner(System.in);
+
+        viewUI.mainConductorView(year);
+
+        if(edition.getRounds() == 0) {
+            for (int i = 0; i < edition.getInitialPlayers(); i++) {
+                viewUI.showMessage("Enter the player's name (" + (i + 1) + "/" + edition.getInitialPlayers() + "): ");
+                name = sc.nextLine();
+                aux = false;
+
+                for (int j = 0; j < edition.getPlayers().size(); j++) {
+                    if (edition.getPlayers().get(j).getName().equals(name)) {
+                        aux = true;
+                    }
+                }
+                if (!aux) {
+                    edition.getPlayers().get(i).setName(name);
+                } else {
+                    viewUI.showMessageln("This name is already used, please try again");
+                    i--;
+                }
+            }
+        }
     }
 
     /**
@@ -519,7 +779,48 @@ public class ViewController {
      * @return a test with all the information of the doctoral defense
      */
     public Test createDoctoralDefense() {
-        return viewUI.createDoctoralDefense();
+        String name, field,option;
+        int diff;
+        boolean ok = false ,aux;
+        Scanner sc = new Scanner(System.in);
+
+        do{
+            System.out.println(" ");
+            System.out.print("Enter the trial’s name: ");
+            name = sc.nextLine();
+            aux = businessController.comprovaTest(name);
+            if(name.equals("") || !aux) {
+                System.err.println("Please enter a correct trial's name");
+                System.out.println(" ");
+            } else{
+
+                System.out.print("Enter the thesis field of study: ");
+                field = sc.nextLine();
+                System.out.print("Enter the defense difficulty: ");
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    diff = Integer.parseInt(option);
+                }else{
+                    diff = 0;
+                }
+
+                if(diff < 1 || diff > 10){
+                    ok = false;
+                }else{
+                    ok = true;
+                }
+
+                if(!ok){
+                    System.err.println("The information is not valid, please try again");
+                }else{
+                    System.out.println(" ");
+                    System.out.println("The trial was created successfully!");
+                    return new doctoralDefense(name, field, diff);
+                }
+            }
+        }while(!ok);
+        return null;
     }
 
     /**
@@ -543,7 +844,85 @@ public class ViewController {
      * @return a test with all the information of the master study
      */
     public Test createMasterEstudy() {
-        return viewUI.createMasterEstudy();
+        String name = null, master = null,option;
+        int credits = 0, prob = 0;
+        boolean ok = false,aux;
+        Scanner sc = new Scanner(System.in);
+
+        do{
+            while(!ok){
+                System.out.println(" ");
+                System.out.print("Enter the trial’s name: ");
+                name = sc.nextLine();
+                aux = businessController.comprovaTest(name);
+                if(name.equals("") || !aux ){
+                    System.err.println("Please enter a correct trial's name");
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
+            }
+            ok = false;
+
+            while(!ok){
+                System.out.print("Enter the master’s name: ");
+                master = sc.nextLine();
+
+                aux = businessController.comprovaTest(master); //Aqui falta mirar si el master esta be
+                if(aux) {
+                    if (master.equals("")) {
+                        System.err.println("Please enter a correct master's name");
+                        System.out.println(" ");
+                    } else {
+                        ok = true;
+                    }
+                }else{
+                    System.err.println("Please enter a correct trial's name");
+                    System.out.println(" ");
+                }
+            }
+            ok = false;
+
+            while(!ok){
+                System.out.print("Enter the master’s ECTS number: ");
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    credits = Integer.parseInt(option);
+                }else{
+                    credits = 0;
+                }
+                if( credits > 120 || credits < 60){
+                    System.err.println("Please enter a correct credits value, [60-210]");
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
+            }
+            ok = false;
+
+            while(!ok){
+                System.out.print("Enter the credit pass probability: ");
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if(aux){
+                    prob = Integer.parseInt(option);
+                }else{
+                    prob = 101;
+                }
+
+                if( prob > 100 || prob < 0){
+                    System.err.println("Pleas enter a correct prob value, [0-100]");
+                    System.out.println(" ");
+                }else{
+                    ok = true;
+                }
+            }
+
+            System.out.println(" ");
+            System.out.println("The trial was created successfully!");
+            return new estudiMaster(name, master, credits, prob);
+        }while(!ok);
     }
 
     /**
@@ -567,7 +946,50 @@ public class ViewController {
      * @return a test with all the information of the budget request
      */
     public Test createBudgetRequest() {
-        return viewUI.createBudgetRequest();
+        String name, entity,option;
+        double budget;
+        boolean ok = false,aux;
+        Scanner sc = new Scanner(System.in);
+
+        do{
+            System.out.println(" ");
+            System.out.print("Enter the trial’s name: "); // falta mirar que no es repetixi el nom
+
+            name = sc.nextLine();
+
+            aux = businessController.comprovaTest(name); //Aqui falta mirar si el master esta be
+            if(aux) {
+                System.out.print("Enter the entity’s name: ");
+                entity = sc.nextLine();
+                System.out.print("Enter the budget demanded: ");
+
+                option = sc.nextLine();
+                aux = businessController.isNumber(option);
+                if (aux) {
+                    budget = Integer.parseInt(option);
+                } else {
+                    budget = 0;
+                }
+
+                if ((budget < 1000 || budget > 2000000000)) {
+                    ok = false;
+                } else {
+                    ok = true;
+                }
+
+                if (!ok) {
+                    System.err.println("The information is not valid, please try again");
+                } else {
+                    System.out.println(" ");
+                    System.out.println("The trial was created successfully!");
+                    return new budgetRequest(name, entity, budget);
+                }
+            }else{
+                System.err.println("Please enter a correct trial's name");
+                System.out.println(" ");
+            }
+        }while(!ok);
+        return null;
     }
 
     /**
@@ -664,5 +1086,27 @@ public class ViewController {
 
     public void showCurrentTest(Test test, int i) {
         viewUI.showCurrentTest(test, i);
+    }
+
+    public void enterEditionYear(){
+        boolean ok = false, aux;
+        String option;
+        int year;
+        Scanner sc = new Scanner(System.in);
+        while(!ok) {
+            viewUI.makeLine();
+            viewUI.showMessage("Enter the edition's year: ");
+            option = sc.nextLine();
+            aux = businessController.isNumber(option);
+            if(aux){
+                year = Integer.parseInt(option);
+            }else{
+                year = 0;
+            }
+
+            if (businessController.checkEditionsYear(year)) {
+                ok = true;
+            }
+        }
     }
 }
