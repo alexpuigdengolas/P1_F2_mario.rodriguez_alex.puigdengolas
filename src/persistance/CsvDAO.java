@@ -4,6 +4,9 @@ import business.Edition;
 
 import java.util.List;
 
+/**
+ * this interface have the methods to save and write in the CSV database
+ */
 public interface CsvDAO {
 
 

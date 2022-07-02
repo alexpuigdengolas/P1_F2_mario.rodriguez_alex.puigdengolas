@@ -7,6 +7,11 @@ import business.Test;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
+/**
+ * this interface have the methods to save and write in the JSON database
+ */
 public interface JsonDAO {
     /**
      * This method will allow us to write the edition in a file .json
