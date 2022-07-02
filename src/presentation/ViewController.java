@@ -1084,10 +1084,19 @@ public class ViewController {
         viewUI.playerEliminated(player);
     }
 
+    /**
+     * show current test
+     * @param test the current tests
+     * @param i the position of the test
+     */
     public void showCurrentTest(Test test, int i) {
         viewUI.showCurrentTest(test, i);
     }
 
+
+    /**
+     * The console ask to user for the yaer of the edition
+     */
     public void enterEditionYear(){
         boolean ok = false, aux;
         String option;

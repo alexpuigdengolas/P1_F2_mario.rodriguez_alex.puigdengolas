@@ -16,7 +16,6 @@ import java.util.Scanner;
 
 public class ViewUI {
     private ViewController viewController;
-    private BusinessController businessController;
 
     /**
      * This method is the constructor of the controller
@@ -29,6 +28,9 @@ public class ViewUI {
     }
 
 
+    /**
+     * Shows the wellcome to the user
+     */
     public void presentationView(){
         System.out.println(" _____ _          _____      _       _");
         System.out.println("/__   \\ |__  ___ /__   \\_ __(_) __ _| |___");
@@ -43,7 +45,7 @@ public class ViewUI {
 
     /**
      * This is the view that will make the user chose between the tow modes of execution of the code
-     * @return returns a boolean that shows the mode of execution of the code
+     * @return returns a String with the answer of the user
      */
     public String startView(){
         Scanner sc = new Scanner(System.in);
@@ -59,7 +61,7 @@ public class ViewUI {
     /**
      * This view is the literal first one to appear in execution that will allow us to chose the way
      * that the data will be read and written
-     * @return the boolean that shows the way that the data will be written
+     * @return returns a String with the answer of the user
      */
     public String dataSelection() {
         Scanner sc = new Scanner(System.in);
@@ -77,7 +79,7 @@ public class ViewUI {
     /**
      * This is the view of that makes the user chose the type of things that makes you chose between creating
      * editions or tests
-     * @return an int representing the option selected
+     * @return returns a String with the answer of the user
      */
     public String mainCompositorView() {
 
@@ -98,7 +100,7 @@ public class ViewUI {
     /**
      * This view will allow the user to manage the Trials and make possible to
      * create, delete and show all the trials
-     * @return the option selected
+     * @return returns a String with the answer of the user
      */
     public String manageTrialsView() {
         Scanner sc = new Scanner(System.in);
@@ -121,7 +123,7 @@ public class ViewUI {
 
     /**
      * This view will appear if the we want to create a trial
-     * @return the int that indicates witch type of trial we want to create
+     * @return returns a String with the answer of the user
      */
     public String trialChoiceView() {
 
@@ -143,7 +145,7 @@ public class ViewUI {
     /**
      * This view will allow the user to manage the Editions and make possible to
      * create, delete, duplicate and show all the editions and the trials that they contain
-     * @return the option selected
+     * @return returns a String with the answer of the user
      */
     public String manageEditionView() {
         Scanner sc = new Scanner(System.in);
@@ -408,6 +410,12 @@ public class ViewUI {
         System.out.println(player.getName() + " was eliminated!");
     }
 
+
+    /**
+     * show current test
+     * @param test the current tests
+     * @param i the position of the test
+     */
     public void showCurrentTest(Test test, int i) {
         System.out.println(" ");
         System.out.println("Trial #"+(i+1)+" - "+test.getName());

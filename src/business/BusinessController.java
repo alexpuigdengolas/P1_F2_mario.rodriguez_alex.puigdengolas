@@ -188,9 +188,9 @@ public class BusinessController {
      * @param edition the current year edition
      */
     private void executeEdition(Edition edition) {
-        //Ver tema de probabilidades
+
         boolean nextTest = true;
-        Player winner = new Player();
+        Player winner;
 
         int i;
         for (i = edition.getRounds(); i < edition.getNumTest() && nextTest; i++) {
